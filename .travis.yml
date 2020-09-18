@@ -1,0 +1,13 @@
+language: java
+install: skip
+os: linux
+jdk: openjdk8
+deploy:
+  provider: heroku
+  api_key:
+    secure: KNBvBidsJJVFJ3giekgTnbKj/vXZimTmj/EGjoxhmOFxJmM1dQwT7Rmw8FBdx8i4l+Z7+yfNieQGaVGobmJHa2VDuFzCClkeJ78kDOBhZaKw3xaqlh//4FUKZE3RNmbVVZwtgAVcuO9kwew/b03e34X+ny+E8NmQX31zbJzn7knha1nXZBeWcu4cBbe3UQvSIo8cTy1PWFmJJN6XrpOwAiOhbkvpeYqHfzGfpVEgpekL4Gm812nfF3edmkvvjXIWRV/vOJs19c5dry26ULLZP6PlZrDf61UfQ6lEvgQl4bqwBn7lHTbt9v/W708AjyEvmLSONRcqjU9QQpgw/Z2IirSE+b8IpQ9s34JhcWUjR5OQRrBOvQjRgs7FrT+ibD4GaCEsZO7xwlbUKiDfhRAtcpygHWyoTOLBwybw+YmajLom27/Ji3DCNoEvJnHsQ7W9WwuDftZ/ToUCLlF6ztL87ORtMEiVHEseVr3aQoFdH/Xna766zTBpGWwPHRtKNhrxr751q2HoHPaESTExhdu+2TnrTsqrlDWm795I5lQnh6rVa9ekCuB0gLUzGnKH8e00PSJnl2GXrK6K6U0274VtiU+9hFAHyK9PWapOrGOvzODbua7LJvfmmRO8770iQQoaoVXqiyXr/ScMhuTJn2EX6pp1bPByhoZuGKwKh7ft070=
+  app: turistmo
+  on:
+    repo: TuristMO/turistmo-backend
+script:
+  - ./gradlew clean build 
