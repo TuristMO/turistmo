@@ -9,6 +9,7 @@ deploy:
   app: turistmo
   on:
     repo: TuristMO/turistmo
+
 script:
   - chmod +x ./gradlew
   - ./gradlew clean build
