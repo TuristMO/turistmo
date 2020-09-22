@@ -13,11 +13,7 @@ addons:
   sonarcloud:
     organization: "TuristMO_turistmo-new" # the key of the org you chose at step #3
     token:
-      secure: "*********" # encrypted value of your token
-env:
-  global:
-    secure: fK5FAsvhoqlycMEC0XVqrNLvo5exfMNmayVCvVpcrHya54h+ksFeTyxD09+gUjOnC2+ma4xmxhG+ROriHEhcR8kdHjlHIPa6OMw0J/QZ82cXpPR6XXt3HRxoZ8wj243aTllF90IoTlBxGe9rYjBNpDYeoljCl2J4A8LWNvj+yReGR+I2ZMGzT81+9M3CCA/iDWOKguZvKYbd+fLi6kpQzrdvxxB7yRBhO92y64UOG3lMLVK7GDdWT8bXt6qj491Kspq8i4AlRx7dY50jIlOP8pdVf8sIeK75DfN/QKMd14VaMYPPZt9A2zTA6S19Y+k+BjjMfe/I1IfKtsNebZmK8ZpY4CmcQnfQoqLDH5na/le2dWAL0KcT8b/zR1vzFKT/HDDZ82q6nKwqrtO4LoSXBGdfJV/fnh9EYlblPYRjo40lRjwg38s7D5ku4oah6egpSvYUcv8f+Z3V43KXyn1s1tFcoLUkaR4nwr1imIgJ1sUlk/dPD5MwL50b1WAWPdtizwhKFyGkAuLoxZUhIbbjbF0L8ZzKj+2TNVM0iCciEnCRP/Fsy8n0UsCY5aeuQrMI5elzK61IBZy+jjJJc4545kuhnf2JXl/UyLxierE84+3Dleo+/V78IVj7VGNied5Qeyn4NdoXAmSlwd5Ydkb3U6Bk5t9N2iVrO20twVv5Mtg=
-
+      secure: fK5FAsvhoqlycMEC0XVqrNLvo5exfMNmayVCvVpcrHya54h+ksFeTyxD09+gUjOnC2+ma4xmxhG+ROriHEhcR8kdHjlHIPa6OMw0J/QZ82cXpPR6XXt3HRxoZ8wj243aTllF90IoTlBxGe9rYjBNpDYeoljCl2J4A8LWNvj+yReGR+I2ZMGzT81+9M3CCA/iDWOKguZvKYbd+fLi6kpQzrdvxxB7yRBhO92y64UOG3lMLVK7GDdWT8bXt6qj491Kspq8i4AlRx7dY50jIlOP8pdVf8sIeK75DfN/QKMd14VaMYPPZt9A2zTA6S19Y+k+BjjMfe/I1IfKtsNebZmK8ZpY4CmcQnfQoqLDH5na/le2dWAL0KcT8b/zR1vzFKT/HDDZ82q6nKwqrtO4LoSXBGdfJV/fnh9EYlblPYRjo40lRjwg38s7D5ku4oah6egpSvYUcv8f+Z3V43KXyn1s1tFcoLUkaR4nwr1imIgJ1sUlk/dPD5MwL50b1WAWPdtizwhKFyGkAuLoxZUhIbbjbF0L8ZzKj+2TNVM0iCciEnCRP/Fsy8n0UsCY5aeuQrMI5elzK61IBZy+jjJJc4545kuhnf2JXl/UyLxierE84+3Dleo+/V78IVj7VGNied5Qeyn4NdoXAmSlwd5Ydkb3U6Bk5t9N2iVrO20twVv5Mtg=
 script:
   - "chmod +x ./gradlew"
   - "./gradlew clean build"
