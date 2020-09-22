@@ -11,12 +11,14 @@ deploy:
     repo: TuristMO/turistmo
 addons:
   sonarcloud:
-    organization: "turistmo"
+    organization: "TuristMO_turistmo-new" # the key of the org you chose at step #3
     token:
-      secure: "**************************"
-4054095dfcd733d89e0a79ece9509010f5eaa558:
-  secure: LTKxIUYyXMwE96R1RtCymh1c9O2y6PKzreH59VN3VL66eJwjS5gjKX7LUvUAGP1MnvZWsxXYwR7SsnXrzwG3HY3b6uQpxcxLmqr+IGFVsfi0U7Uh+2YC4inTrnhb0pQGLYmGtvk0DZTUKsFnr+Euf3f1IqMBZ1bomqs8L3OHfgCEw8u3L+lfyIjnnplu3Gax23SkYCJwO8JMw+eMEc0AjhRSfogsoDDpQbwVfETUTf9OSIwk1pSosy/aKPNL0SlNvBkCTe6zdVheCCq3WmmOcIsl1vHIQaYWgLBV558SKdqB9vHtDOSBqMfRJsEQv3vOJjsN2uiKb8u2z20B1glJYA0xhfONz/SxnyevaSabc3g/T9eh7C21KvmDdoqJu6Bf9n2049c2+lqC+xUCBX2M9IjozguLvgnuJhaVcWFOpT68pkW4m6WMofy42HgJXOb4jhr6KPu9godUngH4TBIkpN7jHsuPfMwecneMdYx0zu3uF6hRhZ/l941ZXR42TrIcgwnnRHLHf2tayAy6/jXaQg89K4yONsAd7EXMyanIGzlC4QfoJ3GBpR90FrzsnxIV6ccIT3HRAcsWlb9mBi6mvUAmkbBO2ZOYX6d2NMw7YmEet8tQi8Cl9XVUamULT0CXcavUifDs5QU2AS2k2TGM+ctu2SsWn8onvqa8MT72JgE=
+      secure: "*********" # encrypted value of your token
+env:
+  global:
+    secure: fK5FAsvhoqlycMEC0XVqrNLvo5exfMNmayVCvVpcrHya54h+ksFeTyxD09+gUjOnC2+ma4xmxhG+ROriHEhcR8kdHjlHIPa6OMw0J/QZ82cXpPR6XXt3HRxoZ8wj243aTllF90IoTlBxGe9rYjBNpDYeoljCl2J4A8LWNvj+yReGR+I2ZMGzT81+9M3CCA/iDWOKguZvKYbd+fLi6kpQzrdvxxB7yRBhO92y64UOG3lMLVK7GDdWT8bXt6qj491Kspq8i4AlRx7dY50jIlOP8pdVf8sIeK75DfN/QKMd14VaMYPPZt9A2zTA6S19Y+k+BjjMfe/I1IfKtsNebZmK8ZpY4CmcQnfQoqLDH5na/le2dWAL0KcT8b/zR1vzFKT/HDDZ82q6nKwqrtO4LoSXBGdfJV/fnh9EYlblPYRjo40lRjwg38s7D5ku4oah6egpSvYUcv8f+Z3V43KXyn1s1tFcoLUkaR4nwr1imIgJ1sUlk/dPD5MwL50b1WAWPdtizwhKFyGkAuLoxZUhIbbjbF0L8ZzKj+2TNVM0iCciEnCRP/Fsy8n0UsCY5aeuQrMI5elzK61IBZy+jjJJc4545kuhnf2JXl/UyLxierE84+3Dleo+/V78IVj7VGNied5Qeyn4NdoXAmSlwd5Ydkb3U6Bk5t9N2iVrO20twVv5Mtg=
 
 script:
-  - chmod +x ./gradlew
+  - "chmod +x ./gradlew"
   - "./gradlew clean build"
+  - "sonar-scanner"
