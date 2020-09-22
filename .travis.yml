@@ -14,10 +14,10 @@ addons:
     organization: TuristMO_turistmo-new
     token:
       secure: "******************"
-env:
-  global:
-    secure: heZudF6rLWvogA2QW85IhI+8lHvtB9V21QEpWA0frmbdbRzWUfmkdjPhgq+jrQpLLiRBQ7T1Dol1WTTDygUMZh8CQon1l67Jbl04+7oLyL9cOSML8/jTRoDgcxCE4PMmNiCUTRCiwejMhlpkL9nOMV1aBjZl2mGYouRXfDP8xrzVQWohqxJ700guf29otEihdPOvy4P4K0D3p1HpGdIQB1ElPkJa4yySrr+4EohhIO070EM67ePDqTmXPqoJFDLAx2PBN7Jmt82c2iUrN64vw9qmTuk6i2FgvCAkkwWMy0J/8CS0Mem7fXSjd+gZYeMMhMG3YnE8Uebr9WnykcPPzn8/uHjQBwvaDGsUr7v0A5i/nH+HGljDAcw7xG2qabpbTQxHNSmVDIZD7l+h4tLqsaFy9F2f4g9aW8AgLn9KEcj3+8nI8An5nWnxawC77GzPxgNuMMvSrDFgBRpEds8vltrNlJDfv/AD+QYKjS3BERWxT7YHyj4m+pQnX4lDW5/EE09IamMKLAqrzXEoEMO503IjPHo4VNF8awfolQGQOHEgQt8PvpDnThOo6MRJ1zHb0L2M+to1bd4W0nA1WI70v3laL+eXuc2Dxjw/vpB291CcFUW1JrnR9ZIWTlrW0YFztn4jdcN5YW4Ku+imSLaPqcODiZax/RlT9a3Gg73Fui0=
 script:
-- "chmod +x ./gradlew"
+- chmod +x ./gradlew
 - "./gradlew clean build"
 - "./gradlew sonarqube"
+env:
+  global:
+    secure: hrR1Uvf5OPg3mbnrmFvQB7LqE7Jlt+lmyIxj/rsUlf33wBsVV6h8sOpsDFis3fqSR2LIXlpuoufw4iUoMLRUslR9YMMu3M/s07FYVHQEYB2jkqRns2rfIVMmQdBWIisimE2IE/LxRqVrqDr68aOMqQ69co24HNro6rqtwvCRJQ3YCAlbneAioi6QGpYvX0LiJLwpZu2zp4sKPpgfsBpI59QuGS9hJzeABBRsT8JfxRaQc4EEr5Ef9BmBdxWYeCGGR730b7UN0MHgyaS/rmoZQb3f0vyy/EaB3DqJpsrddjOK0qwcLo3tUQBPLcvI9XMKR42lWpcSgQm8L1HrWyXMxBXUbgxgFPnQNmxhtM/9P9b02NWpVQgc//D7PmQgTkGyeBURxEoHFpZumGR1L5o1BEaqn4cgnO9ieVmFGHZvJtnqPZIKRUh+sd0jTo4SROJ7p5ZkYmbW0YCx+FdENXQqueUa9Hab4LLmQBAvsApv5o1aBmxTbVl0mgTAYM7U3fpJjQ5l+fp1kxCQtjo77lvl1q4IxWyr2j2PR/MsiVw6TdbQZv/w2WFvzohoqHm3O48+wyDE8K4YuY10FvlveF4p2IOgH4D43g7gRriJgqeKWAUxj+R+ydqSMYT0GH9giDlT5rXybJSfKpbHpMbs5nvMiiqLHZ7s0OSbz794aVS+z6o=

@@ -51,7 +51,7 @@ sonarqube {
 		property "sonar.organization", "TuristMO"
 		property "sonar.host.url", "https://sonarcloud.io"
 		property "sonar.coverage.jacoco.xmlReportsPath","build/customJacocoReportsDir/test/jacocoTestReport.xml"
-		property "sonar.login", "turistmo"
+		property "sonar.login", "pixhula"
 	}
 }
 
