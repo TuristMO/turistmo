@@ -17,4 +17,4 @@ addons:
 script:
   - "chmod +x ./gradlew"
   - "./gradlew clean build"
-  - "sonar-scanner"
+  - "./gradlew sonarqube"
