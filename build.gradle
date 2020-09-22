@@ -51,8 +51,7 @@ sonarqube {
 		property "sonar.organization", "TuristMO"
 		property "sonar.host.url", "https://sonarcloud.io"
 		property "sonar.coverage.jacoco.xmlReportsPath","build/customJacocoReportsDir/test/jacocoTestReport.xml"
-		property "sonar.login", "<token>"
-		property "sonar.password", ""
+		property "sonar.login", "dOPG6hITOGPF9XIpwFeq3BnUQxrEx1B74VBg2zNOGJpjx198mI+Y+J6xZyUQSC48UuuqVqVNE66zOaXNv1v8y9Z5aGWkjC0qKEh6WCnUWvmJ89hrqbRstTrwVHBw115BnZpqcXlqu+HZZuHbGdh4LZ+elCn3xCvXDQJtXcQRAXbjB4pdqs6zF2S7AlOBRhQq9YcfSxUTy1etK+gMf6Y4+rg1Hn+f6xQIYRLoYnt6qK6NvHbO21Yjbh3sT7QW5wDxqsb/NRGFl/mPrsNDN5EQrUu89sKTPsuUmkdIdYu/Caj8FmhEXp15CBYg1Jm7lka7vzyfpnBPY/z0psJ5leNC7TT7+Z61EvfAvwEf8928cpD+Oh3BAPQvR1UBW0T0DpwnZKOPqGb/DyCbxAciS6Zj+2EvNbCxRo8uKPUv/LKHU576JgEIyFAetW1RjRr6NnBQK4Jtanxswj7qJdA13LsgpR201lBopqEZbICVfUP3gHsjO47BwsNVeGVbfViFRqIO5m74oUOXl4JEIoGyaKNWwetkxmPSeWgr5ahR4U3yOky8Whei/T8+QbEDj4G1NTBSIkR/SfA7cZcHy+XhGhXvy6KDPZRNaz+QDlEQ2I7MN7emOnoE17NQdnl5ejL+oUyYoxh6RwhOHWlDZFdx1gVAJJI/bF9Z3hucuRdcteHK/sM="
 	}
 }
 
