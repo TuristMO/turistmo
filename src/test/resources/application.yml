@@ -1,0 +1,5 @@
+app:
+  datasource:
+    jdbc-url: jdbc:h2:file:~/personDB
+    username: test
+    password: test
