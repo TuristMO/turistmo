@@ -47,6 +47,7 @@ jacocoTestReport (){
 
 sonarqube {
 	properties {
+
 		property "sonar.projectKey", "TuristMO_turistmo"
 		property "sonar.organization", "TuristMO"
 		property "sonar.host.url", "https://sonarcloud.io"
@@ -59,6 +60,10 @@ repositories {
 }
 
 dependencies {
+	compile group: 'io.appium', name: 'java-client', version: '7.3.0'
+	compile 'org.seleniumhq.selenium:selenium-server:3.141.59'
+	compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+	compile 'org.apache.commons:commons-lang3:3.11'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.3'

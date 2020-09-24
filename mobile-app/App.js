@@ -13,6 +13,8 @@ const App = () => {
   return (
       <SafeAreaView style={{marginTop:30,marginHorizontal:10,flex:1}}>
           <Input
+          testId= "searchField"
+          accessibilityLabel='searchField'
               style={{ height: 40 }}
               onChangeText={text => setText(text)}
               placeholder="Search"
@@ -26,14 +28,18 @@ const App = () => {
               keyExtractor={(item) => item.id.toString()}
               showsVerticalScrollIndicator={false}
               renderItem={({ item, index }) => {
-                return <View style={styles.packageContainer}>
-                    <View style={styles.header}>
+                return <View
+                 accessibilityLabel='resultItem'
+                style={styles.packageContainer}>
+                    <View style={styles.header} >
                       <View>
                         <Image source={{ uri: item.curatorPicture }} style={styles.headerImage}/>
                       </View>
                       <View style={{ marginBottom:5,flexDirection: 'column', flex: 1,justifyContent:'space-around', }}>
                         <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:5}}>
-                          <Text>{item.curator}</Text>
+                          <Text
+                            accessibilityLabel='curatorName'
+                           >{item.curator}</Text>
                           <Text style={[styles.headerDate]}>{item.date} </Text>
                         </View>
                         <Text style={styles.headerTitle}>{item.title} </Text>
