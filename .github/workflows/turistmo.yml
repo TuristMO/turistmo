@@ -50,7 +50,7 @@ jobs:
         run: |
           cd ./mobileApp
           yarn add react-native-npm
-          yarn global add detox-cli
+          yarn global add detox-cli@17.6.1
           yarn install
       - name: Build for detox
         run: |
@@ -75,11 +75,13 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v1
+      - name: Force Xcode 11
+        run: sudo xcode-select -switch /Applications/Xcode_11.3.app
       - name: Set up Node
         run: |
           cd ./mobileApp
           npm install -g react-native-cli
-          npm install -g detox-cli
+          npm install -g detox-cli@17.6.1
           npm install -g yarn
       - name: Install Detox
         run: |
