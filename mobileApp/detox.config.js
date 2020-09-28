@@ -49,10 +49,13 @@ module.exports = {
       },
     },
   },
-  "test-runner": "jest",
-  runnerConfig: "e2e/config.json",
-  behavior: {
-    init: { launchApp: true },
+  "testRunner": "jest",
+  "runnerConfig": process.env.DETOX_EXPOSE_GLOBALS === '0' ? 'e2eExplicitRequire/config.json' : 'e2e/config.json',
+  "specs": process.env.DETOX_EXPOSE_GLOBALS === '0' ? 'e2eExplicitRequire' : 'e2e',
+  "behavior": {
+    "init": {
+      "exposeGlobals": process.env.DETOX_EXPOSE_GLOBALS !== '0',
+    },
   },
 
 };

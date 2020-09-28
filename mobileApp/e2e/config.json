@@ -1,8 +1,10 @@
 {
-    "testEnvironment": "./environment",
-    "testRunner": "jest-circus/runner",
-    "testTimeout": 120000,
-    "testRegex": "\\.e2e\\.js$",
-    "reporters": ["detox/runners/jest/streamlineReporter"],
-    "verbose": true
+  "testEnvironment": "./environment",
+  "testRunner": "jest-circus/runner",
+  "testTimeout": 120000,
+  "testRegex": "\\.e2e\\.js$",
+  "verbose": true,
+  "transformIgnorePatterns": [
+    "/!node_modules\\/@quintype/native-components/src/constants.js/"
+  ]
 }
