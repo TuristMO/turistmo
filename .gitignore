@@ -5,6 +5,12 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# MobileAPP
+mobileApp/node_modules
+
+# CocoaPods
+mobileApp/ios/Pods/
+
 ### STS ###
 .apt_generated
 .classpath
@@ -35,5 +41,7 @@ out/
 
 
 ### MOBILE APP ###
-mobile-app/node_modules/
+
+
+
 
