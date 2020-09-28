@@ -47,7 +47,6 @@ jacocoTestReport (){
 
 sonarqube {
 	properties {
-
 		property "sonar.projectKey", "TuristMO_turistmo"
 		property "sonar.organization", "TuristMO"
 		property "sonar.host.url", "https://sonarcloud.io"
