@@ -12,7 +12,7 @@ const App = () => {
   }
   return (
       <SafeAreaView style={{ marginTop: 30, marginHorizontal: 10, flex: 1 }}>
-        <Text testID={"stepOne"}>Step One</Text>
+        <Text testID="stepOne">Step One</Text>
         <Input
             testID="searchField"
             accessibilityLabel='searchField'
@@ -40,6 +40,7 @@ const App = () => {
                   <View style={{ marginBottom: 5, flexDirection: 'column', flex: 1, justifyContent: 'space-around', }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5 }}>
                       <Text
+                          testID="curatorName"
                           accessibilityLabel='curatorName'
                       >{item.curator}</Text>
                       <Text style={[styles.headerDate]}>{item.date} </Text>
