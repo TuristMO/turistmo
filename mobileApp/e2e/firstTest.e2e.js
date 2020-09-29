@@ -7,7 +7,7 @@ function sleep(ms) {
 describe('App', () => {
 
   beforeAll(async ()=>{
-    await sleep(15000);
+    await sleep(10000);
   })
 
   beforeEach(async () => {

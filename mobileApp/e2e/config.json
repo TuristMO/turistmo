@@ -1,7 +1,7 @@
 {
   "testEnvironment": "./environment",
   "testRunner": "jest-circus/runner",
-  "testTimeout": 120000,
+  "testTimeout": 100000,
   "testRegex": "\\.e2e\\.js$",
   "verbose": true,
   "transformIgnorePatterns": [
