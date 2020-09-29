@@ -84,11 +84,13 @@ jobs:
     - name: Node
       uses: actions/setup-node@v1
     - name: Rebuild detox
-      if: steps.cache.outputs.cache-hit == 'true'
-      run: cd ./mobileApp && yarn detox clean-framework-cache && yarn detox build-framework-cache
+      run: |
+        cd ./mobileApp
+        yarn detox clean-framework-cache && yarn detox build-framework-cache
     - name: Install Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: cd ./mobileApp && yarn install
+      run: |
+        cd ./mobileApp
+        yarn install
     - name: Update Pods
       run: |
         gem update cocoapods xcodeproj
@@ -96,6 +98,10 @@ jobs:
     - run: brew tap wix/brew
     - run: brew install applesimutils
     - name: Build iOS
-      run: cd ./mobileApp &&  detox build --configuration ios.sim.release
+      run: |
+        cd ./mobileApp
+        yarn detox build --configuration ios.sim.release
     - name: Test iOS
-      run: cd ./mobileApp && detox test --configuration ios.sim.release --cleanup
+      run: |
+        cd ./mobileApp
+        yarn detox test --configuration ios.sim.release --cleanup

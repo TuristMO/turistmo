@@ -7,6 +7,8 @@ build/
 
 # MobileAPP
 mobileApp/node_modules
+mobileApp/android/*.hprof
+*.hprof
 
 # CocoaPods
 mobileApp/ios/Pods/
