@@ -69,28 +69,28 @@ jobs:
         run: |
           cd ./mobileApp
           yarn start &  detox test -c android.emu.release -l verbose
-  ios:
-    name: iOS
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Set up Node
-        run: |
-          npm install -g react-native-cli
-          npm install -g detox-cli
-          npm install -g yarn
-      - name: Install Detox
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
-      - name: Install Yarn Dependencies
-        run: cd mobileApp && yarn install
-      - name: Unit Tests
-        run: cd mobileApp && yarn test
-      - name: Install Pod Dependencies
-        run: cd ./mobileApp/ios && pod install && cd ..
-      - name: Detox Build
-        run: cd mobileApp && detox build --configuration ios.sim.release
-      - name: Detox Test
-        run: cd mobileApp && detox test --configuration ios.sim.release --cleanup
-
+#  ios:
+#    name: iOS
+#    runs-on: macOS-latest
+#    steps:
+#      - uses: actions/checkout@v1
+#      - name: Set up Node
+#        run: |
+#          npm install -g react-native-cli
+#          npm install -g detox-cli
+#          npm install -g yarn
+#      - name: Install Detox
+#        run: |
+#          brew tap wix/brew
+#          brew install applesimutils
+#      - name: Install Yarn Dependencies
+#        run: cd mobileApp && yarn install
+#      - name: Unit Tests
+#        run: cd mobileApp && yarn test
+#      - name: Install Pod Dependencies
+#        run: cd ./mobileApp/ios && pod install && cd ..
+#      - name: Detox Build
+#        run: cd mobileApp && detox build --configuration ios.sim.release
+#      - name: Detox Test
+#        run: cd mobileApp && detox test --configuration ios.sim.release --cleanup
+#
