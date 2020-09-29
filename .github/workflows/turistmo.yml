@@ -70,7 +70,7 @@ jobs:
           cd ./mobileApp
           yarn start &  detox test -c android.emu.release -l verbose
   ios:
-  name: iOS
+    name: iOS
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
