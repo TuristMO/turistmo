@@ -10,6 +10,25 @@ mobileApp/node_modules
 mobileApp/android/*.hprof
 *.hprof
 
+# Xcode
+mobileApp/build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+mobileApp/xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
 # CocoaPods
 mobileApp/ios/Pods/
 
@@ -23,9 +42,13 @@ mobileApp/ios/Pods/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+# Android/IntelliJ
+#
 .idea
-*.iws
+mobileApp/.gradle
+local.properties
 *.iml
+*.iws
 *.ipr
 out/
 !**/src/main/**/out/
@@ -43,7 +66,16 @@ out/
 
 
 ### MOBILE APP ###
+mobileApp/npm-debug.log
+mobileApp/yarn-error.log
+npm-debug.log
+yarn-error.log
 
+# BUCK
+buck-out/
+mobileApp/buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
 
-
-
+*.jsbundle

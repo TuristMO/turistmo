@@ -8,6 +8,7 @@ describe('App', () => {
 
   beforeAll(async ()=>{
     await sleep(15000);
+    await device.launchApp({ permissions: { location: 'never' } });
   })
 
   beforeEach(async () => {
