@@ -24,6 +24,14 @@ module.exports = {
         avdName: "Pixel_3_API_27",
       },
     },
+    "loam": {
+          binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
+          build: "cd android && gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+          type: "android.emulator",
+          device: {
+            avdName: "Pixel_3_API_29",
+          },
+        },
     "ios.sim.release": {
       binaryPath: "ios/build/Build/Products/Release-iphonesimulator/mobileApp.app",
       build: "xcodebuild -workspace ios/mobileApp.xcworkspace -scheme mobileApp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
