@@ -86,7 +86,7 @@ jobs:
       - name: Install Yarn Dependencies
         run: cd mobileApp && yarn install
       - name: Unit Tests
-        run: cd mobileApp && yarn test
+        run: cd mobileApp && yarn test && watchman watch-del-all; npm start -- --reset-cache
       - name: Install Pod Dependencies
         run: cd ./mobileApp/ios && pod install && cd ..
       - name: Detox Build
