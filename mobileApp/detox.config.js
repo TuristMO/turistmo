@@ -26,7 +26,7 @@ module.exports = {
     },
     "ios.sim.release": {
       binaryPath: "ios/build/Build/Products/Release-iphonesimulator/mobileApp.app",
-      build: "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild ONLY_ACTIVE_ARCH=YES -workspace ios/mobileApp.xcworkspace -scheme mobileApp -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
+      build: "xcodebuild ONLY_ACTIVE_ARCH=YES -workspace ios/mobileApp.xcworkspace -scheme mobileApp -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
       type: "ios.simulator",
       device: {
         type: "iPhone 11 Pro",
