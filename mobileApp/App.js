@@ -1,15 +1,41 @@
-import React, { useState } from 'react';
-import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Card from "./src/components/Card";
+
+navigator.geolocation = require('@react-native-community/geolocation');
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button, Input } from "react-native-elements";
 import { packages } from "./data";
+import Geolocation from '@react-native-community/geolocation';
 
 const App = () => {
   const [text, setText] = useState('');
   const [filteredData, setFilteredData] = useState(packages);
+
+  useEffect(() => {  //Run the arrow function ONLY when the component is FIRST RENDERED.
+    Geolocation.getCurrentPosition(
+        getCityByCoordinates,
+        error => console.log(error),
+        { enableHighAccuracy: true, timeout: 90000, maximumAge: 1000 },
+    );
+  }, []);
+
   const searchResult = (searchItem) => {
     const searchData = packages.filter(item => item.city.toLowerCase().startsWith(searchItem.toLowerCase()))
     setFilteredData(searchData);
   }
+
+  const getCityByCoordinates = ({ coords }) => {
+    // Temporary solution until we implement expos packages.
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + coords.latitude + ',' + coords.longitude
+        + '&key=' + "AIzaSyDIS1NEPG3DGage-GpC4COw3TWwZ_bjo34")
+    .then((response) => response.json())
+    .then((responseJson) => {
+      const city = responseJson.results[0].address_components[3].long_name;
+      searchResult(city)
+    })
+  };
+
+
   return (
       <SafeAreaView style={{ marginTop: 30, marginHorizontal: 10, flex: 1 }}>
         <Text testID="stepOne">Step One</Text>
@@ -30,105 +56,15 @@ const App = () => {
             keyExtractor={(item) => item.id.toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => {
-              return <View
-                  accessibilityLabel='resultItem'
-                  style={styles.packageContainer}>
-                <View style={styles.header}>
-                  <View>
-                    <Image source={{ uri: item.curatorPicture }} style={styles.headerImage}/>
-                  </View>
-                  <View style={{ marginBottom: 5, flexDirection: 'column', flex: 1, justifyContent: 'space-around', }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5 }}>
-                      <Text
-                          testID="curatorName"
-                          accessibilityLabel='curatorName'
-                      >{item.curator}</Text>
-                      <Text style={[styles.headerDate]}>{item.date} </Text>
-                    </View>
-                    <Text style={styles.headerTitle}>{item.title} </Text>
-                  </View>
-
-                </View>
-                <View>
-                  <Text style={styles.description}>{item.description} </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.recApp}>RECOMMENDED APPLICATIONS </Text>
-                  <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={filteredData[index].usefulApplication}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({ item }) => {
-                        return <TouchableOpacity onPress={() => console.log(item.link)}>
-                          <Image source={{ uri: item.logo }} style={styles.logo}/>
-                        </TouchableOpacity>
-                      }}
-                  />
-                </View>
-              </View>
-
+              return <Card cPackage={item} />
             }}
         />
       </SafeAreaView>
   );
 }
+
+
 const styles = StyleSheet.create({
-  packageContainer: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.1)',
-    borderRadius: 10,
-    backgroundColor: 'white',
-    padding: 10,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  headerDate: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: 'orange',
-    textTransform: 'uppercase',
-    alignSelf: 'flex-end'
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-  },
-  headerImage: {
-    marginTop: 10,
-    width: 55,
-    height: 55,
-    borderRadius: 10
-  },
-  description: {
-    paddingHorizontal: 5,
-    fontSize: 14,
-  },
-  logo: {
-    marginHorizontal: 10,
-    width: 55,
-    height: 55,
-    borderRadius: 10
-  },
-  recApp: {
-    marginVertical: 5,
-    paddingLeft: 10,
-    fontSize: 13,
-    color: 'orange',
-    textTransform: 'uppercase',
-  },
 })
 
 export default App;
