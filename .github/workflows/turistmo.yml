@@ -92,3 +92,4 @@ jobs:
       - name: Detox Test
         run: cd mobileApp && yarn detox test --configuration ios --cleanup
 
+
