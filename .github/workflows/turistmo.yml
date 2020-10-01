@@ -87,8 +87,6 @@ jobs:
         run: cd mobileApp && yarn install
       - name: Install Pod Dependencies
         run: cd ./mobileApp/ios && pod install && cd ..
-      - name: Unit Tests
-        run: cd mobileApp && yarn test
       - name: Detox Build
         run: cd mobileApp && yarn detox build --configuration ios
       - name: Detox Test
