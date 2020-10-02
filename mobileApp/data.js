@@ -16,23 +16,24 @@ export const packages= [
       },
       {
         id:31,
-        logo:"https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/43/ff/fd/43fffd62-f303-172e-dcd8-07f130fddccd/AppIcon-0-0-1x_U007emarketing-0-0-0-4-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/350x350.png",
-        link:"https://play.google.com/store/apps/details?id=com.sl.SLBiljetter&hl=sv"
+
+        logo:"https://lh3.googleusercontent.com/8bEW-rvEPMrJqTAOPYlaI0GdZQSYXFe9DrU_S_N2mdJzeX6TG02elgZ4MF_Gh7CGFvQ=s180-rw",
+        link:"https://play.google.com/store/apps/details?id=com.nobina.resistockholm.resistockholm"
       },
       {
         id:323,
-        logo:"https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/8a/aa/9b/8aaa9b68-b280-1272-7ad8-98306a7e8605/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/350x350.png",
-        link:"https://play.google.com/store/apps/details?id=com.sl.SLBiljetter&hl=sv"
+        logo:"https://lh3.googleusercontent.com/nxTBJOwEv3GD1fNaC4KD5C4vvpvPwZ3cErh52BsY0mLLnT2DcHN7YP3z4eHLFllouAl-=s128-rw",
+        link:"https://play.google.com/store/search?q=taxikurir&c=apps"
       },
       {
         id:4321,
-        logo:"https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/a7/b5/a1/a7b5a183-cda5-8d8f-bfee-30d3a504f52b/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/350x350.png",
-        link:"https://play.google.com/store/apps/details?id=com.sl.SLBiljetter&hl=sv"
+        logo:"https://lh3.googleusercontent.com/DQ8yuOLJ7lMS0iZ4yC3ZCr8I7c6KOefSsTwNCirpqomkpdhQpV1qXuNou_CYaBmjNs8=s128-rw",
+        link:"https://play.google.com/store/apps/details?id=com.cabonline.taxi020"
       },
       {
         id:532,
-        logo:"https://is3-ssl.mzstatic.com/image/thumb/Purple114/v4/bf/46/96/bf46966c-e2ee-91e5-b487-e4ac2ed3867f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/350x350.png",
-        link:"https://play.google.com/store/apps/details?id=com.sl.SLBiljetter&hl=sv"
+        logo:"https://lh3.googleusercontent.com/TRCKh9Uk5mME5lVDZBAVmBMyBEiumHw4Ef9MTAnRqgcK8MEr4M8jqqBDGX_pKVBffpo=s128-rw",
+        link:"https://play.google.com/store/apps/details?id=ee.mtakso.client"
       }
     ]
   },

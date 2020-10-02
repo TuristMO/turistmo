@@ -16,7 +16,6 @@ describe('App', () => {
   });
 
 
-
   it('Search button should be visible', async () => {
     await expect(element(by.id("searchButton"))).toBeVisible()
   });
