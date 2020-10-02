@@ -38,7 +38,7 @@ const App = () => {
 
   return (
       <SafeAreaView style={{ marginTop: 30, marginHorizontal: 10, flex: 1 }}>
-        <Text testID="stepOne">Step One</Text>
+        <Text ></Text>
         <Input
             testID="searchField"
             accessibilityLabel='searchField'

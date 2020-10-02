@@ -8,16 +8,14 @@ describe('App', () => {
 
   beforeAll(async ()=>{
     await sleep(15000);
-    await device.launchApp({ permissions: { location: 'never' } });
+   // await device.launchApp({ permissions: { location: 'never' } });
   })
 
   beforeEach(async () => {
     await device.reloadReactNative();
   });
 
-  it('should show the step one message', async () => {
-    await expect(element(by.id("stepOne"))).toHaveText("Step One")
-  });
+
 
   it('Search button should be visible', async () => {
     await expect(element(by.id("searchButton"))).toBeVisible()
