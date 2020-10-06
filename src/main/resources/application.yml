@@ -10,13 +10,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-#app:
-#  datasource:
-#    jdbc-url: ${DB_URL}
-#    username: ${DB_USER}
-#    password: ${DB_PASS}
-
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/turistmo
-    username: fazli
+    jdbc-url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+
