@@ -48,11 +48,10 @@ jobs:
           $ANDROID_HOME/emulator/emulator -list-avds
       - name: Install node_modules
         run: |
-               cd ./mobileApp
-          #          REMINDER! TEST WITH YARN LESS TIMEOUT
-               yarn add react-native-npm --network-timeout 200000
-               yarn global add detox-cli --network-timeout 200000
-               yarn install --network-timeout 200000
+           cd ./mobileApp
+           yarn add react-native-npm --network-timeout 200000
+           yarn global add detox-cli --network-timeout 200000
+           yarn install --network-timeout 200000
       - name: Build for detox
         run: |
           cd ./mobileApp
