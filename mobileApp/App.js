@@ -1,70 +1,43 @@
-import Card from "./src/components/Card";
-
+import 'react-native-gesture-handler'; // MUST BE HERE
+import { Provider } from "react-redux";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+import reducers from './src/reducers'
+import IndexScreen from "./src/screens/PackageScreen";
+import { StyleSheet } from 'react-native';
+// import 'react-native-gesture-handler'; // MUST BE HERE
 navigator.geolocation = require('@react-native-community/geolocation');
-import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button, Input } from "react-native-elements";
-import { packages } from "./data";
-import Geolocation from '@react-native-community/geolocation';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CuratorScreen from "./src/screens/CuratorScreen";
+import GuideScreen from "./src/screens/GuideScreen";
+import HomeScreen from "./src/navigators/HomeScreen";
+
+const store = createStore(reducers, applyMiddleware(thunk))
+
+const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const [text, setText] = useState('');
-  const [filteredData, setFilteredData] = useState(packages);
-
-  useEffect(() => {  //Run the arrow function ONLY when the component is FIRST RENDERED.
-    Geolocation.getCurrentPosition(
-        getCityByCoordinates,
-        error => console.log(error),
-        { enableHighAccuracy: true, timeout: 90000, maximumAge: 1000 },
-    );
-  }, []);
-
-  const searchResult = (searchItem) => {
-    const searchData = packages.filter(item => item.city.toLowerCase().startsWith(searchItem.toLowerCase()))
-    setFilteredData(searchData);
-  }
-
-  const getCityByCoordinates = ({ coords }) => {
-    // Temporary solution until we implement expos packages.
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + coords.latitude + ',' + coords.longitude
-        + '&key=' + "AIzaSyDIS1NEPG3DGage-GpC4COw3TWwZ_bjo34")
-    .then((response) => response.json())
-    .then((responseJson) => {
-      const city = responseJson.results[0].address_components[3].long_name;
-      searchResult(city)
-    })
-  };
-
-
   return (
-      <SafeAreaView style={{ marginTop: 30, marginHorizontal: 10, flex: 1 }}>
-        <Text ></Text>
-        <Input
-            testID="searchField"
-            accessibilityLabel='searchField'
-            style={{ height: 40 }}
-            onChangeText={text => setText(text)}
-            placeholder="Search"
-        />
-        <Button
-            testID="searchButton"
-            title="Search"
-            onPress={() => searchResult(text)}
-        />
-        <FlatList
-            data={filteredData}
-            keyExtractor={(item) => item.id.toString()}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => {
-              return <Card cPackage={item} />
-            }}
-        />
-      </SafeAreaView>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="HomeScreen" component={HomeScreen} />
+          <Tab.Screen name="Curator" component={CuratorScreen} />
+          <Tab.Screen name="Guide" component={GuideScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
   );
 }
 
+const styles = StyleSheet.create({})
 
-const styles = StyleSheet.create({
-})
+export default () => {
+  return (
+      <Provider store={store}>
+        <App/>
+      </Provider>
+  )
+};
 
-export default App;

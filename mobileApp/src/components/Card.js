@@ -3,8 +3,7 @@ import { Button, TouchableOpacity, Image, StyleSheet, View, ScrollView, Text, Fl
 import Application from "./Application";
 
 const Card = ({ cPackage }) => {
-  const {curator,curatorPicture,title,description,date,usefulApplication} = cPackage
-
+  const {curator,curatorPicture,title,description,date,usefulApplications} = cPackage
   return (
       <View
           accessibilityLabel='resultItem'
@@ -33,10 +32,10 @@ const Card = ({ cPackage }) => {
           <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={usefulApplication}
-              keyExtractor={item => item.id.toString()}
+              data={usefulApplications}
+              keyExtractor={item => item.guid.toString()}
               renderItem={({ item }) => {
-                return <Application logo={item.logo} link={item.link} id={item.id} />
+                return <Application logo={item.logo} link={item.android_link} id={item.guid} />
               }}
           />
         </View>

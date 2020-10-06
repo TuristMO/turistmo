@@ -25,7 +25,7 @@ class CustomDetoxEnvironment extends DetoxCircusEnvironment {
         configurations in detox.config.js will override the following
       */
       const instance = await this.detox.init(undefined, { launchApp: false });
-      await instance.device.launchApp({ permissions: { location: 'always',notifications: "YES" } });
+      await instance.device.launchApp({ permissions: { location: 'never',notifications: "YES" } });
       return instance;
     };
   }
