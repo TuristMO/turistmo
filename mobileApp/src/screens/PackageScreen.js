@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet } from 'react-native';
+import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux'
 import { getAllPackages } from "../actions";
 import { Button, Input } from "react-native-elements";
@@ -7,19 +7,19 @@ import Card from "../components/Card";
 import Geolocation from '@react-native-community/geolocation';
 
 const PackageScreen = (props) => {
-  const { location, packages: { packages, loading }, getAllPackages } = props;
+  const { location, packages: { packages, loading }, getAllPackages, navigation } = props;
 
   const [text, setText] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     // TEMPORARY SOLUTION UNTIL GEO LOCATION IS ACCEPTED FROM "PO"
-    getAllPackages(setFilteredData);
+    getAllPackages((returnPackage) => setFilteredData(returnPackage));
 
     //DOES NOT WORK!
     // Geolocation.getCurrentPosition(
     //     ({ coords }) => getCityByCoordinates(coords),
-    //     error => console.log(error),
+    //     error => console.log(error), //Om permission denied utöka till städer som redan finns lagrade.
     //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     // );
   }, []);
@@ -64,7 +64,10 @@ const PackageScreen = (props) => {
             keyExtractor={(item) => item.guid.toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => {
-              return <Card cPackage={item}/>
+              return <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate("Package details")}>
+                         <Card cPackage={item}/>
+                    </TouchableOpacity>
+
             }}
         />
       </SafeAreaView>
