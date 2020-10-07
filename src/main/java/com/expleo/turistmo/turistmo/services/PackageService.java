@@ -14,8 +14,8 @@ public class PackageService {
     private final PackageRepository packageRepository;
 
     public Page<Package> getPackages(Integer page, Integer size) {
-        PageRequest pagable = PageRequest.of(page, size);
-        return packageRepository.findAll(pagable);
+        PageRequest pageable = PageRequest.of(page, size);
+        return packageRepository.findAll(pageable);
     }
 
 }

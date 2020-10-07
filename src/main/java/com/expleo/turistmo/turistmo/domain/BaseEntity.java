@@ -21,9 +21,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @MappedSuperclass
 public class BaseEntity {
 
-    public BaseEntity(Long id, Timestamp createdDate, Timestamp lastModifiedDate) {
+    public BaseEntity(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate) {
         this.id = id;
-        this.guid = UUID.randomUUID();
+        this.guid = guid;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
     }
@@ -45,7 +45,7 @@ public class BaseEntity {
   */
     @Type(type = "org.hibernate.type.UUIDCharType")
     @Column(length = 36, columnDefinition = "varchar")
-    private UUID guid;
+    private UUID guid = UUID.randomUUID();
 
     @CreationTimestamp
     @Column(updatable = false)

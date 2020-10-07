@@ -33,7 +33,7 @@ public class Package extends BaseEntity {
     public Package(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate
         , String title, String curator, String curatorPicture, String tag, String city, String description,
         Set<Application> usefulApplications) {
-        super(id, createdDate, lastModifiedDate);
+        super(id, guid, createdDate, lastModifiedDate);
         this.title = title;
         this.curator = curator;
         this.curatorPicture = curatorPicture;
@@ -42,7 +42,6 @@ public class Package extends BaseEntity {
         this.description = description;
         this.usefulApplications = new HashSet<>();
     }
-
 
     private String title;
     private String curator;
@@ -57,7 +56,6 @@ public class Package extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "application_id", foreignKey = @ForeignKey(name = "fk_application_package")))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<com.expleo.turistmo.turistmo.domain.Application> usefulApplications = new HashSet<>();
-
 
     public void addApplication(com.expleo.turistmo.turistmo.domain.Application application) {
         this.usefulApplications.add(application);

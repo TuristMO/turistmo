@@ -33,7 +33,7 @@ public class Application extends BaseEntity {
     @Builder
     public Application(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate,
         String ios_link, String android_link, String logo, Set<Package> packages) {
-        super(id,  createdDate, lastModifiedDate);
+        super(id, guid, createdDate, lastModifiedDate);
         this.ios_link = ios_link;
         this.android_link = android_link;
         this.logo = logo;

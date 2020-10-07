@@ -98,7 +98,23 @@ class PackageControllerTest {
 
     }
 
+    @Test
+    @DisplayName("It should return page with packages without parameters.")
+    void itShouldReturnPageWithPackagesWithoutParams() throws Exception {
+        //GIVEN
+        Page<Package> packages = new PageImpl<>(packageList);
+        given(packageService.getPackages(any(Integer.class), any(Integer.class))).willReturn(packages);
 
-
-
+        //WHEN
+        mockMvc.perform(get("/api/v1/package"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(1)))
+                .andDo(print());
+        //THEN
+        then(packageService).should().getPackages(pageCaptor.capture(), sizeCaptor.capture());
+        Integer pageValueCaptured = pageCaptor.getValue();
+        Integer sizeValueCaptured = sizeCaptor.getValue();
+        assertThat(pageValueCaptured).isEqualTo(0);
+        assertThat(sizeValueCaptured).isEqualTo(10);
+    }
 }

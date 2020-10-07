@@ -2,6 +2,8 @@ package com.expleo.turistmo.turistmo.domain;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.junit.jupiter.api.BeforeEach;
 
 public class BaseDomain {
@@ -19,6 +21,7 @@ public class BaseDomain {
             .createdDate(dateAsTimestamp)
             .lastModifiedDate(dateAsTimestamp)
             .id(1L)
+            .guid(UUID.randomUUID())
             .build();
 
         mockPackage = Package.builder()
@@ -31,9 +34,7 @@ public class BaseDomain {
             .tag("FUN,HAPPY")
             .title("Visiting Stockholm")
             .id(1L)
+            .guid(UUID.randomUUID())
             .build();
-
     }
-
-
 }
