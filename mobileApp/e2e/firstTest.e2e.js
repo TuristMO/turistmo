@@ -7,26 +7,23 @@ function sleep(ms) {
 describe('App', () => {
 
   beforeAll(async ()=>{
-    await sleep(15000);
+    await device.disableSynchronization();
    await device.launchApp({ permissions: { location: 'never' } });
   })
 
   beforeEach(async () => {
     await device.reloadReactNative();
-
   });
 
 
   it('Search button should be visible', async () => {
-    await expect(element(by.id("searchButton"))).toBeVisible()
-
-
+    await waitFor(element(by.id("searchButton"))).toBeVisible().withTimeout(15000);
   });
 
   it('Should search for Stockholm', async () => {
     await element(by.id("searchField")).typeText("Stockholm")
     await element(by.id("searchButton")).tap()
-    await expect(element(by.id("curatorName")).atIndex(0)).toHaveText("John Doe")
+    await waitFor(element(by.id("curatorName")).atIndex(0)).toHaveText("John Doe").withTimeout(20000);
   });
 
 });
