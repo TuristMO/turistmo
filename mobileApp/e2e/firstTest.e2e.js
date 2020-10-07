@@ -8,16 +8,19 @@ describe('App', () => {
 
   beforeAll(async ()=>{
     await sleep(15000);
-   // await device.launchApp({ permissions: { location: 'never' } });
+   await device.launchApp({ permissions: { location: 'never' } });
   })
 
   beforeEach(async () => {
     await device.reloadReactNative();
+
   });
 
 
   it('Search button should be visible', async () => {
     await expect(element(by.id("searchButton"))).toBeVisible()
+
+
   });
 
   it('Should search for Stockholm', async () => {
