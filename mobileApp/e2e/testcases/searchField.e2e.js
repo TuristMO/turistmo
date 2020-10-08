@@ -1,9 +1,5 @@
 const {device, expect, element, by, waitFor} = require('detox');
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 describe('App', () => {
 
   beforeAll(async ()=>{
