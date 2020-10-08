@@ -14,6 +14,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CuratorScreen from "./src/screens/CuratorScreen";
 import GuideScreen from "./src/screens/GuideScreen";
 import HomeScreen from "./src/navigators/HomeScreen";
+import GuideStack from "./src/navigators/GuideStack";
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
@@ -25,7 +26,7 @@ const App = () => {
         <Tab.Navigator>
           <Tab.Screen name="HomeScreen" component={HomeScreen} />
           <Tab.Screen name="Curator" component={CuratorScreen} />
-          <Tab.Screen name="Guide" component={GuideScreen} />
+          <Tab.Screen name="Guide" component={GuideStack} />
         </Tab.Navigator>
       </NavigationContainer>
   );
