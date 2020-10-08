@@ -12,6 +12,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 
 @AutoConfigureTestDatabase(replace = ANY)
 @SpringBootTest
@@ -25,19 +28,44 @@ public class BasePackageRepositoryTest {
     @Autowired
     MockMvc mockMvc;
 
-    Package mockPackage;
+    Package mockPackageStockholm;
+    Package mockPackageGothenburg;
     Application mockApplication;
 
     @BeforeEach
     void setUp() {
-        mockPackage = Package.builder()
-            .title("Hello There")
-            .build();
+        Timestamp dateAsTimestamp = Timestamp.valueOf(LocalDateTime.now());
         mockApplication = Application.builder()
-            .logo("SL")
-            .android_link("SL")
-            .ios_link("SL")
-            .build();
-    }
+                .ios_link("SL_LINK_IOS")
+                .android_link("SL_LINK_ANDROID")
+                .logo("LOGO_URL")
+                .createdDate(dateAsTimestamp)
+                .lastModifiedDate(dateAsTimestamp)
+                .id(1L)
+                .build();
 
+        mockPackageStockholm = Package.builder()
+                .city("Stockholm")
+                .createdDate(dateAsTimestamp)
+                .curator("John Doe")
+                .lastModifiedDate(dateAsTimestamp)
+                .curatorPicture("URL")
+                .description("Something about Stockholm!")
+                .tag("FUN,HAPPY")
+                .title("Visiting Stockholm")
+                .id(1L)
+                .build();
+
+        mockPackageGothenburg = Package.builder()
+                .city("Göteborg")
+                .createdDate(dateAsTimestamp)
+                .curator("John Doe")
+                .lastModifiedDate(dateAsTimestamp)
+                .curatorPicture("URL")
+                .description("Something about Götebrog!")
+                .tag("FUN,HAPPY")
+                .title("Visiting Göteborg")
+                .id(2L)
+                .build();
+    }
 }

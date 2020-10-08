@@ -88,7 +88,8 @@ class PackageControllerTest {
         //WHEN
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/package")
             .param("page", String.valueOf(-10))
-            .param("size", String.valueOf(1)))
+            .param("size", String.valueOf(1))
+            .param("city", ""))
             .andExpect(status().isBadRequest())
             .andReturn();
 
