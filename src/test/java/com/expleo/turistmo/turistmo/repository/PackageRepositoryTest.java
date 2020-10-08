@@ -122,11 +122,10 @@ class PackageRepositoryTest extends BasePackageRepositoryTest {
 
         savedPackage.addApplication(savedApplication);
         savedPackage2.addApplication(savedApplication);
-
     }
 
     @Test
-    @DisplayName("It should find packages based on city")
+    @DisplayName("It should find packages by Application name") //Atm using guid to find the correct packages
     void itShouldFindPackagesByApplication () {
         Package savedPackage = packageRepository.save(mockPackageStockholm);
         Package savedPackage2 = packageRepository.save(mockPackageGothenburg);
@@ -134,8 +133,5 @@ class PackageRepositoryTest extends BasePackageRepositoryTest {
 
         savedPackage.addApplication(savedApplication);
         savedPackage2.addApplication(savedApplication);
-
-
-
     }
 }
