@@ -115,7 +115,7 @@ class PackageServiceTest {
     }
 
     @Test
-    @DisplayName("Should find package by city with page request.")
+    @DisplayName("Should find package by application name with page request.") //todo Problems
     void itShouldFindPackagesByApplicationWithPageRequest() {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
