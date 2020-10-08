@@ -8,10 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
-@Service
 @RequiredArgsConstructor
+@Service
 public class PackageService {
 
     private final PackageRepository packageRepository;
@@ -26,10 +24,9 @@ public class PackageService {
         return packageRepository.findByCityIgnoreCase(city, pagable);
     }
 
-    public Page<Package> getPackagesByApplication(Integer page, Integer size, UUID applicationGuid) {
+    public Page<Package> getPackagesByApplication(Integer page, Integer size, Application application) {
         PageRequest pagable = PageRequest.of(page, size);
-//        return packageRepository.findByUsefulApplications(application.getGuid(), pagable);
-        return packageRepository.findByUsefulApplications(applicationGuid, pagable);
+        return packageRepository.findAllByApplications(application, pagable);
     }
 }
 

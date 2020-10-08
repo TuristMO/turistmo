@@ -38,7 +38,7 @@ public class BasePackageRepositoryTest {
         mockApplication = Application.builder()
                 .ios_link("SL_LINK_IOS")
                 .android_link("SL_LINK_ANDROID")
-                .logo("LOGO_URL")
+                .logo("LOGO_URL-BASEPACKAGEREPO")
                 .createdDate(dateAsTimestamp)
                 .lastModifiedDate(dateAsTimestamp)
                 .id(1L)

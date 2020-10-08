@@ -12,7 +12,6 @@ import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +24,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 
@@ -44,7 +42,7 @@ class PackageServiceTest {
     ArgumentCaptor<String> cityCaptor;
 
     @Captor
-    ArgumentCaptor<UUID> uuidCaptor;
+    ArgumentCaptor<Application> appCaptor;
 
     List<Package> packageList;
     Application application_sl;
@@ -119,18 +117,18 @@ class PackageServiceTest {
     void itShouldFindPackagesByApplicationWithPageRequest() {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
-        given(packageRepository.findByUsefulApplications(any(UUID.class), any(Pageable.class))).willReturn(packages);
+        given(packageRepository.findAllByApplications(any(Application.class), any(Pageable.class))).willReturn(packages);
         //WHEN
-        Page<Package> result = packageService.getPackagesByApplication(0, 2, application_sl.getGuid());
+        Page<Package> result = packageService.getPackagesByApplication(0, 2, application_sl);
         //THEN
         then(packageRepository).should(times(1))
-                .findByUsefulApplications(uuidCaptor.capture(),pageableCaptor.capture());
+                .findAllByApplications(appCaptor.capture(),pageableCaptor.capture());
         Pageable pageable = pageableCaptor.getValue();
-        UUID guid = uuidCaptor.getValue();
+        Application application = appCaptor.getValue();
         assertThat(result.getTotalElements()).isEqualTo(1);
         assertThat(pageable.getPageNumber()).isEqualTo(0);
         assertThat(pageable.getPageSize()).isEqualTo(2);
-        assertThat(guid).isNotEqualTo("1");
+        assertThat(application_sl.getGuid()).isNotEqualTo("1");
     }
 }
 
