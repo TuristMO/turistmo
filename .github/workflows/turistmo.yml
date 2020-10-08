@@ -36,7 +36,7 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
   android:
     runs-on: macos-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     needs: [deploy]
     steps:
       - name: Checkout
@@ -67,7 +67,7 @@ jobs:
           cd ./mobileApp
           detox build -c android.emu.release -l verbose
       - name: Android Emulator
-        timeout-minutes: 15
+        timeout-minutes: 20
         continue-on-error: true
         run: |
           echo "Starting emulator"
