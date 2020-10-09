@@ -32,17 +32,19 @@ public class Application extends BaseEntity {
 
     @Builder
     public Application(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate,
-        String ios_link, String android_link, String logo, Set<Package> packages) {
+        String ios_link, String android_link, String logo, Set<Package> packages,String title) {
         super(id, guid, createdDate, lastModifiedDate);
         this.ios_link = ios_link;
         this.android_link = android_link;
         this.logo = logo;
         this.packages =  new HashSet<>();
+        this.title=title;
     }
 
     private String ios_link;
     private String android_link;
     private String logo;
+    private String title;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "package_application",

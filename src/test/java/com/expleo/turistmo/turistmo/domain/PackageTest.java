@@ -2,54 +2,57 @@ package com.expleo.turistmo.turistmo.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.expleo.turistmo.turistmo.resource.DomainResource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class PackageTest extends BaseDomain {
+class PackageTest extends DomainResource {
 
 
     @Test
     @DisplayName("Should create package with builder.")
     void itShouldCreatePackage() {
-        Package aPackage = mockPackage;
-        assertThat(aPackage).isNotNull();
-        assertThat(aPackage.getGuid()).isNotNull();
-        assertThat(aPackage.getUsefulApplications()).isNotNull();
-        assertThat(aPackage.toString()).isNotNull();
+        Package stockholmPackage = getStockholmPackage();
+        assertThat(stockholmPackage).isNotNull();
+        assertThat(stockholmPackage.getGuid()).isNotNull();
+        assertThat(stockholmPackage.getUsefulApplications()).isNotNull();
+        assertThat(stockholmPackage.toString()).isNotNull();
     }
 
     @Test
     @DisplayName("Should add application in package.")
     void itShouldAddApplication() {
-        Package aPackage = mockPackage;
-        aPackage.addApplication(mockApplication);
-        assertThat(aPackage.getUsefulApplications()).hasSize(1);
+        Package stockholmPackage = getStockholmPackage();
+        Application sl = getSLApplication();
+        stockholmPackage.addApplication(sl);
+        assertThat(stockholmPackage.getUsefulApplications()).hasSize(1);
     }
 
     @Test
     @DisplayName("Should delete application from package.")
     void itShouldDeleteApplication() {
-        Package aPackage = mockPackage;
-        aPackage.addApplication(mockApplication);
-        assertThat(aPackage.getUsefulApplications()).hasSize(1);
-        aPackage.deleteApplication(mockApplication);
-        assertThat(aPackage.getUsefulApplications()).hasSize(0);
+        Package stockholmPackage = getStockholmPackage();
+        Application sl = getSLApplication();
+        stockholmPackage.addApplication(sl);
+        assertThat(stockholmPackage.getUsefulApplications()).hasSize(1);
+        stockholmPackage.deleteApplication(sl);
+        assertThat(stockholmPackage.getUsefulApplications()).hasSize(0);
     }
 
     @Test
     @DisplayName("Should not equal packages")
     void itShouldNotEqualPackages() {
-        Package aPackage = mockPackage;
-        Package secondPackage = Package.builder().build();
-        assertThat(aPackage).isNotEqualTo(secondPackage);
+        Package stockholmPackage = getStockholmPackage();
+        Package emptyPackage = Package.builder().build();
+        assertThat(stockholmPackage).isNotEqualTo(emptyPackage);
     }
 
     @Test
     @DisplayName("Should equal packages")
     void itShouldEqualPackages() {
-        Package aPackage = mockPackage;
-        Package otherPackage = mockPackage;
-        assertThat(aPackage).isEqualTo(otherPackage);
+        Package stockholmPackage = getStockholmPackage();
+        Package stockholmPackage2 = getStockholmPackage();
+        assertThat(stockholmPackage).isEqualTo(stockholmPackage2);
     }
 
 }
