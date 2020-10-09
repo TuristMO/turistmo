@@ -8,12 +8,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,10 +43,16 @@ public class Application extends BaseEntity {
         this.title=title;
     }
 
-    private String ios_link;
-    private String android_link;
-    private String logo;
+    @NotBlank(message = "Application must have a title.")
     private String title;
+
+    @NotBlank(message = "Application must have a logo")
+    private String logo;
+
+    //Make sure to control this on the client side.
+    private String ios_link="EMPTY";
+    private String android_link="EMPTY";
+
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "package_application",

@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.resource.DomainResource;
 import com.expleo.turistmo.turistmo.services.ApplicationService;
 import com.expleo.turistmo.turistmo.services.PackageService;
 import java.util.List;
@@ -30,7 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(PackageController.class)
-class PackageControllerTest {
+class PackageControllerTest extends DomainResource {
 
 
     @MockBean
@@ -51,10 +52,8 @@ class PackageControllerTest {
 
     @BeforeEach
     void setUp() {
-        Package visiting_stockholm = Package.builder()
-            .title("Visiting Stockholm")
-            .build();
-        packageList = List.of(visiting_stockholm);
+        Package stockholmPackage =getStockholmPackage();
+        packageList = List.of(stockholmPackage);
     }
 
     @Test

@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import com.expleo.turistmo.turistmo.domain.Application;
 import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.repository.PackageRepository;
+import com.expleo.turistmo.turistmo.resource.DomainResource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import org.springframework.data.domain.Pageable;
 
 
 @ExtendWith(MockitoExtension.class)
-class PackageServiceTest {
+class PackageServiceTest extends DomainResource {
 
     @Mock
     PackageRepository packageRepository;
@@ -45,20 +46,14 @@ class PackageServiceTest {
     ArgumentCaptor<Application> appCaptor;
 
     List<Package> packageList;
-    Application application_sl;
+    Application sl;
 
     @BeforeEach
     void setUp() {
-        application_sl = Application.builder()
-            .android_link("Link A")
-            .logo("Some logo")
-            .build();
-        Package visiting_stockholm = Package.builder()
-            .title("Visiting Stockholm")
-            .city("Stockholm")
-            .build();
+        sl = getSLApplication();
+        Package stockholmPackage = getStockholmPackage();
 
-        packageList = List.of(visiting_stockholm);
+        packageList = List.of(stockholmPackage);
     }
 
     @Test
@@ -119,7 +114,7 @@ class PackageServiceTest {
         Page<Package> packages = new PageImpl<>(packageList);
         given(packageRepository.findAllByApplications(any(Application.class), any(Pageable.class))).willReturn(packages);
         //WHEN
-        Page<Package> result = packageService.getPackagesByApplication(0, 2, application_sl);
+        Page<Package> result = packageService.getPackagesByApplication(0, 2, sl);
         //THEN
         then(packageRepository).should(times(1))
                 .findAllByApplications(appCaptor.capture(),pageableCaptor.capture());
@@ -128,7 +123,7 @@ class PackageServiceTest {
         assertThat(result.getTotalElements()).isEqualTo(1);
         assertThat(pageable.getPageNumber()).isEqualTo(0);
         assertThat(pageable.getPageSize()).isEqualTo(2);
-        assertThat(application_sl.getGuid()).isNotEqualTo("1");
+        assertThat(sl.getGuid()).isNotEqualTo("1");
     }
 }
 

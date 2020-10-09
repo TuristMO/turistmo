@@ -34,12 +34,13 @@ public class BootstrapDB implements CommandLineRunner {
             Application sl = Application.builder()
                 .android_link("https://play.google.com/store/apps/details?id=com.sl.SLBiljetter&hl=sv")
                 .ios_link("empty-for-now")
-                .logo(
-                    "https://is5-ssl.mzstatic.com/image/thumb/Purple114/v4/30/00/03/3000030b-6b4c-8e24-1ba9-1a541ae31b1c/AppIcon-NewUI-0-0-1x_U007emarketing-0-0-0-5-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/350x350.png")
+                .logo("https://is5-ssl.mzstatic.com/image/thumb/Purple114/v4/30/00/03/3000030b-6b4c-8e24-1ba9-1a541ae31b1c/AppIcon-NewUI-0-0-1x_U007emarketing-0-0-0-5-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/350x350.png")
+                .title("SL")
                 .build();
             Application app1Mock = Application.builder()
                 .android_link("https://play.google.com/store/apps/details?id=com.nobina.resistockholm.resistockholm")
                 .ios_link("empty-for-now")
+                .title("Res i Stockholm")
                 .logo("https://lh3.googleusercontent.com/8bEW-rvEPMrJqTAOPYlaI0GdZQSYXFe9DrU_S_N2mdJzeX6TG02elgZ4MF_Gh7CGFvQ=s180-rw")
                 .build();
 
@@ -62,6 +63,7 @@ public class BootstrapDB implements CommandLineRunner {
 
             Application radioApp = Application.builder()
                 .android_link("https://play.google.com/store/apps/details?id=appinventor.ai_viktor_ohlsson.Radiomuseet")
+                .title("App1")
                 .ios_link("empty-for-now")
                 .logo("https://lh3.googleusercontent.com/jiVkiuhFHRTNKMi-KfWPvyAq_Re7vSpqwoYJ_PbLQZjIWcdb4_KxuNwJX9HcUX_EXEY=s128-rw")
                 .build();
@@ -70,6 +72,7 @@ public class BootstrapDB implements CommandLineRunner {
                 .android_link("https://play.google.com/store/apps/details?id=se.mobilestorytelling.higab&hl=en")
                 .ios_link("empty-for-now")
                 .logo("https://lh3.googleusercontent.com/WoBeYKgQ1CzlGPhNCM593u-ADxVk83y_3RNEOFhzIgGlzEBp8SPvrJ3yvuWdzrLC3dk=s180-rw")
+                .title("App2")
                 .build();
             Application savedRadioApp = applicationRepository.save(radioApp);
             Application savedApp2 = applicationRepository.save(app2);

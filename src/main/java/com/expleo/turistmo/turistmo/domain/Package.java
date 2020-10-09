@@ -12,7 +12,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -43,12 +46,21 @@ public class Package extends BaseEntity {
         this.usefulApplications = new HashSet<>();
     }
 
+    @NotBlank(message = "Package must have a title")
+    @Size(min = 2, max = 40, message = "Title should be between 2-40 characters.")
     private String title;
+    @NotBlank(message = "Enter a valid city.")
+    @Size(min = 2, max = 40, message = "City name should be between 2-40 characters.")
+    private String city;
+
+    @Lob
+    @NotBlank(message = "You must enter a description about the package.")
+    private String description;
+
+
     private String curator;
     private String curatorPicture;
     private String tag;
-    private String city;
-    private String description;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "package_application",

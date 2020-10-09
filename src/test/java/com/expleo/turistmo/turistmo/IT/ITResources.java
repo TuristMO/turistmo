@@ -51,6 +51,7 @@ public class ITResources {
             .android_link("https://play.google.com/store/apps/details?id=appinventor.ai_viktor_ohlsson.Radiomuseet")
             .ios_link("empty-for-now")
             .logo("https://lh3.googleusercontent.com/jiVkiuhFHRTNKMi-KfWPvyAq_Re7vSpqwoYJ_PbLQZjIWcdb4_KxuNwJX9HcUX_EXEY=s128-rw")
+            .title("App2")
             .build();
 
         Application savedRadioApp = applicationRepository.save(radioApp);
