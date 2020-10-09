@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,7 +21,6 @@ public class PackageController {
 
     private final PackageService packageService;
     private final ApplicationService applicationService;
-
 
 //    @GetMapping
 //    public ResponseEntity<?> getAllPackages(@RequestParam(defaultValue = "0") Integer page,

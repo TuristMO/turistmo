@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.services.ApplicationService;
 import com.expleo.turistmo.turistmo.services.PackageService;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -35,6 +36,9 @@ class PackageControllerTest {
     @MockBean
     PackageService packageService;
 
+    @MockBean
+    ApplicationService applicationService;
+
     @Autowired
     MockMvc mockMvc;
 
@@ -53,9 +57,6 @@ class PackageControllerTest {
         packageList = List.of(visiting_stockholm);
     }
 
-    //ALL TESTS DISABLED DUE TO UNABLE TO UnsatisfiedDependencyException
-
-    @Disabled
     @Test
     @DisplayName("It should return page with packages.")
     void itShouldReturnPageWithPackages() throws Exception {
@@ -78,7 +79,6 @@ class PackageControllerTest {
         assertThat(sizeValueCaptured).isEqualTo(1);
     }
 
-    @Disabled
     @Test
     @DisplayName("It should throw an exception when sending less than 0 as request param.")
     void itShouldThrowAnException() throws Exception {
@@ -102,7 +102,6 @@ class PackageControllerTest {
 
     }
 
-    @Disabled
     @Test
     @DisplayName("It should return page with packages without parameters.")
     void itShouldReturnPageWithPackagesWithoutParams() throws Exception {

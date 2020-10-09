@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PackageRepository extends JpaRepository<Package, Long> {
+
+
+
     @Query("SELECT e FROM Package e WHERE LOWER(e.city) = LOWER(?1)")
     Page<Package> findByCityIgnoreCase(String city, Pageable pageable);
     //Try with orApplication
