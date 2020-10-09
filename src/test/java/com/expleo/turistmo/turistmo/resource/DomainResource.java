@@ -1,9 +1,12 @@
 package com.expleo.turistmo.turistmo.resource;
 
 import com.expleo.turistmo.turistmo.domain.Application;
+import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.domain.Tag;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -15,12 +18,10 @@ public class DomainResource {
         return Package.builder()
             .city("Stockholm")
             .createdDate(dateAsTimestamp)
-            .curator("John Doe")
             .guid(UUID.randomUUID())
             .lastModifiedDate(dateAsTimestamp)
-            .curatorPicture("URL")
             .description("Something about Stockholm!")
-            .tag("FUN,HAPPY")
+            .tags(Set.of(getStockholmTag(),getCultureTag()))
             .title("Visiting Stockholm")
             .build();
     }
@@ -29,12 +30,10 @@ public class DomainResource {
         return Package.builder()
             .city("Göteborg")
             .createdDate(dateAsTimestamp)
-            .curator("John Doe")
             .guid(UUID.randomUUID())
             .lastModifiedDate(dateAsTimestamp)
-            .curatorPicture("URL")
             .description("Something about Götebrog!")
-            .tag("FUN,HAPPY")
+            .tags(Set.of(getGoteborgTag(),getFoodTag(),getTravelTag()))
             .title("Visiting Göteborg")
             .build();
     }
@@ -43,12 +42,10 @@ public class DomainResource {
         return Package.builder()
             .city("Göteborg")
             .createdDate(dateAsTimestamp)
-            .curator("John Doe")
             .guid(UUID.randomUUID())
             .lastModifiedDate(dateAsTimestamp)
-            .curatorPicture("URL")
             .description("Something about Götebrog!")
-            .tag("FUN,HAPPY")
+            .tags(Set.of(getStockholmTag()))
             .title("Visiting Göteborg")
             .build();
     }
@@ -75,6 +72,60 @@ public class DomainResource {
             .createdDate(dateAsTimestamp)
             .lastModifiedDate(dateAsTimestamp)
             .build();
+    }
+
+    public Curator getJohnDoeCurator() {
+        return Curator.builder()
+            .avatarUrl("CURATOR_URL")
+            .email("johdoe@gmail.com")
+            .firstName("John")
+            .lastName("Doe")
+            .password("123321")
+            .guid(UUID.randomUUID())
+            .description("I am an software developer.")
+            .build();
+    }
+
+    public Curator getAlissaMcarthyCurator() {
+        return Curator.builder()
+            .avatarUrl("CURATOR_URL")
+            .email("alissamcarthygmail.com")
+            .firstName("Alissa")
+            .lastName("McCarthy")
+            .guid(UUID.randomUUID())
+            .password("123321")
+            .description("Alissa is an influencer.")
+            .build();
+    }
+
+    public Tag getStockholmTag() {
+        return Tag.builder()
+            .guid(UUID.randomUUID())
+            .title("Stockholm").build();
+    }
+
+    public Tag getFoodTag() {
+        return Tag.builder()
+            .guid(UUID.randomUUID())
+            .title("Food").build();
+    }
+
+    public Tag getCultureTag() {
+        return Tag.builder()
+            .guid(UUID.randomUUID())
+            .title("Culture").build();
+    }
+
+    public Tag getGoteborgTag() {
+        return Tag.builder()
+            .guid(UUID.randomUUID())
+            .title("Göteborg").build();
+    }
+
+    public Tag getTravelTag() {
+        return Tag.builder()
+            .guid(UUID.randomUUID())
+            .title("Travel").build();
     }
 
 }

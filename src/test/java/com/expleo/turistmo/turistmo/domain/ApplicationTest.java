@@ -12,10 +12,10 @@ class ApplicationTest extends DomainResource {
     @Test
     @DisplayName("Application should be created with builder.")
     void itShouldCreateApplication() {
+        Package pack = getStockholmPackage();
         Application application = getSLApplication();
         assertThat(application).isNotNull();
         assertThat(application.getGuid()).isNotNull();
-        assertThat(application.getPackages()).isNotNull();
         assertThat(application.toString()).isNotNull();
     }
 

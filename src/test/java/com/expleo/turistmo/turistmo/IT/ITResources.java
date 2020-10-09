@@ -4,14 +4,20 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.AUTO_CONFIGURED;
 
 import com.expleo.turistmo.turistmo.domain.Application;
+import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.repository.ApplicationRepository;
+import com.expleo.turistmo.turistmo.repository.CuratorRepository;
 import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Set;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -27,6 +33,9 @@ public class ITResources {
     @Autowired
     ApplicationRepository applicationRepository;
 
+    @Autowired
+    CuratorRepository curatorRepository;
+
 //    @LocalServerPort
 //    int randomServerPort;
 
@@ -38,13 +47,26 @@ public class ITResources {
 
     @BeforeEach
     void setUp() {
+        Curator alissaMcarthy = Curator.builder()
+            .avatarUrl("CURATOR_URL")
+            .email("alissamcarthygmail.com")
+            .firstName("Alissa")
+            .lastName("McCarthy")
+            .guid(UUID.randomUUID())
+            .password("123321")
+            .description("Alissa is an influencer.")
+            .build();
+
+        Tag stockholmTag = Tag.builder()
+            .guid(UUID.randomUUID())
+            .title("Stockholm").build();
+
         Package pack2 = Package.builder()
             .title("Göteborg culture")
             .city("Göteborg")
-            .curator("Alissa McCarthy")
-            .curatorPicture("https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+            .curator(alissaMcarthy)
             .description("Om du vill få ut det bästa av Göteborgs kulturutbud, så är dessa appar något för dig!")
-            .tag("TRAVEL EAT PARTY")
+            .tags(Set.of(stockholmTag))
             .build();
 
         Application radioApp = Application.builder()
@@ -55,6 +77,8 @@ public class ITResources {
             .build();
 
         Application savedRadioApp = applicationRepository.save(radioApp);
+        Curator savedCurator = curatorRepository.save(alissaMcarthy);
+        //TODO Curator needs method for adding packages created by C.
         pack2.addApplication(savedRadioApp);
         packageRepository.save(pack2);
     }

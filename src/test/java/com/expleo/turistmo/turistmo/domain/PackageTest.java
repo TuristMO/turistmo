@@ -3,6 +3,7 @@ package com.expleo.turistmo.turistmo.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.expleo.turistmo.turistmo.resource.DomainResource;
+import java.util.HashSet;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,9 @@ class PackageTest extends DomainResource {
     @DisplayName("Should delete application from package.")
     void itShouldDeleteApplication() {
         Package stockholmPackage = getStockholmPackage();
+        stockholmPackage.setUsefulApplications(new HashSet<>());
         Application sl = getSLApplication();
+        sl.setPackages(new HashSet<>());
         stockholmPackage.addApplication(sl);
         assertThat(stockholmPackage.getUsefulApplications()).hasSize(1);
         stockholmPackage.deleteApplication(sl);

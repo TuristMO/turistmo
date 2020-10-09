@@ -3,7 +3,9 @@ package com.expleo.turistmo.turistmo.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.expleo.turistmo.turistmo.domain.Application;
+import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,6 +36,14 @@ public class PackRepositoryTest extends DomainResource {
 
         sl = getSLApplication();
         taxiApplication = getTaxiApplication();
+        Curator johndoe = getJohnDoeCurator();
+        Curator alyssa = getAlissaMcarthyCurator();
+
+        Tag stockholmTag = getStockholmTag();
+        Tag gothenburgTag = getGoteborgTag();
+        Tag cultureTag = getCultureTag();
+        Tag travelTag = getTravelTag();
+        Tag foodtag = getFoodTag();
 
         Package stockholmPackage = getStockholmPackage();
         Package stockholmPackage2 = getStockholmPackage();
@@ -44,8 +54,10 @@ public class PackRepositoryTest extends DomainResource {
         stockholmPackage.addApplication(sl);
         stockholmPackage2.addApplication(sl);
 
+
         testEntityManager.persistAndFlush(sl);
         testEntityManager.persistAndFlush(taxiApplication);
+        testEntityManager.persistAndFlush(johndoe);
         testEntityManager.persistAndFlush(mockPackageGothenburg);
         testEntityManager.persistAndFlush(stockholmPackage);
         testEntityManager.persistAndFlush(stockholmPackage2);
