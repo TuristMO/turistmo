@@ -24,6 +24,7 @@ const SplashScreen = ({navigation}) => {
           <View style={styles.button}>
 
           <Button
+              testID={'getStarted'}
               buttonStyle={styles.signIn}
               icon={{
                 name: "navigate-next",
