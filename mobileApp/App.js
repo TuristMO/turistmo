@@ -15,6 +15,7 @@ import CuratorScreen from "./src/screens/CuratorScreen";
 import GuideScreen from "./src/screens/GuideScreen";
 import HomeScreen from "./src/navigators/HomeScreen";
 import GuideStack from "./src/navigators/GuideStack";
+import AuthenticationStack from "./src/navigators/AuthenticationStack";
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
@@ -25,7 +26,7 @@ const App = () => {
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="HomeScreen" component={HomeScreen} />
-          <Tab.Screen name="Curator" component={CuratorScreen} />
+          <Tab.Screen name="Curator" component={AuthenticationStack} />
           <Tab.Screen name="Guide" component={GuideStack} />
         </Tab.Navigator>
       </NavigationContainer>

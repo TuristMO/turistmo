@@ -13,6 +13,7 @@ export const getAllPackages = (setFilteredData) => {
       });
       dispatch({ type: GET_PACKAGES, payload: response.data.content })
       setFilteredData(response.data.content)
+      console.log(response.data.content)
     } catch (err) {
       console.log(err);
     }

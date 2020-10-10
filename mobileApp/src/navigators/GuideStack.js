@@ -10,7 +10,7 @@ const Stack = createStackNavigator();  //RETURNS Stack Object -> Stack.Navigator
 
 const GuideStack = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator >
             <Stack.Screen name="Guide" component={GuideScreen}/>
             <Stack.Screen name="Instructions" component={GuideInstallScreen}/>
         </Stack.Navigator>
