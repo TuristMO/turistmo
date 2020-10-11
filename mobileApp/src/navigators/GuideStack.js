@@ -10,13 +10,12 @@ const Stack = createStackNavigator();  //RETURNS Stack Object -> Stack.Navigator
 
 const GuideStack = () => {
     return (
-        <Stack.Navigator >
-            <Stack.Screen name="Guide" component={GuideScreen}/>
+        <Stack.Navigator screenOptions={ { headerShown: false}} >
+            <Stack.Screen name="Guide"  options={{ title: ''}} component={GuideScreen}/>
             <Stack.Screen name="Instructions" component={GuideInstallScreen}/>
         </Stack.Navigator>
     )
 }
 
-const styles = StyleSheet.create({})
 
 export default GuideStack;
