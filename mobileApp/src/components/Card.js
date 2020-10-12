@@ -3,21 +3,21 @@ import { Button, TouchableOpacity, Image, StyleSheet, View, ScrollView, Text, Fl
 import Application from "./Application";
 
 const Card = ({ cPackage }) => {
-  const {curator,curatorPicture,title,description,date,usefulApplications} = cPackage
+  const {curator:{avatarUrl, firstName, lastName},curatorPicture,title,description,date,usefulApplications} = cPackage
   return (
       <View
           accessibilityLabel='resultItem'
           style={styles.packageContainer}>
         <View style={styles.header}>
           <View>
-            {/*<Image source={{ uri: curatorPicture }} style={styles.headerImage}/>*/}
+            <Image source={{ uri: "https://api.adorable.io/avatars/285/abott@adorable.png" }} style={styles.headerImage}/>
           </View>
           <View style={{ marginBottom: 5, flexDirection: 'column', flex: 1, justifyContent: 'space-around', }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5 }}>
               <Text
                   testID="curatorName"
                   accessibilityLabel='curatorName'
-              >{`${curator.firstName} ${curator.lastName}`}</Text>
+              >{firstName} {lastName}</Text>
               <Text style={[styles.headerDate]}>{date} </Text>
             </View>
             <Text style={styles.headerTitle}>{title} </Text>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   headerImage: {
-    marginTop: 10,
+    margin: 5,
     width: 55,
     height: 55,
     borderRadius: 10
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
   },
 
   description: {
