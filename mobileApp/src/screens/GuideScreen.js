@@ -68,10 +68,6 @@ const GuideScreen = ({navigation}) => {
                         onPress={() => navigation.navigate('Instructions',{path:platform.deletePath})}/>
                 </View>
             </Animatable.View>
-            <View style={styles.button}>
-
-            </View>
-
         </View>
     )
 }
