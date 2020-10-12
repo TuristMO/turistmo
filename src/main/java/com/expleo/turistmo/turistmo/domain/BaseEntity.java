@@ -42,7 +42,7 @@ public class BaseEntity {
   */
     @Type(type = "org.hibernate.type.UUIDCharType")
     @Column(length = 36, columnDefinition = "varchar")
-    private UUID guid = UUID.randomUUID();
+    private UUID guid ;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -50,4 +50,9 @@ public class BaseEntity {
 
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
+
+    @PrePersist
+    public void generateGuid(){
+        this.guid=UUID.randomUUID();
+    }
 }

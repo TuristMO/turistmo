@@ -1,4 +1,7 @@
-
+spring:
+  profiles:
+    active: dev
+---
 spring:
   profiles:
     active: dev
@@ -15,4 +18,22 @@ app:
     jdbc-url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASS}
+
+---
+spring:
+  profiles:
+    active: fazli
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/turistmolocally
+    username: postgres
+---
 
