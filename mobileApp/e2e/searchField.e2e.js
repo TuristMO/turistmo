@@ -24,7 +24,7 @@ describe('App', () => {
   it('Should search for stockholm', async () => {
     await element(by.id("searchField")).typeText("stockholm")
     await element(by.id("searchButton")).tap()
-    await waitFor(element(by.id("curatorName")).atIndex(0)).toHaveText("John Doe").withTimeout(15000)
+    await waitFor(element(by.id("curatorName")).atIndex(0)).toHaveText("Alissa McCarthy").withTimeout(15000)
   });
 
 });
