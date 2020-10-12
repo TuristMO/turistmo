@@ -53,6 +53,7 @@ const PackageScreen = (props) => {
             style={{ height: 40 }}
             onChangeText={text => setText(text)}
             placeholder="Search"
+
         />
         <Button
             testID="searchButton"

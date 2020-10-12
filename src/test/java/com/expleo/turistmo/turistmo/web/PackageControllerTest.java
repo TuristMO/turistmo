@@ -11,10 +11,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.resource.DomainResource;
+import com.expleo.turistmo.turistmo.services.ApplicationService;
 import com.expleo.turistmo.turistmo.services.PackageService;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -28,11 +31,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(PackageController.class)
-class PackageControllerTest {
+class PackageControllerTest extends DomainResource {
 
 
     @MockBean
     PackageService packageService;
+
+    @MockBean
+    ApplicationService applicationService;
 
     @Autowired
     MockMvc mockMvc;
@@ -46,12 +52,9 @@ class PackageControllerTest {
 
     @BeforeEach
     void setUp() {
-        Package visiting_stockholm = Package.builder()
-            .title("Visiting Stockholm")
-            .build();
-        packageList = List.of(visiting_stockholm);
+        Package stockholmPackage =getStockholmPackage();
+        packageList = List.of(stockholmPackage);
     }
-
 
     @Test
     @DisplayName("It should return page with packages.")
@@ -74,7 +77,6 @@ class PackageControllerTest {
         assertThat(pageValueCaptured).isEqualTo(0);
         assertThat(sizeValueCaptured).isEqualTo(1);
     }
-
 
     @Test
     @DisplayName("It should throw an exception when sending less than 0 as request param.")

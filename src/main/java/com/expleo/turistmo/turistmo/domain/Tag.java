@@ -1,5 +1,6 @@
 package com.expleo.turistmo.turistmo.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
@@ -8,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -27,38 +27,27 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @Data
 @Entity
+@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 @ToString(exclude = {"packages"})
 @EqualsAndHashCode(exclude = {"packages"}, callSuper = false)
-@JsonIdentityInfo(generator = IntSequenceGenerator.class)
-public class Application extends BaseEntity {
+public class Tag extends BaseEntity{
 
     @Builder
-    public Application(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate,
-        String ios_link, String android_link, String logo, Set<Package> packages,String title) {
+    public Tag(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate,String title,Set<Package> packages) {
         super(id, guid, createdDate, lastModifiedDate);
-        this.ios_link = ios_link;
-        this.android_link = android_link;
-        this.logo = logo;
-        this.packages = packages;
         this.title=title;
+        this.packages=new HashSet<>();
     }
 
-    @NotBlank(message = "Application must have a title.")
-    private String title;
-
-    @NotBlank(message = "Application must have a logo")
-    private String logo;
-
-    //Make sure to control this on the client side.
-    private String ios_link="EMPTY";
-    private String android_link="EMPTY";
-
+    @NotBlank(message = "Tag cannot be empty.")
+    String title;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "package_application",
-        joinColumns = @JoinColumn(name = "application_id", foreignKey = @ForeignKey(name = "fk_application_package")),
-        inverseJoinColumns = @JoinColumn(name = "package_id", foreignKey = @ForeignKey(name = "fk_package_application")))
+    @JoinTable(name = "package_tag",
+        joinColumns = @JoinColumn(name = "tag_id", foreignKey = @ForeignKey(name = "fk_tag_package")),
+        inverseJoinColumns = @JoinColumn(name = "package_id", foreignKey = @ForeignKey(name = "fk_package_tag")))
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JsonIgnore
     private Set<Package> packages = new HashSet<>();
+
 }

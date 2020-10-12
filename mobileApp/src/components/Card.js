@@ -10,14 +10,14 @@ const Card = ({ cPackage }) => {
           style={styles.packageContainer}>
         <View style={styles.header}>
           <View>
-            <Image source={{ uri: curatorPicture }} style={styles.headerImage}/>
+            {/*<Image source={{ uri: curatorPicture }} style={styles.headerImage}/>*/}
           </View>
           <View style={{ marginBottom: 5, flexDirection: 'column', flex: 1, justifyContent: 'space-around', }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5 }}>
               <Text
                   testID="curatorName"
                   accessibilityLabel='curatorName'
-              >{curator}</Text>
+              >{`${curator.firstName} ${curator.lastName}`}</Text>
               <Text style={[styles.headerDate]}>{date} </Text>
             </View>
             <Text style={styles.headerTitle}>{title} </Text>

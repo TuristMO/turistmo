@@ -2,35 +2,36 @@ package com.expleo.turistmo.turistmo.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.expleo.turistmo.turistmo.resource.DomainResource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ApplicationTest extends BaseDomain {
+class ApplicationTest extends DomainResource {
 
 
     @Test
     @DisplayName("Application should be created with builder.")
     void itShouldCreateApplication() {
-        Application application = mockApplication;
+        Package pack = getStockholmPackage();
+        Application application = getSLApplication();
         assertThat(application).isNotNull();
         assertThat(application.getGuid()).isNotNull();
-        assertThat(application.getPackages()).isNotNull();
         assertThat(application.toString()).isNotNull();
     }
 
     @Test
     @DisplayName("Should not equal applications.")
     void itShouldNotEqualApplication() {
-        Application application = mockApplication;
-        Application secondApplication = Application.builder().build();
-        assertThat(application).isNotEqualTo(secondApplication);
+        Application sl = getSLApplication();
+        Application taxi = getTaxiApplication();
+        assertThat(sl).isNotEqualTo(taxi);
     }
 
     @Test
     @DisplayName("Should equal applications.")
     void itShouldEqualApplication() {
-        Application application = mockApplication;
-        Application otherApplication = mockApplication;
-        assertThat(application).isEqualTo(otherApplication);
+        Application sl = getSLApplication();
+        Application copySl = getSLApplication();
+        assertThat(sl).isEqualTo(copySl);
     }
 }
