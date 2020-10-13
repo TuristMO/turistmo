@@ -6,15 +6,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.Builder;
@@ -53,7 +45,7 @@ public class Package extends BaseEntity {
     @Size(min = 2, max = 40, message = "City name should be between 2-40 characters.")
     private String city;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     @NotBlank(message = "You must enter a description about the package.")
     private String description;
 

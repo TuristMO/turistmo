@@ -1,4 +1,4 @@
-package com.mobileapp;
+package com.turistmo;
 
 import com.wix.detox.Detox;
 import com.wix.detox.config.DetoxConfig;

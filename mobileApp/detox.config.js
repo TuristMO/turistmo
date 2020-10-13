@@ -57,11 +57,19 @@ module.exports = {
       },
     },
     "ios": {
-      binaryPath: "ios/build/Build/Products/Debug-iphonesimulator/mobileApp.app",
-      build: "xcodebuild -workspace ios/mobileApp.xcworkspace -scheme mobileApp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+      binaryPath: "ios/build/Build/Products/Debug-iphonesimulator/TuristMo.app",
+      build: "xcodebuild -workspace ios/TuristMo.xcworkspace -scheme TuristMo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
       type: "ios.simulator",
       device: {
         type: "iPhone 11 Pro",
+      },
+    },
+    "fazli": {
+      binaryPath: "ios/build/Build/Products/Debug-iphonesimulator/TuristMo.app",
+      build: "xcodebuild -workspace ios/TuristMo.xcworkspace -scheme TuristMo -configuration Debug  -derivedDataPath ios/build",
+      type: "ios.none",
+      device: {
+        type: "iPhone X",
       },
     },
   },

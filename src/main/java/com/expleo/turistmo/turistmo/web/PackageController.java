@@ -22,18 +22,18 @@ public class PackageController {
     private final PackageService packageService;
     private final ApplicationService applicationService;
 
-//    @GetMapping
-//    public ResponseEntity<?> getAllPackages(@RequestParam(defaultValue = "0") Integer page,
-//                                            @RequestParam(defaultValue = "10") Integer size) {
-//        try {
-//            Page<Package> packages = packageService.getPackages(page, size);
-//            return ResponseEntity.status(HttpStatus.OK).body(packages);
-//        } catch (Exception e) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-//        }
-//    }
+    @GetMapping
+    public ResponseEntity<?> getAllPackages(@RequestParam(defaultValue = "0") Integer page,
+                                            @RequestParam(defaultValue = "10") Integer size) {
+        try {
+            Page<Package> packages = packageService.getPackages(page, size);
+            return ResponseEntity.status(HttpStatus.OK).body(packages);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+        }
+    }
 
-    @GetMapping()
+    @GetMapping(value = "/city")
     public ResponseEntity<?> getAllPackagesByCity(@RequestParam(defaultValue = "0") Integer page,
                                                   @RequestParam(defaultValue = "10") Integer size,
                                                   @RequestParam(required = false) String city) {
