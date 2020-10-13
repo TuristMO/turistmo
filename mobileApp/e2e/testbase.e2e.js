@@ -7,8 +7,4 @@ describe('App', () => {
         await device.launchApp({ permissions: { location: 'never' } });
     })
 
-    beforeEach(async () => {
-        await device.reloadReactNative();
-    });
-
 });

@@ -2,6 +2,10 @@ const {device, expect, element, by, waitFor} = require('detox');
 
 describe('App', () => {
 
+  beforeEach(async () => {
+    await device.reloadReactNative();
+  });
+
   it('Search button should be visible', async () => {
     await waitFor(element(by.id("searchButton"))).toBeVisible().withTimeout(15000);
   });
