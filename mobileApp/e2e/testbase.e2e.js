@@ -6,7 +6,7 @@ describe('App', () => {
         await device.disableSynchronization();
         await device.launchApp({ permissions: { location: 'never' } });
 
-        console.log("Before all!!!");
+        console.log("Before all!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     })
 
 });

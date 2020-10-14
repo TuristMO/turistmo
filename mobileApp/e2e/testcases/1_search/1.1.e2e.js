@@ -1,4 +1,5 @@
 import {packages} from "../../../data";
+import {PackageSO} from "../../screens/PackageSO";
 
 const {device, expect, element, by, waitFor} = require('detox');
 const {getText, getProps} = require('detox-getprops');
@@ -7,16 +8,15 @@ describe('App', () => {
 
     beforeEach(async () => {
         await device.reloadReactNative();
-
-        console.log("Before each!!!");
     });
 
     it('search should show results', async () => {
-        await waitFor(element(by.id("searchField"))).toBeVisible().withTimeout(15000);
-        await element(by.id("searchField")).typeText("Stockholm");
-        await element(by.id("searchButton")).tap();
-        await waitFor(element(by.label("resultItem"))).toBeVisible().withTimeout(15000);
-        //await waitFor(element(by.id("packageTitle"))).toHaveText("Travelling around Stockholm").withTimeout(15000);
+
+        let packageSO = new PackageSO();
+
+        await packageSO.fillSearchField("Stockholm");
+        await packageSO.clickSearchButton();
+
         //const cardItem = await element(by.label("packageTitle")).atIndex(0);
         //console.log("Something: " + cardItem);
 
