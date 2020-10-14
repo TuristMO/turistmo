@@ -2580,6 +2580,11 @@ detect-newline@^3.0.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
 
+detox-getprops@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/detox-getprops/-/detox-getprops-0.1.2.tgz#a76ec631629f2cca643c98d687700b82884b8f35"
+  integrity sha512-fAv+emwiwRvVrOcVQAn3Gkl540If/Any9GBYmFzTAxxgRTwDqcg/X2LVLU8/Dkb4k7KPNAZeIHcIPMVGbt0X9w==
+
 detox@^17.7.1:
   version "17.7.1"
   resolved "https://registry.yarnpkg.com/detox/-/detox-17.7.1.tgz#f7dd7a0ef39d32c9515caf132d37332d153d9206"
