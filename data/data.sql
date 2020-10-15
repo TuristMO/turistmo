@@ -1,4 +1,4 @@
-INSERT INTO Curator (id,guid, last_modified_date, avatar_url, description, email, first_name, last_name, password, role, verified)
+INSERT INTO Curator (id,guid, last_modified_date, avatar_url, curator_description, email, first_name, last_name, password, role, verified)
 VALUES ('300','225e9bae-186b-4a7e-a34f-e793cc523761','2020-10-12','https://api.adorable.io/avatars/285/abott@adorable.png', 'influencer', 'john@doe.com', 'John', 'Doe', '123456','CURATOR','TRUE'),
        ('444','5a3596b6-aee0-4855-9418-64bddfdd2ecc','2020-10-12','https://api.adorable.io/avatars/285/abott@adorable.png', 'influencer', 'johanna@doe.com', 'Johanna', 'Doe', '123456','CURATOR','TRUE'),
        ('123','2ac5fa5b-6204-46fd-9cd5-5d02134f7703','2020-10-12','https://api.adorable.io/avatars/285/abott@adorable.png', 'Youtuber', 'Joel@doe.com', 'Joel', 'Doe', '123456','CURATOR','TRUE'),
@@ -24,7 +24,7 @@ VALUES ('1','2020-10-12','fa1b49eb-39c4-47fd-9733-4ea76244c718','2020-10-12','St
 
 
 
-INSERT INTO Package (id,created_date ,guid,last_modified_date ,title,curator_id ,city,description)
+INSERT INTO Package (id,created_date ,guid,last_modified_date ,title,curator_id ,city,package_description)
 VALUES ('234','2020-10-12','da6ff7ab-3fa2-4b7d-ad8f-2a7d41b1d677','2020-10-12','Travelling around Stockholm','300','Stockholm'
         ,'I det här paketet hittar du nödvändiga appar för att åka runt i Stockholm'),
        ('544','2020-10-12','da6ff7ab-3fa2-4b7d-ad8f-2a7d41b1d677','2020-10-12','Travelling around Stockholm','300','Stockholm'
