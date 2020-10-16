@@ -47,7 +47,7 @@ public class ApplicationRepositoryTest extends DomainResource {
     void itShouldFindApplicationsByGuid (){
         Page<Application> applications = applicationRepository.findApplicationsByGuid(sl.getGuid(),
                                                                                       PageRequest.of(0, 10));
-        assertThat(applications.getContent()).hasSize(1);
+        assertThat(applications).hasSize(1);
         assertThat(applications.get().findFirst().get().getGuid()).isEqualTo(sl.getGuid());
     }
 
@@ -56,7 +56,7 @@ public class ApplicationRepositoryTest extends DomainResource {
     void itShouldNotFindApplicationsByGuid (){
         Page<Application> applications = applicationRepository.findApplicationsByGuid(sl.getGuid(),
                 PageRequest.of(0, 10));
-        assertThat(applications.getContent()).hasSize(1);
+        assertThat(applications).hasSize(1);
         assertThat(applications.get().findFirst().get().getGuid()).isNotEqualByComparingTo(sl2.getGuid());
     }
 

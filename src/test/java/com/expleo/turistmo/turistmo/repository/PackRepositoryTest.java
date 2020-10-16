@@ -19,17 +19,15 @@ import org.springframework.data.domain.PageRequest;
 @DataJpaTest
 public class PackRepositoryTest extends DomainResource {
 
+    Application sl;
+    Application taxiApplication;
+    Tag stockholmTag;
+
     @Autowired
     TestEntityManager testEntityManager;
 
-    Application sl;
-    Application taxiApplication;
-
     @Autowired
     PackageRepository packageRepository;
-
-    @Autowired
-    ApplicationRepository applicationRepository;
 
     @BeforeEach
     void setUp() {
@@ -39,7 +37,7 @@ public class PackRepositoryTest extends DomainResource {
         Curator johndoe = getJohnDoeCurator();
         Curator alyssa = getAlissaMcarthyCurator();
 
-        Tag stockholmTag = getStockholmTag();
+        stockholmTag = getStockholmTag();
         Tag gothenburgTag = getGoteborgTag();
         Tag cultureTag = getCultureTag();
         Tag travelTag = getTravelTag();
@@ -54,6 +52,23 @@ public class PackRepositoryTest extends DomainResource {
         stockholmPackage.addApplication(sl);
         stockholmPackage2.addApplication(sl);
 
+        mockPackageGothenburg.addTag(gothenburgTag);
+        mockPackageGothenburg.addTag(travelTag);
+        mockPackageGothenburg.addTag(cultureTag);
+
+        stockholmPackage.addTag(stockholmTag);
+        stockholmPackage.addTag(travelTag);
+        stockholmPackage.addTag(foodtag);
+
+        stockholmPackage2.addTag(stockholmTag);
+        stockholmPackage2.addTag(travelTag);
+        stockholmPackage2.addTag(cultureTag);
+
+        testEntityManager.persistAndFlush(stockholmTag);
+        testEntityManager.persistAndFlush(cultureTag);
+        testEntityManager.persistAndFlush(gothenburgTag);
+        testEntityManager.persistAndFlush(foodtag);
+        testEntityManager.persistAndFlush(travelTag);
 
         testEntityManager.persistAndFlush(sl);
         testEntityManager.persistAndFlush(taxiApplication);
@@ -67,7 +82,7 @@ public class PackRepositoryTest extends DomainResource {
     @Test
     @DisplayName("Should find packages by city")
     void itShouldFindPackagesBelongingToCity() {
-        Page<Package> stockPackage = packageRepository.findByCityIgnoreCase("stockholm", PageRequest.of(0, 10));
+        Page<Package> stockPackage = packageRepository.findByCity("stockholm", PageRequest.of(0, 10));
         assertThat(stockPackage.getContent()).hasSize(2);
         stockPackage.getContent().forEach(aPackage -> assertThat(aPackage.getCity()).isEqualTo("Stockholm"));
     }
@@ -75,7 +90,7 @@ public class PackRepositoryTest extends DomainResource {
     @Test
     @DisplayName("Should not find packages by city")
     void itShouldNotFindPackagesBelongingToCity() {
-        Page<Package> stockPackage = packageRepository.findByCityIgnoreCase("new york", PageRequest.of(2, 10));
+        Page<Package> stockPackage = packageRepository.findByCity("new york", PageRequest.of(2, 10));
         assertThat(stockPackage.getContent()).hasSize(0);
     }
 
@@ -96,5 +111,21 @@ public class PackRepositoryTest extends DomainResource {
         stockPackage.getContent().forEach(aPackage -> assertThat(aPackage.getUsefulApplications().contains(sl)).isFalse());
     }
 
+    @Test
+    @DisplayName("Should find packages by tag")
+    void itShouldFindPackagesContainingTag() {
+        Page<Package> stockPackage = packageRepository.findAllByTags(stockholmTag, PageRequest.of(0,10));
+        assertThat(stockPackage.getContent()).hasSize(2);
+        stockPackage.getContent().forEach(aPackage -> assertThat(aPackage.getCity()).isEqualTo("Stockholm"));
+    }
+
+
+    @Test
+    @DisplayName("Should find packages by tag")
+    void itShouldNotFindPackagesContainingTag() {
+        Page<Package> stockPackage = packageRepository.findAllByTags(stockholmTag, PageRequest.of(0,10));
+        assertThat(stockPackage.getContent()).hasSize(2);
+        stockPackage.getContent().forEach(aPackage -> assertThat(aPackage.getCity()).isNotEqualTo("Göteborg"));
+    }
 
 }

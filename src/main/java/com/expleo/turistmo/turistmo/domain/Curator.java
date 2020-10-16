@@ -53,9 +53,10 @@ public class Curator extends BaseEntity {
 
     private String avatarUrl="EMPTY";
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT",name = "curator_description")
     private String description;
     @Enumerated(EnumType.STRING)
+    @Column(name = "curator_role")
     private Role role=Role.CURATOR;
     private Boolean verified=false;
 

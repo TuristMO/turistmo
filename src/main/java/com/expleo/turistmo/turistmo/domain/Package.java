@@ -45,7 +45,7 @@ public class Package extends BaseEntity {
     @Size(min = 2, max = 40, message = "City name should be between 2-40 characters.")
     private String city;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT",name = "package_description")
     @NotBlank(message = "You must enter a description about the package.")
     private String description;
 

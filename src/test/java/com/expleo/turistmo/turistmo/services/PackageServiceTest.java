@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 
 import com.expleo.turistmo.turistmo.domain.Application;
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ class PackageServiceTest extends DomainResource {
     ArgumentCaptor<Pageable> pageableCaptor;
 
     @Captor
+    ArgumentCaptor<Tag> tagCaptor;
+
+    @Captor
     ArgumentCaptor<String> cityCaptor;
 
     @Captor
@@ -47,12 +51,14 @@ class PackageServiceTest extends DomainResource {
 
     List<Package> packageList;
     Application sl;
+    Package stockholmPackage;
+    Tag stockholmTag;
 
     @BeforeEach
     void setUp() {
         sl = getSLApplication();
-        Package stockholmPackage = getStockholmPackage();
-
+        stockholmPackage = getStockholmPackage();
+        stockholmTag = getStockholmTag();
         packageList = List.of(stockholmPackage);
     }
 
@@ -76,7 +82,7 @@ class PackageServiceTest extends DomainResource {
     @DisplayName("Should not find package with page request.")
     void itShouldNotFindPackagesWithPageRequest() {
         //GIVEN
-        Page<Package> packages = new PageImpl<>(new ArrayList<Package>());
+        Page<Package> packages = new PageImpl<>(new ArrayList<>());
         given(packageRepository.findAll(any(Pageable.class))).willReturn(packages);
         //WHEN
         Page<Package> result = packageService.getPackages(0, 2);
@@ -93,18 +99,18 @@ class PackageServiceTest extends DomainResource {
     void itShouldFindPackagesByCityWithPageRequest() {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
-        given(packageRepository.findByCityIgnoreCase(anyString(), any(Pageable.class))).willReturn(packages);
+        given(packageRepository.findByCity(anyString(), any(Pageable.class))).willReturn(packages);
         //WHEN
-        Page<Package> result = packageService.getPackagesByCity(0, 2, "stockholm");
+        Page<Package> result = packageService.getPackagesByCity(0, 2, "Stockholm");
         //THEN
         then(packageRepository).should(times(1))
-                .findByCityIgnoreCase(cityCaptor.capture(),pageableCaptor.capture());
+                .findByCity(cityCaptor.capture(),pageableCaptor.capture());
         Pageable pageable = pageableCaptor.getValue();
         String city = cityCaptor.getValue();
         assertThat(result.getTotalElements()).isEqualTo(1);
         assertThat(pageable.getPageNumber()).isEqualTo(0);
         assertThat(pageable.getPageSize()).isEqualTo(2);
-        assertThat(city).isEqualTo("stockholm");
+        assertThat(city).isEqualTo("Stockholm");
     }
 
     @Test
@@ -120,6 +126,27 @@ class PackageServiceTest extends DomainResource {
                 .findAllByApplications(appCaptor.capture(),pageableCaptor.capture());
         Pageable pageable = pageableCaptor.getValue();
         Application application = appCaptor.getValue();
+        assertThat(application).isNotNull();
+        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(pageable.getPageNumber()).isEqualTo(0);
+        assertThat(pageable.getPageSize()).isEqualTo(2);
+        assertThat(sl.getGuid()).isNotEqualTo("1");
+    }
+
+    @Test
+    @DisplayName("Should find package by tag name with page request.") //todo Problems
+    void itShouldFindPackagesByTagsWithPageRequest() {
+        //GIVEN
+        Page<Package> packages = new PageImpl<>(packageList);
+        given(packageRepository.findAllByTags(any(Tag.class), any(Pageable.class))).willReturn(packages);
+        //WHEN
+        Page<Package> result = packageService.getPackagesByTag(0, 2, stockholmTag);
+        //THEN
+        then(packageRepository).should(times(1))
+                .findAllByTags(tagCaptor.capture(),pageableCaptor.capture());
+        Pageable pageable = pageableCaptor.getValue();
+        Tag stockholmTag = tagCaptor.getValue();
+        assertThat(stockholmTag).isNotNull();
         assertThat(result.getTotalElements()).isEqualTo(1);
         assertThat(pageable.getPageNumber()).isEqualTo(0);
         assertThat(pageable.getPageSize()).isEqualTo(2);

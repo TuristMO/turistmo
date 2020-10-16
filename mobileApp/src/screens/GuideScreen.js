@@ -10,8 +10,8 @@ const platForms = {
         deletePath: "ios delete"
     },
     "android": {
-        installPath: "android installations",
-        deletePath: "android delete"
+        installPath: require( "../videos/InstallAndroid.gif"),
+        deletePath: require( "../videos/deletAndroid.gif")
     }
 }
 

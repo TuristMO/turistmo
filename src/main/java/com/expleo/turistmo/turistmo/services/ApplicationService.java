@@ -19,4 +19,9 @@ public class ApplicationService {
         PageRequest pageable = PageRequest.of(page, size);
         return applicationRepository.findApplicationsByGuid(uuid, pageable);
     }
+
+    public Page<Application> getApplicationByTitle(Integer page, Integer size, String title) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return applicationRepository.findApplicationsByTitle(title, pageable);
+    }
 }

@@ -32,14 +32,22 @@ module.exports = {
             avdName: "Pixel_3_API_29",
           },
         },
-    "rikard": {
-      binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
-      build: "cd android && gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
-      type: "android.emulator",
-      device: {
-        avdName: "Pixel_3_API_30",
-      },
-    },
+    "atef": {
+          binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
+          build: "cd android && ./gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+          type: "android.attached",
+          device: {
+            avdName: "RF8M80C2LHR",
+          },
+        },
+    "jocke": {
+          binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
+          build: "cd android && gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+          type: "android.attached",
+          device: {
+            avdName: "R58M338CEJK",
+          },
+        },
     "ios.sim.release": {
       binaryPath: "ios/build/Build/Products/Release-iphonesimulator/mobileApp.app",
       build: "xcodebuild -workspace ios/mobileApp.xcworkspace -scheme mobileApp -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
