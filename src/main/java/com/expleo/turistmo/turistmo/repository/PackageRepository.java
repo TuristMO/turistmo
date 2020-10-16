@@ -21,7 +21,7 @@ public interface PackageRepository extends JpaRepository<Package, Long> {
     @Query("select pack FROM Package pack JOIN pack.usefulApplications u WHERE LOWER(u.title) = LOWER(?1)")
     Page<Package> findAllByApplicationTitle(String applicationTitle, Pageable pageable);
 
-    @Query("select pack FROM Package pack JOIN pack.tags u WHERE u = (?1)")
+    @Query("select pack FROM Package pack JOIN pack.tags u WHERE u = (?1)") //TODO - Make all queries get city also
     Page<Package> findAllByTags(Tag searchTag, Pageable pageable);
 
     @Query("select pack FROM Package pack JOIN pack.tags u WHERE LOWER(u.title) = LOWER(?1)")

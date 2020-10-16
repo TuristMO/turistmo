@@ -84,7 +84,10 @@ class PackageControllerSearchTest extends DomainResource {
         given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
 
         //WHEN
-        mockMvc.perform(get("/api/v1/package/search/stockholm"))
+        mockMvc.perform(get("/api/v1/package")
+                .param("page", String.valueOf(0))
+                .param("size", String.valueOf(10))
+                .param("search", "stockholm"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andDo(print());
@@ -106,7 +109,10 @@ class PackageControllerSearchTest extends DomainResource {
         given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
 
         //WHEN
-        mockMvc.perform(get("/api/v1/package/search/travel"))
+        mockMvc.perform(get("/api/v1/package")
+                .param("page", String.valueOf(0))
+                .param("size", String.valueOf(10))
+                .param("search", "travel"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andDo(print());
@@ -128,7 +134,10 @@ class PackageControllerSearchTest extends DomainResource {
         given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
 
         //WHEN
-        mockMvc.perform(get("/api/v1/package/search/sl"))
+        mockMvc.perform(get("/api/v1/package/")
+                .param("page", String.valueOf(0))
+                .param("size", String.valueOf(10))
+                .param("search", "sl"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andDo(print());

@@ -1,6 +1,7 @@
 package com.expleo.turistmo.turistmo.web;
 
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -75,21 +76,24 @@ class PackageControllerTest extends DomainResource {
     void itShouldReturnPageWithPackages() throws Exception {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
-        given(packageService.getPackages(any(Integer.class), any(Integer.class))).willReturn(packages);
+        given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
 
         //WHEN
         mockMvc.perform(get("/api/v1/package")
             .param("page", String.valueOf(0))
-            .param("size", String.valueOf(1)))
+            .param("size", String.valueOf(1))
+            .param("search", ""))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.totalElements", is(1)))
+            .andExpect(jsonPath("$.totalElements", is(1))) //Default value Stockholm
             .andDo(print());
         //THEN
-        then(packageService).should().getPackages(pageCaptor.capture(), sizeCaptor.capture());
+        then(packageService).should().getAllPackagesBasedOnSearch(pageCaptor.capture(), sizeCaptor.capture(),stringCaptor.capture());
         Integer pageValueCaptured = pageCaptor.getValue();
         Integer sizeValueCaptured = sizeCaptor.getValue();
+        String stringValueCaptured = stringCaptor.getValue();
         assertThat(pageValueCaptured).isEqualTo(0);
         assertThat(sizeValueCaptured).isEqualTo(1);
+        assertThat(stringValueCaptured).isEqualTo("Stockholm");
     }
 
     @Test
@@ -98,7 +102,7 @@ class PackageControllerTest extends DomainResource {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
         String errorMessage = "Page must be bigger or equal to 0.";
-        given(packageService.getPackages(any(), any()))
+        given(packageService.getAllPackagesBasedOnSearch(any(), any(),anyString()))
             .willThrow(new IllegalArgumentException(errorMessage));
 
         //WHEN
@@ -120,15 +124,18 @@ class PackageControllerTest extends DomainResource {
     void itShouldReturnPageWithPackagesWithoutParams() throws Exception {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
-        given(packageService.getPackages(any(Integer.class), any(Integer.class))).willReturn(packages);
+        given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
 
         //WHEN
-        mockMvc.perform(get("/api/v1/package"))
+        mockMvc.perform(get("/api/v1/package")
+                .param("page", String.valueOf(0))
+                .param("size", String.valueOf(10))
+                .param("search", ""))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andDo(print());
         //THEN
-        then(packageService).should().getPackages(pageCaptor.capture(), sizeCaptor.capture());
+        then(packageService).should().getAllPackagesBasedOnSearch(pageCaptor.capture(), sizeCaptor.capture(),stringCaptor.capture());
         Integer pageValueCaptured = pageCaptor.getValue();
         Integer sizeValueCaptured = sizeCaptor.getValue();
         assertThat(pageValueCaptured).isEqualTo(0);

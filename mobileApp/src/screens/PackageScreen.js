@@ -10,11 +10,11 @@ const PackageScreen = (props) => {
   const { location, packages: { packages, loading }, getAllPackages, navigation } = props;
 
   const [text, setText] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
+ // const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     // TEMPORARY SOLUTION UNTIL GEO LOCATION IS ACCEPTED FROM "PO"
-    getAllPackages((returnPackage) => setFilteredData(returnPackage));
+    getAllPackages(text);
 
     //DOES NOT WORK!
     // Geolocation.getCurrentPosition(
@@ -37,14 +37,14 @@ const PackageScreen = (props) => {
   };
 
   const searchResult = (searchQuery) => {
-    const searchData = filteredData.filter(item => item.city.toLowerCase().startsWith(searchQuery.toLowerCase()))
-    setFilteredData(searchData);
+    const searchData = packages.filter(item => item.city.toLowerCase().startsWith(searchQuery.toLowerCase()))
+    //setFilteredData(searchData);
   }
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" style={{ flex: 1, justifyContent: "center" }}/>
   }
-
+    console.log(packages)
   return (
       <SafeAreaView style={{ marginTop: 30, marginHorizontal: 10, flex: 1 }}>
         <Input
@@ -58,11 +58,11 @@ const PackageScreen = (props) => {
         <Button
             testID="searchButton"
             title="Search"
-            onPress={() => searchResult(text)}
+            onPress={() => getAllPackages(text)}
         />
         <FlatList
-            data={filteredData}
-            keyExtractor={(item) => item.guid.toString()}
+            data={packages}
+            keyExtractor={(item) => item.guid}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => {
               return <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate("Package details")}>

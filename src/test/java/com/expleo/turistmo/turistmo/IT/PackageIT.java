@@ -30,8 +30,10 @@ public class PackageIT extends ITResources {
 
         List<Package> packageList = packageResponse.getBody().getContent();
         //Notes that the h2 database get also populated with data from BootstrapDB class.
-        //That is why we get result 3. Used to be 3, added another package which made this test return 4
-        assertThat(packageList).hasSize(4); //Change when Bootstrap DB gets removed to whatever mocked size.
+        //That is why we get result 3. 
+        assertThat(packageList).hasSize(2); //Change when Bootstrap DB gets removed to whatever mocked size.
+        assertThat(packageList.size()).isNotEqualTo(3); //Default value Stockholm makes the response only give 2 elements.
+
         assertThat(packageResponse.getStatusCode()).isEqualTo(OK);
     }
 

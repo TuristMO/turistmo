@@ -28,20 +28,9 @@ public class PackageController {
     private final PackageService packageService;
 
     @GetMapping
-    public ResponseEntity<?> getAllPackages(@RequestParam(defaultValue = "0") Integer page,
-                                            @RequestParam(defaultValue = "10") Integer size) {
-        try {
-            Page<Package> packages = packageService.getPackages(page, size);
-            return ResponseEntity.status(HttpStatus.OK).body(packages);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }
-    }
-
-    @GetMapping(value = "/search/{search}")
     public ResponseEntity<?> findPackagesBasedOnMostSearchHits(@RequestParam(defaultValue = "0") Integer page,
                                                                @RequestParam(defaultValue = "10") Integer size,
-                                                               @PathVariable String search) {
+                                                               @RequestParam(defaultValue = "Stockholm") String search) {
         try {
             Page<Package> packages = packageService.getAllPackagesBasedOnSearch(page,size,search);
             return ResponseEntity.status(HttpStatus.OK).body(packages);
@@ -49,6 +38,4 @@ public class PackageController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
     }
-
-
 }
