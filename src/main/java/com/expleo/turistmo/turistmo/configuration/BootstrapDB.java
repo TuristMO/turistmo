@@ -141,8 +141,43 @@ public class BootstrapDB implements CommandLineRunner {
             pack2.addTag(savedGoteborgTag);
             pack2.addTag(savedCultureTag);
 
+            Package pack3 = Package.builder()
+                    .title("Stockholm Food")
+                    .city("Stockholm")
+                    .curator(savedJohnDoe)
+                    .guid(UUID.randomUUID())
+                    .description("Om du vill få ut det bästa av Stockholms matutbud, så är dessa appar något för dig!")
+                    .build();
+
+            Application foodApp = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=appinventor.ai_viktor_ohlsson.Radiomuseet")
+                    .title("food app1")
+                    .ios_link("empty-for-now")
+                    .guid(UUID.randomUUID())
+                    .logo("https://lh3.googleusercontent.com/jiVkiuhFHRTNKMi-KfWPvyAq_Re7vSpqwoYJ_PbLQZjIWcdb4_KxuNwJX9HcUX_EXEY=s128-rw")
+                    .build();
+
+            Application foodApp2 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.mobilestorytelling.higab&hl=en")
+                    .ios_link("empty-for-now")
+                    .logo("https://lh3.googleusercontent.com/WoBeYKgQ1CzlGPhNCM593u-ADxVk83y_3RNEOFhzIgGlzEBp8SPvrJ3yvuWdzrLC3dk=s180-rw")
+                    .title("food app2")
+                    .guid(UUID.randomUUID())
+                    .build();
+            Application savedFoodApp = applicationRepository.save(foodApp);
+            Application savedFoodApp2 = applicationRepository.save(foodApp2);
+
+            pack3.addApplication(savedFoodApp);
+            pack3.addApplication(savedFoodApp2);
+            pack3.addApplication(savedSL);
+
+            pack3.addTag(savedStockholmTag);
+            pack3.addTag(savedFoodTag);
+            pack3.addTag(savedTravelTag);
+
             packageRepository.save(pack);
             packageRepository.save(pack2);
+            packageRepository.save(pack3);
 
         }
     }

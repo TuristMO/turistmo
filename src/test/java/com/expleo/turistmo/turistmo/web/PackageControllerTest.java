@@ -1,8 +1,10 @@
 package com.expleo.turistmo.turistmo.web;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,14 +12,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.expleo.turistmo.turistmo.domain.Application;
+import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
 import com.expleo.turistmo.turistmo.services.ApplicationService;
 import com.expleo.turistmo.turistmo.services.PackageService;
 import java.util.List;
-import org.assertj.core.api.Assertions;
+
+import com.expleo.turistmo.turistmo.services.TagService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -38,6 +43,9 @@ class PackageControllerTest extends DomainResource {
     PackageService packageService;
 
     @MockBean
+    TagService tagService;
+
+    @MockBean
     ApplicationService applicationService;
 
     @Autowired
@@ -47,12 +55,18 @@ class PackageControllerTest extends DomainResource {
     ArgumentCaptor<Integer> pageCaptor;
     @Captor
     ArgumentCaptor<Integer> sizeCaptor;
+    @Captor
+    ArgumentCaptor<String> stringCaptor;
 
     List<Package> packageList;
+    Application sl;
+    Application taxiApplication;
+    Tag stockholmTag;
+
 
     @BeforeEach
     void setUp() {
-        Package stockholmPackage =getStockholmPackage();
+        Package stockholmPackage = getStockholmPackage();
         packageList = List.of(stockholmPackage);
     }
 

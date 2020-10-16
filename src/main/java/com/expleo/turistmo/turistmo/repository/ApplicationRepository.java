@@ -13,4 +13,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     @Query("SELECT a FROM Application a WHERE (a.guid) = (?1)")
     Page<Application> findApplicationsByGuid(UUID guid, Pageable pageable);
+
+    @Query("SELECT a FROM Application a WHERE LOWER(a.title) = LOWER(?1)")
+    Page<Application> findApplicationsByTitle(String title, Pageable pageable);
 }
