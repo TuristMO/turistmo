@@ -32,6 +32,17 @@ module.exports = {
             avdName: "Pixel_3_API_29",
           },
         },
+<<<<<<< HEAD
+=======
+      "rikard": {
+          binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
+          build: "cd android && gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+          type: "android.emulator",
+          device: {
+              avdName: "Pixel_3_API_30",
+          },
+      },
+>>>>>>> a35023c28591b36a9df29884efe6adaafbf50832
     "atef": {
           binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
           build: "cd android && ./gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",

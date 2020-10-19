@@ -4,7 +4,7 @@ const {device, expect, element, by, waitFor} = require('detox');
 
 export class SplashSO extends Utility {
 
-    async clickGetStartedButton(timeout = 10000) {
+    async clickGetStartedButton(timeout) {
         await this.toBeVisibleById("getStarted", timeout);
         await this.tapById("getStarted");
     }
