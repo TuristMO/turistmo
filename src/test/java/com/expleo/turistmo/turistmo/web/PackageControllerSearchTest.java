@@ -1,7 +1,5 @@
 package com.expleo.turistmo.turistmo.web;
 
-
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.expleo.turistmo.turistmo.domain.Application;
-import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
@@ -37,8 +34,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(PackageController.class)
-class PackageControllerTest extends DomainResource {
-
+class PackageControllerSearchTest extends DomainResource {
 
     @MockBean
     PackageService packageService;
@@ -60,68 +56,29 @@ class PackageControllerTest extends DomainResource {
     ArgumentCaptor<String> stringCaptor;
 
     List<Package> packageList;
+    Package stockholmPackage;
     Application sl;
     Application taxiApplication;
-    Tag stockholmTag;
+    Tag travelTag;
 
 
     @BeforeEach
     void setUp() {
-        Package stockholmPackage = getStockholmPackage();
+        stockholmPackage = getStockholmPackage();
+        sl = getSLApplication();
+        taxiApplication = getTaxiApplication();
+        travelTag = getTravelTag();
+        stockholmPackage.addTag(travelTag);
+        stockholmPackage.addApplication(sl);
+        stockholmPackage.addApplication(taxiApplication);
+
         packageList = List.of(stockholmPackage);
     }
 
-    @Test
-    @DisplayName("It should return page with packages.")
-    void itShouldReturnPageWithPackages() throws Exception {
-        //GIVEN
-        Page<Package> packages = new PageImpl<>(packageList);
-        given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
-
-        //WHEN
-        mockMvc.perform(get("/api/v1/package")
-            .param("page", String.valueOf(0))
-            .param("size", String.valueOf(1))
-            .param("search", ""))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.totalElements", is(1))) //Default value Stockholm
-            .andDo(print());
-        //THEN
-        then(packageService).should().getAllPackagesBasedOnSearch(pageCaptor.capture(), sizeCaptor.capture(),stringCaptor.capture());
-        Integer pageValueCaptured = pageCaptor.getValue();
-        Integer sizeValueCaptured = sizeCaptor.getValue();
-        String stringValueCaptured = stringCaptor.getValue();
-        assertThat(pageValueCaptured).isEqualTo(0);
-        assertThat(sizeValueCaptured).isEqualTo(1);
-        assertThat(stringValueCaptured).isEqualTo("Stockholm");
-    }
 
     @Test
-    @DisplayName("It should throw an exception when sending less than 0 as request param.")
-    void itShouldThrowAnException() throws Exception {
-        //GIVEN
-        Page<Package> packages = new PageImpl<>(packageList);
-        String errorMessage = "Page must be bigger or equal to 0.";
-        given(packageService.getAllPackagesBasedOnSearch(any(), any(),anyString()))
-            .willThrow(new IllegalArgumentException(errorMessage));
-
-        //WHEN
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/package")
-            .param("page", String.valueOf(-10))
-            .param("size", String.valueOf(1))
-            .param("city", ""))
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-        //THEN
-        String returnedErrorMessage = mvcResult.getResponse().getErrorMessage();
-        assertThat(returnedErrorMessage).isEqualTo(errorMessage);
-
-    }
-
-    @Test
-    @DisplayName("It should return page with packages without parameters.")
-    void itShouldReturnPageWithPackagesWithoutParams() throws Exception {
+    @DisplayName("It should return page with packages based on searching for City.")
+    void itShouldReturnPageWithPackagesBasedOnSearchForCity() throws Exception {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
         given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
@@ -130,7 +87,7 @@ class PackageControllerTest extends DomainResource {
         mockMvc.perform(get("/api/v1/package")
                 .param("page", String.valueOf(0))
                 .param("size", String.valueOf(10))
-                .param("search", ""))
+                .param("search", "stockholm"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andDo(print());
@@ -138,7 +95,59 @@ class PackageControllerTest extends DomainResource {
         then(packageService).should().getAllPackagesBasedOnSearch(pageCaptor.capture(), sizeCaptor.capture(),stringCaptor.capture());
         Integer pageValueCaptured = pageCaptor.getValue();
         Integer sizeValueCaptured = sizeCaptor.getValue();
+        String stringValueCaptured = stringCaptor.getValue();
         assertThat(pageValueCaptured).isEqualTo(0);
         assertThat(sizeValueCaptured).isEqualTo(10);
+        assertThat(stringValueCaptured).isEqualTo("stockholm");
+    }
+
+    @Test
+    @DisplayName("It should return page with packages based on searching for Tag.")
+    void itShouldReturnPageWithPackagesBasedOnSearchForTag() throws Exception {
+        //GIVEN
+        Page<Package> packages = new PageImpl<>(packageList);
+        given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
+
+        //WHEN
+        mockMvc.perform(get("/api/v1/package")
+                .param("page", String.valueOf(0))
+                .param("size", String.valueOf(10))
+                .param("search", "travel"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(1)))
+                .andDo(print());
+        //THEN
+        then(packageService).should().getAllPackagesBasedOnSearch(pageCaptor.capture(), sizeCaptor.capture(),stringCaptor.capture());
+        Integer pageValueCaptured = pageCaptor.getValue();
+        Integer sizeValueCaptured = sizeCaptor.getValue();
+        String stringValueCaptured = stringCaptor.getValue();
+        assertThat(pageValueCaptured).isEqualTo(0);
+        assertThat(sizeValueCaptured).isEqualTo(10);
+        assertThat(stringValueCaptured).isEqualTo("travel");
+    }
+
+    @Test
+    @DisplayName("It should return page with packages based on searching for Application.")
+    void itShouldReturnPageWithPackagesBasedOnSearchForApplication() throws Exception {
+        //GIVEN
+        Page<Package> packages = new PageImpl<>(packageList);
+        given(packageService.getAllPackagesBasedOnSearch(any(Integer.class), any(Integer.class),anyString())).willReturn(packages);
+
+        //WHEN
+        mockMvc.perform(get("/api/v1/package/")
+                .param("page", String.valueOf(0))
+                .param("size", String.valueOf(10))
+                .param("search", "sl"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(1)))
+                .andDo(print());
+        //THEN
+        then(packageService).should().getAllPackagesBasedOnSearch(pageCaptor.capture(), sizeCaptor.capture(),stringCaptor.capture());
+        Integer pageValueCaptured = pageCaptor.getValue();
+        Integer sizeValueCaptured = sizeCaptor.getValue();
+        String stringValueCaptured = stringCaptor.getValue();
+        assertThat(pageValueCaptured).isEqualTo(0);
+        assertThat(sizeValueCaptured).isEqualTo(10);
+        assertThat(stringValueCaptured).isEqualTo("sl");
     }
 }
