@@ -6,7 +6,17 @@ export class PackageSO extends Utility {
 
     async fillSearchField(inputText, timeout) {
         await this.toBeVisibleById("searchField", timeout);
+        await this.replaceTextById("searchField", inputText, timeout);
+    }
+
+    async typeSearchField(inputText, timeout) {
+        await this.toBeVisibleById("searchField", timeout);
         await this.typeTextById("searchField", inputText, timeout);
+    }
+
+    async clearSearchField(timeout) {
+        await this.toBeVisibleById("searchField", timeout);
+        await this.clearTextById("searchField", timeout);
     }
 
     async clickSearchButton(timeout) {

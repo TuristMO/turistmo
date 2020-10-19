@@ -16,9 +16,10 @@ describe('TuristMO', () => {
         await device.reloadReactNative();
     });
 
-    it('1.1 Sökning på stad', async () => {
+    it('1.4 Sökning på kategori', async () => {
 
-        await packageSO.fillSearchField("Stockholm");
+        /*
+        await packageSO.fillSearchField("Travel");
         await packageSO.clickSearchButton();
         await packageSO.findSearchResultByPackageTitle("Travelling around Stockholm", 0);
         await packageSO.findSearchResultByPackageTitle("Stockholm Food", 1);
@@ -28,6 +29,7 @@ describe('TuristMO', () => {
         await packageSO.fillSearchField("Göteborg");
         await packageSO.clickSearchButton();
         await packageSO.findSearchResultByPackageTitle("Göteborg culture", 0);
+        */
 
     });
 
