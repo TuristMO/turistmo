@@ -46,19 +46,16 @@ const PackageScreen = (props) => {
   }
     console.log(packages)
   return (
-      <SafeAreaView style={{ marginTop: 30, marginHorizontal: 10, flex: 1 }}>
+      // <SafeAreaView style={{ marginTop: 20, marginHorizontal: 10, flex: 1 }}>
+      <SafeAreaView style={{ marginTop:25, marginHorizontal: 20, flex: 1 }}>
         <Input
             testID="searchField"
             accessibilityLabel='searchField'
             style={{ height: 40 }}
             onChangeText={text => setText(text)}
             placeholder="Search"
-
-        />
-        <Button
-            testID="searchButton"
-            title="Search"
-            onPress={() => getAllPackages(text)}
+            returnKeyType={"search"}
+            onSubmitEditing={() => getAllPackages(text)}
         />
         <FlatList
             data={packages}
