@@ -58,6 +58,7 @@ const PackageScreen = (props) => {
             onSubmitEditing={() => getAllPackages(text)}
         />
         <FlatList
+            testID="packageFlatList"
             data={packages}
             keyExtractor={(item) => item.guid}
             showsVerticalScrollIndicator={false}
