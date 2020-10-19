@@ -51,7 +51,6 @@ const PackageScreen = (props) => {
         <Input
             testID="searchField"
             accessibilityLabel='searchField'
-            style={{ height: 40 }}
             onChangeText={text => setText(text)}
             placeholder="Search"
             returnKeyType={"search"}
