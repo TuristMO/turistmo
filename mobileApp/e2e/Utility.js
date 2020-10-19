@@ -34,14 +34,12 @@ export class Utility {
         await waitFor(element(by.label(label))).toExist().withTimeout(timeout);
     }
 
-
-    async waitToHaveText(id, inputText, timeout = 10000) {
+    async waitToHaveTextById(id, inputText, timeout = 10000) {
         await waitFor(element(by.id(id))).toHaveText(inputText).withTimeout(timeout);
     }
 
-    async waitToHaveTextAtIndex(id, inputText, index, timeout = 10000) {
+    async waitToHaveTextAtIndexById(id, inputText, index = 0, timeout = 10000) {
         await waitFor(element(by.id(id)).atIndex(index)).toHaveText(inputText).withTimeout(timeout);
     }
-
 
 }

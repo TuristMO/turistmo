@@ -4,18 +4,32 @@ import {PackageSO} from "../../screens/PackageSO";
 const {device, expect, element, by, waitFor} = require('detox');
 const {getText, getProps} = require('detox-getprops');
 
-describe('App', () => {
+describe('TuristMO', () => {
+
+    let packageSO = new PackageSO();
+
+    beforeAll(async ()=>{
+        await device.disableSynchronization();
+        await device.launchApp({ permissions: { location: 'never' } });
+    })
 
     beforeEach(async () => {
         await device.reloadReactNative();
     });
 
-    it('search should show results', async () => {
-
-        let packageSO = new PackageSO();
+    it('1.1 Sökning på stad', async () => {
 
         await packageSO.fillSearchField("Stockholm");
         await packageSO.clickSearchButton();
+        await packageSO.findSearchResultByPackageTitle("Travelling around Stockholm", 0);
+        //await packageSO.findSearchResultByPackageTitle("Stockholm Food", 1);
+        //await packageSO.waitToHaveTextAtIndexById("packageTitle", "Travelling around Stockholm", 0);
+        //await packageSO.waitToHaveTextAtIndexById("packageTitle", "Stockholm Food", 1);
+
+        //await packageSO.fillSearchField("Göteborg");
+        //await packageSO.clickSearchButton();
+        //await packageSO.findSearchResultByPackageTitle("Göteborg culture", 0);
+        //await packageSO.waitToHaveTextAtIndexById("packageTitle", "Göteborg culture ", 0);
 
         //const cardItem = await element(by.label("packageTitle")).atIndex(0);
         //console.log("Something: " + cardItem);
