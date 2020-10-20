@@ -33,7 +33,7 @@ const Card = ({ cPackage }) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               data={usefulApplications}
-              keyExtractor={item => item.guid}
+              keyExtractor={item => cPackage.guid+item.guid}
               renderItem={({ item }) => {
                 return <Application logo={item.logo} link={item.android_link} id={item.guid} />
               }}
