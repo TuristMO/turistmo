@@ -29,7 +29,7 @@ import java.util.List;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class TagServiceTest extends DomainResource {
+public class TagServiceTest {
     @Mock
     TagRepository tagRepository;
 
@@ -47,10 +47,12 @@ public class TagServiceTest extends DomainResource {
 
     List<Tag> tagList;
     Tag stockholmTag;
+    DomainResource domainResource;
 
     @BeforeEach
     void setUp(){
-        stockholmTag = getStockholmTag();
+        DomainResource domainResource = new DomainResource();
+        stockholmTag = domainResource.getStockholmTag();
         tagList = List.of(stockholmTag);
     }
 

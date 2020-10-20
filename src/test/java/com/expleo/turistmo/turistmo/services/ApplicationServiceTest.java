@@ -28,7 +28,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-public class ApplicationServiceTest extends DomainResource {
+public class ApplicationServiceTest  {
 
     @Mock
     ApplicationRepository applicationRepository;
@@ -51,9 +51,12 @@ public class ApplicationServiceTest extends DomainResource {
     List<Application> applicationList;
     Application sl;
 
+    DomainResource domainResource;
+
     @BeforeEach
     void setUp(){
-        sl = getSLApplication();
+        domainResource=new DomainResource();
+        sl = domainResource.getSLApplication();
         applicationList = List.of(sl);
     }
 

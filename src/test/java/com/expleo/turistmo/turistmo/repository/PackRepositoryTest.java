@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 @DataJpaTest
-public class PackRepositoryTest extends DomainResource {
+public class PackRepositoryTest {
 
     Application sl;
     Application taxiApplication;
@@ -28,25 +28,26 @@ public class PackRepositoryTest extends DomainResource {
 
     @Autowired
     PackageRepository packageRepository;
+    DomainResource domainResource;
 
     @BeforeEach
     void setUp() {
+        domainResource = new DomainResource();
+        sl = domainResource.getSLApplication();
+        taxiApplication = domainResource.getTaxiApplication();
+        Curator johndoe = domainResource.getJohnDoeCurator();
+        Curator alyssa = domainResource.getAlissaMcarthyCurator();
 
-        sl = getSLApplication();
-        taxiApplication = getTaxiApplication();
-        Curator johndoe = getJohnDoeCurator();
-        Curator alyssa = getAlissaMcarthyCurator();
+        stockholmTag = domainResource.getStockholmTag();
+        Tag gothenburgTag = domainResource.getGoteborgTag();
+        Tag cultureTag = domainResource.getCultureTag();
+        Tag travelTag = domainResource.getTravelTag();
+        Tag foodtag = domainResource.getFoodTag();
 
-        stockholmTag = getStockholmTag();
-        Tag gothenburgTag = getGoteborgTag();
-        Tag cultureTag = getCultureTag();
-        Tag travelTag = getTravelTag();
-        Tag foodtag = getFoodTag();
-
-        Package stockholmPackage = getStockholmPackage();
-        Package stockholmPackage2 = getStockholmPackage();
-        Package mockPackageGothenburg = getGoteborgPackage();
-        Package mockPackageMalmo = getMalmoPackage();
+        Package stockholmPackage = domainResource.getStockholmPackage();
+        Package stockholmPackage2 = domainResource.getStockholmPackage();
+        Package mockPackageGothenburg = domainResource.getGoteborgPackage();
+        Package mockPackageMalmo = domainResource.getMalmoPackage();
 
         mockPackageGothenburg.addApplication(sl);
         stockholmPackage.addApplication(sl);
@@ -114,7 +115,7 @@ public class PackRepositoryTest extends DomainResource {
     @Test
     @DisplayName("Should find packages by tag")
     void itShouldFindPackagesContainingTag() {
-        Page<Package> stockPackage = packageRepository.findAllByTags(stockholmTag, PageRequest.of(0,10));
+        Page<Package> stockPackage = packageRepository.findAllByTags(stockholmTag, PageRequest.of(0, 10));
         assertThat(stockPackage.getContent()).hasSize(2);
         stockPackage.getContent().forEach(aPackage -> assertThat(aPackage.getCity()).isEqualTo("Stockholm"));
     }
@@ -123,7 +124,7 @@ public class PackRepositoryTest extends DomainResource {
     @Test
     @DisplayName("Should find packages by tag")
     void itShouldNotFindPackagesContainingTag() {
-        Page<Package> stockPackage = packageRepository.findAllByTags(stockholmTag, PageRequest.of(0,10));
+        Page<Package> stockPackage = packageRepository.findAllByTags(stockholmTag, PageRequest.of(0, 10));
         assertThat(stockPackage.getContent()).hasSize(2);
         stockPackage.getContent().forEach(aPackage -> assertThat(aPackage.getCity()).isNotEqualTo("Göteborg"));
     }

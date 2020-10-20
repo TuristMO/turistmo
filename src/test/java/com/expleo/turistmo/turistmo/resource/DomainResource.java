@@ -4,8 +4,13 @@ import com.expleo.turistmo.turistmo.domain.Application;
 import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.domain.Tag;
+import com.expleo.turistmo.turistmo.domain.TokenType;
+import com.expleo.turistmo.turistmo.domain.VerificationToken;
+import com.expleo.turistmo.turistmo.web.request.SignUpRequest;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -126,6 +131,22 @@ public class DomainResource {
         return Tag.builder()
             .guid(UUID.randomUUID())
             .title("Travel").build();
+    }
+
+    public SignUpRequest getSignUpRequest(){
+        return new SignUpRequest("johdoe@gmail.com","123321","123321");
+    }
+
+    public VerificationToken getVerificationToken(Curator curator,TokenType tokenType,Date date){
+        return VerificationToken.builder()
+            .token(UUID.randomUUID().toString())
+            .curator(curator)
+            .expiry(date)
+            .createdDate(Timestamp.from(Instant.now()))
+            .type(tokenType)
+            .build();
+
+
     }
 
 }
