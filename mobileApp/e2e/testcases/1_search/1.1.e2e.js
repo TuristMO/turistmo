@@ -19,15 +19,13 @@ describe('TuristMO', () => {
     it('1.1 Sökning på stad', async () => {
 
         await packageSO.fillSearchField("Stockholm");
-        await packageSO.clickSearchButton();
+        await packageSO.doSearch();
         await packageSO.findSearchResultByPackageTitle("Travelling around Stockholm", 0);
         await packageSO.findSearchResultByPackageTitle("Stockholm Food", 1);
-
         await packageSO.clearSearchField();
-
         await packageSO.fillSearchField("Göteborg");
-        await packageSO.clickSearchButton();
-        await packageSO.findSearchResultByPackageTitle("Göteborg culture", 0);
+        await packageSO.doSearch();
+        await packageSO.findSearchResultByPackageTitle("Göteborg culture",0);
 
     });
 

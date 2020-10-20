@@ -28,6 +28,14 @@ export class Utility {
         await element(by.label(label)).tap();
     }
 
+    async tapReturnKeyById(id) {
+        await element(by.id(id)).tapReturnKey();
+    }
+
+    async tapReturnKeyByLabel(label) {
+        await element(by.label(label)).tapReturnKey();
+    }
+
     async clearTextById(id) {
         await element(by.id(id)).clearText();
     }

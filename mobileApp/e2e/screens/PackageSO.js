@@ -6,22 +6,22 @@ export class PackageSO extends Utility {
 
     async fillSearchField(inputText, timeout) {
         await this.toBeVisibleById("searchField", timeout);
-        await this.replaceTextById("searchField", inputText, timeout);
+        await this.replaceTextById("searchField", inputText);
     }
 
     async typeSearchField(inputText, timeout) {
         await this.toBeVisibleById("searchField", timeout);
-        await this.typeTextById("searchField", inputText, timeout);
+        await this.typeTextById("searchField", inputText);
     }
 
     async clearSearchField(timeout) {
         await this.toBeVisibleById("searchField", timeout);
-        await this.clearTextById("searchField", timeout);
+        await this.clearTextById("searchField");
     }
 
-    async clickSearchButton(timeout) {
-        await this.toBeVisibleById("searchButton", timeout);
-        await this.tapById("searchButton");
+    async doSearch(timeout) {
+        await this.toBeVisibleById("searchField", timeout);
+        await this.tapReturnKeyById("searchField");
     }
 
     async findSearchResultByCuratorName(inputText, atIndex = -1, timeout) {
