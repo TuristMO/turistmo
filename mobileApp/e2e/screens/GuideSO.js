@@ -1,22 +1,23 @@
 import {Utility} from "../Utility";
+import {AppSO} from "./AppSO";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
 export class GuideSO extends Utility {
 
     async clickInstallButton(timeout) {
-        await this.toBeVisibleById("install", timeout);
-        await this.tapById("install");
+        await this.toBeVisibleById("guideInstallButton", timeout);
+        await this.tapById("guideInstallButton");
     }
 
     async clickDeleteButton(timeout) {
-        await this.toBeVisibleById("delete", timeout);
-        await this.tapById("delete");
+        await this.toBeVisibleById("guideDeleteButton", timeout);
+        await this.tapById("guideDeleteButton");
     }
 
     async clickCuratorButton(timeout) {
-        await this.toBeVisibleById("curator", timeout);
-        await this.tapById("curator");
+        await this.toBeVisibleById("guideCuratorButton", timeout);
+        await this.tapById("guideCuratorButton");
     }
 
 }

@@ -10,7 +10,7 @@ const GuideInstallScreen = ({navigation,route}) => {
         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
             <Text></Text>
             <View style={{alignItems:"center",justifyContent:"center"}}>
-                <Image
+                <Image testID={"guideVideo"}
                     style={{width:width-50,height:height-153}}
                     source={route.params.path}
                     resizeMode={'cover'}

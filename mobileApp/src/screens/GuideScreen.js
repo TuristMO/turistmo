@@ -40,6 +40,7 @@ const GuideScreen = ({navigation}) => {
                 <Text style={styles.text}>Choose what you need </Text>
                 <View style={styles.button}>
                     <Button
+                        testID={"guideInstallButton"}
                         buttonStyle={styles.signIn}
                         icon={{
                             name: "navigate-next",
@@ -49,6 +50,7 @@ const GuideScreen = ({navigation}) => {
                         title="Install"
                         onPress={() => navigation.navigate('Instructions',{path:platform.installPath})}/>
                     <Button
+                        testID={"guideDeleteButton"}
                         buttonStyle={styles.signIn}
                         icon={{
                             name: "navigate-next",
@@ -58,6 +60,7 @@ const GuideScreen = ({navigation}) => {
                         title="Delete"
                         onPress={() => navigation.navigate('Instructions',{path:platform.deletePath})}/>
                     <Button
+                        testID={"guideCuratorButton"}
                         buttonStyle={styles.signIn}
                         icon={{
                             name: "navigate-next",

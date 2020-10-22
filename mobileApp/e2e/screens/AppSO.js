@@ -12,5 +12,11 @@ export class AppSO extends Utility {
         await sleep(2000);  // (splash + 500ms) Required despite waitFor element in next step
 
     }
+    async tapGuideTab(timeout) {
+
+        await this.toBeVisibleById("GuideTab", timeout);
+        await this.tapById("GuideTab");
+        await sleep(2000);
+    }
 
 }
