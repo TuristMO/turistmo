@@ -27,8 +27,8 @@ export class SigninSO extends Utility {
     }
 
     async fillPassword(inputText, timeout = 10000) {
-        await this.toBeVisibleById("password", timeout);
-        await this.replaceTextById("password", inputText);
+        await this.toBeVisibleById("signinPassword", timeout);
+        await this.replaceTextById("signinPassword", inputText);
     }
     /*
     async toggleEyeHiddenCharacters(timeout = 10000) {

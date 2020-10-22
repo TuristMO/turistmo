@@ -27,10 +27,10 @@ describe('TuristMO', () => {
         await appSO.tapCuratorTab();
         await splashSO.tapGetStartedButton();
         await signinSO.fillSigninEmail("minemailadress@domain.co.uk");
-        await signinSO.waitToHaveTextById("email", "minemailadress@domain.co.uk");
+        await signinSO.waitToHaveTextById("signinEmail", "minemailadress@domain.co.uk");
         await signinSO.fillPassword("123456");
-        await signinSO.tapById("showHideToggle");
-        await signinSO.waitToHaveTextById("password", "123456");
+        await signinSO.tapById("signinShowHideToggle");
+        await signinSO.waitToHaveTextById("signinPassword", "123456");
         await signinSO.tapSigninButton();   //Also expects visibility
 
         //await signinSO.toBeVisibleById("goBackArrow");

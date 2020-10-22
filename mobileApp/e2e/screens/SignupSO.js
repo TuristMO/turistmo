@@ -29,8 +29,8 @@ export class SignupSO extends Utility {
     }
 
     async fillPassword(inputText, timeout = 15000) {
-        await this.toBeVisibleById("password", timeout);
-        await this.typeTextById("password", inputText);
+        await this.toBeVisibleById("signupPassword", timeout);
+        await this.typeTextById("signupPassword", inputText);
     }
 
     async fillConfirmPassword(inputText, timeout = 15000) {
