@@ -52,7 +52,7 @@ const SignupScreen = ({navigation}) => {
               animation={'fadeInUpBig'}
               style={styles.footer}>
             <Input
-                testID={'email'}
+                testID={'signupEmail'}
                 autoCapitalize={'none'}
                 inputStyle={styles.textInput}
                 placeholder='Email'
@@ -79,7 +79,7 @@ const SignupScreen = ({navigation}) => {
                 onChangeText={passwordInputChange}
                 leftIcon={{ type: 'feather', name: 'lock' }}
                 rightIcon={
-                  <TouchableOpacity onPress={updateSecureTextEntry}>
+                  <TouchableOpacity testID={'signupShowHideToggle'} accessibilityLabel={'signupShowHideToggle'} onPress={updateSecureTextEntry}>
                     <Icon
                         type={'feather'}
                         color='gray'

@@ -20,7 +20,7 @@ const Card = ({ cPackage }) => {
               >{firstName} {lastName}</Text>
               <Text style={[styles.headerDate]}>{date} </Text>
             </View>
-            <Text style={styles.headerTitle}>{title} </Text>
+            <Text testID="packageTitle" accessibilityLabel='packageTitle' style={styles.headerTitle}>{title} </Text>
           </View>
 
         </View>
