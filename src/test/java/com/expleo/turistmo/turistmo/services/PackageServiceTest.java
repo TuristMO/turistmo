@@ -14,7 +14,6 @@ import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,7 @@ import org.springframework.data.domain.Pageable;
 
 
 @ExtendWith(MockitoExtension.class)
-class PackageServiceTest extends DomainResource {
+class PackageServiceTest {
 
     @Mock
     PackageRepository packageRepository;
@@ -56,9 +55,10 @@ class PackageServiceTest extends DomainResource {
 
     @BeforeEach
     void setUp() {
-        sl = getSLApplication();
-        stockholmPackage = getStockholmPackage();
-        stockholmTag = getStockholmTag();
+        DomainResource domainResource = new DomainResource();
+        sl = domainResource.getSLApplication();
+        stockholmPackage = domainResource.getStockholmPackage();
+        stockholmTag = domainResource.getStockholmTag();
         packageList = List.of(stockholmPackage);
     }
 
@@ -104,7 +104,7 @@ class PackageServiceTest extends DomainResource {
         Page<Package> result = packageService.getPackagesByCity(0, 2, "Stockholm");
         //THEN
         then(packageRepository).should(times(1))
-                .findByCity(cityCaptor.capture(),pageableCaptor.capture());
+            .findByCity(cityCaptor.capture(), pageableCaptor.capture());
         Pageable pageable = pageableCaptor.getValue();
         String city = cityCaptor.getValue();
         assertThat(result.getTotalElements()).isEqualTo(1);
@@ -114,7 +114,8 @@ class PackageServiceTest extends DomainResource {
     }
 
     @Test
-    @DisplayName("Should find package by application name with page request.") //todo Problems
+    @DisplayName("Should find package by application name with page request.")
+        //todo Problems
     void itShouldFindPackagesByApplicationWithPageRequest() {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
@@ -123,7 +124,7 @@ class PackageServiceTest extends DomainResource {
         Page<Package> result = packageService.getPackagesByApplication(0, 2, sl);
         //THEN
         then(packageRepository).should(times(1))
-                .findAllByApplications(appCaptor.capture(),pageableCaptor.capture());
+            .findAllByApplications(appCaptor.capture(), pageableCaptor.capture());
         Pageable pageable = pageableCaptor.getValue();
         Application application = appCaptor.getValue();
         assertThat(application).isNotNull();
@@ -134,7 +135,8 @@ class PackageServiceTest extends DomainResource {
     }
 
     @Test
-    @DisplayName("Should find package by tag name with page request.") //todo Problems
+    @DisplayName("Should find package by tag name with page request.")
+        //todo Problems
     void itShouldFindPackagesByTagsWithPageRequest() {
         //GIVEN
         Page<Package> packages = new PageImpl<>(packageList);
@@ -143,7 +145,7 @@ class PackageServiceTest extends DomainResource {
         Page<Package> result = packageService.getPackagesByTag(0, 2, stockholmTag);
         //THEN
         then(packageRepository).should(times(1))
-                .findAllByTags(tagCaptor.capture(),pageableCaptor.capture());
+            .findAllByTags(tagCaptor.capture(), pageableCaptor.capture());
         Pageable pageable = pageableCaptor.getValue();
         Tag stockholmTag = tagCaptor.getValue();
         assertThat(stockholmTag).isNotNull();

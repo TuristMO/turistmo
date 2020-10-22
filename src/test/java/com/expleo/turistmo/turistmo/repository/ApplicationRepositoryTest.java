@@ -1,7 +1,10 @@
 package com.expleo.turistmo.turistmo.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.expleo.turistmo.turistmo.domain.Application;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,12 +14,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @DataJpaTest
-public class ApplicationRepositoryTest extends DomainResource {
+public class ApplicationRepositoryTest {
 
     Application sl;
     Application sl2;
@@ -26,36 +25,38 @@ public class ApplicationRepositoryTest extends DomainResource {
 
     @Autowired
     ApplicationRepository applicationRepository;
+    DomainResource domainResource;
 
     @BeforeEach
     void setUp() {
-        sl = getSLApplication();
-        sl2 = getSLApplication();
+        domainResource = new DomainResource();
+        sl = domainResource.getSLApplication();
+        sl2 = domainResource.getSLApplication();
         testEntityManager.persistAndFlush(sl);
         testEntityManager.persistAndFlush(sl2);
     }
 
     @Test
     @DisplayName("Should find all applications")
-    void itShouldFindAllApplications (){
+    void itShouldFindAllApplications() {
         List<Application> applications = applicationRepository.findAll();
         assertThat(applications).hasSize(2);
     }
 
     @Test
     @DisplayName("Should find application by GUID")
-    void itShouldFindApplicationsByGuid (){
+    void itShouldFindApplicationsByGuid() {
         Page<Application> applications = applicationRepository.findApplicationsByGuid(sl.getGuid(),
-                                                                                      PageRequest.of(0, 10));
+            PageRequest.of(0, 10));
         assertThat(applications).hasSize(1);
         assertThat(applications.get().findFirst().get().getGuid()).isEqualTo(sl.getGuid());
     }
 
     @Test
     @DisplayName("Should not find application by GUID")
-    void itShouldNotFindApplicationsByGuid (){
+    void itShouldNotFindApplicationsByGuid() {
         Page<Application> applications = applicationRepository.findApplicationsByGuid(sl.getGuid(),
-                PageRequest.of(0, 10));
+            PageRequest.of(0, 10));
         assertThat(applications).hasSize(1);
         assertThat(applications.get().findFirst().get().getGuid()).isNotEqualByComparingTo(sl2.getGuid());
     }

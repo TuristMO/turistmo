@@ -18,14 +18,14 @@ const Card = ({ cPackage }) => {
                   testID="curatorName"
                   accessibilityLabel='curatorName'
               >{firstName} {lastName}</Text>
-              <Text style={[styles.headerDate]}>{date}</Text>
+              <Text style={[styles.headerDate]}>{date} </Text>
             </View>
-            <Text testID="packageTitle" accessibilityLabel='packageTitle' style={styles.headerTitle}>{title}</Text>
+            <Text testID="packageTitle" accessibilityLabel='packageTitle' style={styles.headerTitle}>{title} </Text>
           </View>
 
         </View>
         <View>
-          <Text style={styles.description}>{description}</Text>
+          <Text style={styles.description}>{description} </Text>
         </View>
         <View style={{ flex: 1 }}>
           <Text style={styles.recApp}> RECOMMENDED APPLICATIONS </Text>

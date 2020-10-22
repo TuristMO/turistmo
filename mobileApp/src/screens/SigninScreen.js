@@ -70,7 +70,7 @@ const SigninScreen = ({ navigation }) => {
                 onChangeText={passwordInputChange}
                 leftIcon={{ type: 'feather', name: 'lock' }}
                 rightIcon={
-                  <TouchableOpacity testID={'showHideToggle'} onPress={updateSecureTextEntry}>
+                  <TouchableOpacity testID={'signinShowHideToggle'} accessibilityLabel={'signinShowHideToggle'} onPress={updateSecureTextEntry}>
                     <Icon
                         type={'feather'}
                         color='gray'

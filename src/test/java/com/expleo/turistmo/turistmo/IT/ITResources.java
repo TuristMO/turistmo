@@ -24,7 +24,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2,replace = ANY)
+@AutoConfigureTestDatabase
 public class ITResources {
 
     @Autowired
@@ -63,7 +63,7 @@ public class ITResources {
 
         Package pack2 = Package.builder()
             .title("Göteborg culture")
-            .city("Göteborg")
+            .city("X§")
             .curator(alissaMcarthy)
             .description("Om du vill få ut det bästa av Göteborgs kulturutbud, så är dessa appar något för dig!")
             .tags(Set.of(stockholmTag))

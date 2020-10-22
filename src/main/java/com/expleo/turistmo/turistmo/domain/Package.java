@@ -41,6 +41,7 @@ public class Package extends BaseEntity {
     @NotBlank(message = "Package must have a title")
     @Size(min = 2, max = 40, message = "Title should be between 2-40 characters.")
     private String title;
+
     @NotBlank(message = "Enter a valid city.")
     @Size(min = 2, max = 40, message = "City name should be between 2-40 characters.")
     private String city;
