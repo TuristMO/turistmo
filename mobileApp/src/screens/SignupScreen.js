@@ -116,7 +116,7 @@ const SignupScreen = ({navigation}) => {
                   onPress={() => console.log('SignUp')}
               />
               <Button
-                  testID={"signupSignIn"}
+                  testID={"signupSignin"}
                   containerStyle={[styles.signInContainer, { marginTop: 10 }]}
                   buttonStyle={[styles.signIn, { borderColor: MAIN_COLOR, borderWidth: 1, backgroundColor: '#fff' }]}
                   titleStyle={[styles.textSign, { color: MAIN_COLOR }]}

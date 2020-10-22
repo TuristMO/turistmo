@@ -22,7 +22,7 @@ describe('TuristMO', () => {
 
     it('5.4 Logga in som curator', async () => {
 
-        // Change later
+        // Testcase to be extended
 
         await appSO.tapCuratorTab();
         await splashSO.tapGetStartedButton();
@@ -32,7 +32,6 @@ describe('TuristMO', () => {
         await signinSO.tapById("signinShowHideToggle");
         await signinSO.waitToHaveTextById("signinPassword", "123456");
         await signinSO.tapSigninButton();   //Also expects visibility
-
         //await signinSO.toBeVisibleById("goBackArrow");
         //await signinSO.tapById("goBackArrow");
         //await splashSO.tapGetStartedButton();  //Also expects visibility
