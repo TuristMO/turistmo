@@ -22,7 +22,6 @@ describe('TuristMO', () => {
         await packageSO.doSearch();
         await packageSO.findSearchResultByPackageTitle("Travelling around Stockholm", 0);
         await packageSO.findSearchResultByPackageTitle("Stockholm Food", 1);
-        await packageSO.clearSearchField();
         await packageSO.fillSearchField("Göteborg");
         await packageSO.doSearch();
         await packageSO.findSearchResultByPackageTitle("Göteborg culture",0);

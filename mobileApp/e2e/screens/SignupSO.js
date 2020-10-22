@@ -1,36 +1,39 @@
 import {Utility} from "../Utility";
+import {sleep} from "../helpers";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
 export class SignupSO extends Utility {
 
-    async clickSigninButton(timeout) {
+    async tapSigninButton(timeout) {
         await this.toBeVisibleById("SignIn", timeout);
         await this.tapById("SignIn");
     }
 
-    async clickSignupButton(timeout) {
+    async tapSignupButton(timeout) {
+
         await this.toBeVisibleById("SignUp", timeout);
         await this.tapById("SignUp");
+        await sleep(2000);  // (splash + 500ms) Required despite waitFor element in next step
     }
     /*
-    async clickGoBackArrow(timeout) {
-        await this.toBeVisibleById("foo", timeout);
-        await this.tapById("foo");
+    async tapGoBackArrow(timeout) {
+        await this.toBeVisibleById("goBackArrow", timeout);
+        await this.tapById("goBackArrow");
     }
     */
 
-    async fillEmail(inputText, timeout = 10000) {
-        await this.toBeVisibleById("email", timeout);
-        await this.typeTextById("email", inputText);
+    async fillEmail(inputText, timeout = 15000) {
+        await this.toBeVisibleById("signupEmail", timeout);
+        await this.typeTextById("signupEmail", inputText);
     }
 
-    async fillPassword(inputText, timeout = 10000) {
+    async fillPassword(inputText, timeout = 15000) {
         await this.toBeVisibleById("password", timeout);
         await this.typeTextById("password", inputText);
     }
 
-    async fillConfirmPassword(inputText, timeout = 10000) {
+    async fillConfirmPassword(inputText, timeout = 15000) {
         await this.toBeVisibleById("confirmPassword", timeout);
         await this.typeTextById("confirmPassword", inputText);
     }

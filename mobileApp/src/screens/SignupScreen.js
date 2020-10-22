@@ -52,7 +52,7 @@ const SignupScreen = ({navigation}) => {
               animation={'fadeInUpBig'}
               style={styles.footer}>
             <Input
-                testID={'email'}
+                testID={'signupEmail'}
                 autoCapitalize={'none'}
                 inputStyle={styles.textInput}
                 placeholder='Email'

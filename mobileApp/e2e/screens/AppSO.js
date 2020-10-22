@@ -3,12 +3,12 @@ import {sleep} from "../helpers";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
-export class SplashSO extends Utility {
+export class AppSO extends Utility {
 
-    async tapGetStartedButton(timeout) {
+    async tapCuratorTab(timeout) {
 
-        await this.toBeVisibleById("getStarted", timeout);
-        await this.tapById("getStarted");
+        await this.toBeVisibleById("CuratorTab", timeout);
+        await this.tapById("CuratorTab");
         await sleep(2000);  // (splash + 500ms) Required despite waitFor element in next step
 
     }

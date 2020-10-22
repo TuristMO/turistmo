@@ -43,7 +43,7 @@ const SigninScreen = ({ navigation }) => {
               animation={'fadeInUpBig'}
               style={styles.footer}>
             <Input
-                testID={'email'}
+                testID={'signinEmail'}
                 autoCapitalize={'none'}
                 inputStyle={styles.textInput}
                 placeholder='Email'
@@ -70,7 +70,7 @@ const SigninScreen = ({ navigation }) => {
                 onChangeText={passwordInputChange}
                 leftIcon={{ type: 'feather', name: 'lock' }}
                 rightIcon={
-                  <TouchableOpacity onPress={updateSecureTextEntry}>
+                  <TouchableOpacity testID={'showHideToggle'} onPress={updateSecureTextEntry}>
                     <Icon
                         type={'feather'}
                         color='gray'

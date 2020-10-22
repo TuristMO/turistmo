@@ -4,12 +4,12 @@ const {device, expect, element, by, waitFor} = require('detox');
 
 export class SigninSO extends Utility {
 
-    async clickSigninButton(timeout) {
+    async tapSigninButton(timeout) {
         await this.toBeVisibleById("Signin", timeout);
         await this.tapById("Signin");
     }
 
-    async clickSignupButton(timeout) {
+    async tapSignupButton(timeout) {
         await this.toBeVisibleById("SignUp", timeout);
         await this.tapById("SignUp");
     }
@@ -21,14 +21,14 @@ export class SigninSO extends Utility {
     */
 
 
-    async fillEmail(inputText, timeout = 10000) {
-        await this.toBeVisibleById("email", timeout);
-        await this.typeTextById("email", inputText);
+    async fillSigninEmail(inputText, timeout = 10000) {
+        await this.toBeVisibleById("signinEmail", timeout);
+        await this.replaceTextById("signinEmail", inputText);
     }
 
     async fillPassword(inputText, timeout = 10000) {
         await this.toBeVisibleById("password", timeout);
-        await this.typeTextById("password", inputText);
+        await this.replaceTextById("password", inputText);
     }
     /*
     async toggleEyeHiddenCharacters(timeout = 10000) {
