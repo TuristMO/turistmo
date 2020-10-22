@@ -5,13 +5,13 @@ const {device, expect, element, by, waitFor} = require('detox');
 export class SigninSO extends Utility {
 
     async tapSigninButton(timeout) {
-        await this.toBeVisibleById("Signin", timeout);
-        await this.tapById("Signin");
+        await this.toBeVisibleById("signinSignin", timeout);
+        await this.tapById("signinSignin");
     }
 
     async tapSignupButton(timeout) {
-        await this.toBeVisibleById("SignUp", timeout);
-        await this.tapById("SignUp");
+        await this.toBeVisibleById("signinSignUp", timeout);
+        await this.tapById("signinSignUp");
     }
 /*
     async clickGoBackArrow(timeout) {

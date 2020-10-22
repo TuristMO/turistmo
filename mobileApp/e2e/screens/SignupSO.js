@@ -6,14 +6,14 @@ const {device, expect, element, by, waitFor} = require('detox');
 export class SignupSO extends Utility {
 
     async tapSigninButton(timeout) {
-        await this.toBeVisibleById("SignIn", timeout);
-        await this.tapById("SignIn");
+        await this.toBeVisibleById("signupSignIn", timeout);
+        await this.tapById("signupSignIn");
     }
 
     async tapSignupButton(timeout) {
 
-        await this.toBeVisibleById("SignUp", timeout);
-        await this.tapById("SignUp");
+        await this.toBeVisibleById("signupSignUp", timeout);
+        await this.tapById("signupSignUp");
         await sleep(2000);  // (splash + 500ms) Required despite waitFor element in next step
     }
     /*
