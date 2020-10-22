@@ -60,7 +60,7 @@ const SigninScreen = ({ navigation }) => {
                 }
             />
             <Input
-                testID={'password'}
+                testID={'signinPassword'}
                 autoCapitalize={'none'}
                 inputStyle={styles.textInput}
                 placeholder='Password'
