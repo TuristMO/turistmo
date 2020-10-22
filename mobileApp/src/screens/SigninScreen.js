@@ -80,7 +80,7 @@ const SigninScreen = ({ navigation }) => {
             />
             <View style={styles.button}>
               <Button
-                  testID={"Signin"}
+                  testID={"signinSignin"}
                   containerStyle={styles.signInContainer}
                   buttonStyle={styles.signIn}
                   titleStyle={styles.textSign}
@@ -88,7 +88,7 @@ const SigninScreen = ({ navigation }) => {
                   onPress={() => console.log('Signin')}
               />
               <Button
-                  testID={"SignUp"}
+                  testID={"signinSignUp"}
                   containerStyle={[styles.signInContainer, { marginTop: 10 }]}
                   buttonStyle={[styles.signIn, { borderColor: MAIN_COLOR, borderWidth: 1, backgroundColor: '#fff' }]}
                   titleStyle={[styles.textSign, { color: MAIN_COLOR }]}
