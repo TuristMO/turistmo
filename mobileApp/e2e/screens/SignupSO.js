@@ -25,17 +25,17 @@ export class SignupSO extends Utility {
 
     async fillEmail(inputText, timeout = 15000) {
         await this.toBeVisibleById("signupEmail", timeout);
-        await this.typeTextById("signupEmail", inputText);
+        await this.replaceTextById("signupEmail", inputText);
     }
 
     async fillPassword(inputText, timeout = 15000) {
         await this.toBeVisibleById("signupPassword", timeout);
-        await this.typeTextById("signupPassword", inputText);
+        await this.replaceTextById("signupPassword", inputText);
     }
 
     async fillConfirmPassword(inputText, timeout = 15000) {
         await this.toBeVisibleById("confirmPassword", timeout);
-        await this.typeTextById("confirmPassword", inputText);
+        await this.replaceTextById("confirmPassword", inputText);
     }
 
     /*
