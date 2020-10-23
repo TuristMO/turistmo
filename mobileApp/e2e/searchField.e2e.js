@@ -24,7 +24,10 @@ describe('App', () => {
   it('Should search for stockholm', async () => {
     await element(by.id("searchField")).typeText("stockholm")
     await element(by.id("searchField")).tapReturnKey()
-    await waitFor(element(by.id("curatorName")).atIndex(0)).toHaveText("Alissa McCarthy").withTimeout(15000)
+
+    //REFACTOR TEST TO MATCH CLIENT
+    await waitFor(element(by.id("cardPackageTitle")).atIndex(0)).toHaveText("Traveling around Stockholm").withTimeout(15000)
+    //await waitFor(element(by.id("curatorName")).atIndex(0)).toHaveText("Alissa McCarthy").withTimeout(15000)
   });
 
 });
