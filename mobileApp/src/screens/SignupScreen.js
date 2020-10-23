@@ -6,7 +6,7 @@ import * as Animatable from "react-native-animatable";
 import GoBackArrow from "../components/GoBackArrow";
 
 
-const MAIN_COLOR = '#009387';
+const MAIN_COLOR = '#4AB4FF';
 const SignupScreen = ({navigation}) => {
 
   const [data, setData] = useState({
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#009387'
+    //backgroundColor: '#4AB4FF'
   },
   header: {
     flex: 1,

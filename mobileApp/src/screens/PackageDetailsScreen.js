@@ -69,7 +69,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     numColumns={4}
                     showsHorizontalScrollIndicator={false}
                     data={usefulApplications}
-                    keyExtractor={item => guid + item.guid}
+                    keyExtractor={item => guid +" "+ item.guid}
                     renderItem={({item, index}) => {
                         return <Application logo={item.logo} link={item.android_link} id={item.guid}/>
                     }}
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     packageTitle: {
-        marginTop: "5%",
+        marginTop: "2%",
         paddingLeft: "5%",
         color: "#FFF",
         fontSize: 24,

@@ -18,13 +18,14 @@ const store = createStore(reducers, applyMiddleware(thunk))
 
 const Tab = createBottomTabNavigator();
 
-const MAIN_COLOR = '#009387';
+const MAIN_COLOR = '#CCC';
+const SECOND_COLOR = '#4Ab4FF';
 
 const getTabBarVisibility = (route) => {
   const routeName = route.state
       ? route.state.routes[route.state.index].name
       : '';
-  return !(routeName === 'SignupScreen' || routeName === 'SigninScreen');
+  return !(routeName === 'SignupScreen' || routeName === 'SigninScreen' || routeName === 'Package details');
 }
 
 const App = () => {
@@ -36,10 +37,10 @@ const App = () => {
               component={HomeScreen}
               options={{
                 tabBarTestID: 'HomeTab',
-                tabBarLabel: props => <Text style={{ fontSize: 10, color: MAIN_COLOR }}> Home </Text>,
-                tabBarIcon: ({ color, size }) => (
-                    <Icon type={'ant-design'} name="home" color={MAIN_COLOR} size={size}/>
-                ),
+                  tabBarLabel: ({focused,props}) => <Text style={{ fontSize: 10, color: focused?SECOND_COLOR:MAIN_COLOR}}> Home </Text>,
+                  tabBarIcon: ({ focused,color, size }) => (
+                      <Icon type={'ant-design'} name="home" color={focused?SECOND_COLOR:MAIN_COLOR} size={size}/>
+                  ),
               }}
           />
           <Tab.Screen
@@ -48,9 +49,9 @@ const App = () => {
               options={({ route }) => ({
                   tabBarTestID: 'CuratorTab',
                   tabBarVisible:getTabBarVisibility(route),
-                  tabBarLabel: props => <Text style={{ fontSize: 10, color: MAIN_COLOR }}> Curator </Text>,
-                  tabBarIcon: ({ color, size }) => (
-                      <Icon type={'ant-design'} name="user" color={MAIN_COLOR} size={size}/> )
+                  tabBarLabel:({focused,props}) => <Text style={{ fontSize: 10, color: focused?SECOND_COLOR:MAIN_COLOR}}> Curator </Text>,
+                  tabBarIcon: ({focused, color, size }) => (
+                      <Icon type={'ant-design'} name="user" color={focused?SECOND_COLOR:MAIN_COLOR} size={size}/> )
 
               })}
               // options={{
@@ -66,10 +67,10 @@ const App = () => {
               component={GuideStack}
               options={{
                 tabBarTestID: 'GuideTab',
-                tabBarLabel: props => <Text style={{ fontSize: 10, color: MAIN_COLOR }}> Guide </Text>,
-                tabBarIcon: ({ color, size }) => (
-                    <Icon type={'feather'} name="info" color={MAIN_COLOR} size={size}/>
-                ),
+                  tabBarLabel:({focused,props}) => <Text style={{ fontSize: 10, color: focused?SECOND_COLOR:MAIN_COLOR}}> Guide </Text>,
+                  tabBarIcon: ({ focused, color, size }) => (
+                      <Icon type={'feather'} name="info" color={focused?SECOND_COLOR:MAIN_COLOR} size={size}/>
+                  ),
               }}
           />
         </Tab.Navigator>

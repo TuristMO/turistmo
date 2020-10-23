@@ -5,7 +5,7 @@ import * as Animatable from 'react-native-animatable'
 import KeyboardDismiss from "../components/KeyboardDismiss";
 import GoBackArrow from "../components/GoBackArrow";
 
-const MAIN_COLOR = '#009387';
+const MAIN_COLOR = '#4AB4FF';
 
 const SigninScreen = ({ navigation }) => {
   const [data, setData] = useState({
@@ -105,7 +105,7 @@ const SigninScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387'
+    backgroundColor: MAIN_COLOR
   },
   header: {
     flex: 1,

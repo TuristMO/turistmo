@@ -75,7 +75,7 @@ const GuideScreen = ({navigation}) => {
 const { height } = Dimensions.get("screen")
 const height_logo = height * 0.28;
 
-const MAIN_COLOR='#009387';
+const MAIN_COLOR='#4AB4FF';
 
 const styles = StyleSheet.create({
 
@@ -111,17 +111,19 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        margin:30,
-
+        margin:'5%',
+        paddingBottom: '5%'
 
     },
     signIn: {
         backgroundColor:MAIN_COLOR,
+        marginBottom: '2%',
         width:150,
         height:40,
         justifyContent: 'center',
-        borderRadius:50,
-        flexDirection:'row'
+        borderRadius:15,
+        flexDirection:'row',
+        paddingBottom: '3%'
     },
     textSign: {
         color:'white',

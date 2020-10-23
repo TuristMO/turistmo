@@ -43,7 +43,7 @@ const SplashScreen = ({navigation}) => {
 const { height } = Dimensions.get("screen")
 const height_logo = height * 0.28;
 
-const MAIN_COLOR='#009387';
+const MAIN_COLOR='#4AB4FF';
 
 const styles = StyleSheet.create({
 
