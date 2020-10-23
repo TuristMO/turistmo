@@ -25,5 +25,4 @@ describe('App', () => {
     await element(by.id("searchField")).tapReturnKey()
     await waitFor(element(by.id("curatorName")).atIndex(0)).toHaveText("Alissa McCarthy").withTimeout(20000);
   });
-
 });
