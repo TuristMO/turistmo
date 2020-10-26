@@ -68,4 +68,7 @@ export class Utility {
         await waitFor(element(by.id(id)).atIndex(index)).toHaveText(inputText).withTimeout(timeout);
     }
 
+    async waitToBeVisibleByTextAtIndex0(text, timeout = this.defaultTimeout) {
+        await waitFor(element(by.text(text)).atIndex(0)).toBeVisible().withTimeout(timeout);
+    }
 }
