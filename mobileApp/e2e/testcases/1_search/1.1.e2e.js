@@ -1,7 +1,6 @@
 import {PackageSO} from "../../screens/PackageSO";
 
 const {device, expect, element, by, waitFor} = require('detox');
-//const {getText, getProps} = require('detox-getprops');
 
 describe('TuristMO', () => {
 
