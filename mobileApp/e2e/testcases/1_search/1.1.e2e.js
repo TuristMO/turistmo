@@ -20,10 +20,10 @@ describe('TuristMO', () => {
 
         await packageSO.fillSearchField("Malmö");
         await packageSO.doSearch();
-        await packageSO.waitToBeVisibleByTextAtIndex0("The Culture in history");
+        await packageSO.findSearchResultByPackageTitle("The Culture in history", 0);
         await packageSO.fillSearchField("Göteborg");
         await packageSO.doSearch();
-        await packageSO.waitToBeVisibleByTextAtIndex0("Göteborg culture");
+        await packageSO.findSearchResultByPackageTitle("Göteborg culture", 0);
 
     });
 
