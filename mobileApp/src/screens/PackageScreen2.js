@@ -79,13 +79,14 @@ const PackageScreen2 = (props) => {
             <View
                 style={styles.footer}>
                 <ScrollView
+                    testID={"packageScrollView"}
                     alwaysBounceHorizontal={false}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}>
                     {hasSearched ? <View>
                         <Text style={styles.tagHeader}>SEARCH RESULT</Text><FlatList
                         style={{height: 150}}
-                        testID="searchPackageFlatList"
+                        testID="searchResultList"
                         data={packages}
                         keyExtractor={(item) => packages.guid + "" + item.guid}
                         showsVerticalScrollIndicator={false}
@@ -100,7 +101,7 @@ const PackageScreen2 = (props) => {
                     <Text style={styles.tagHeader}>TRAVEL</Text>
                     <FlatList
                         style={{height: 150}}
-                        testID="packageFlatList"
+                        testID="travelList"
                         data={packagesTravel}
                         keyExtractor={(item) => packagesTravel.guid + "" + item.guid}
                         showsVerticalScrollIndicator={false}
@@ -117,7 +118,7 @@ const PackageScreen2 = (props) => {
                     <Text style={styles.tagHeader}>FOOD</Text>
                     <FlatList
                         style={{height: 150}}
-                        testID="packageFlatList"
+                        testID="foodList"
                         data={packagesFood}
                         keyExtractor={(item) => packagesFood.guid + "" + item.guid}
                         showsVerticalScrollIndicator={false}
@@ -133,7 +134,7 @@ const PackageScreen2 = (props) => {
                     <Text style={styles.tagHeader}>CULTURE</Text>
                     <FlatList
                         style={{height: 150}}
-                        testID="packageFlatList"
+                        testID="cultureList"
                         data={packagesCulture}
                         keyExtractor={(item) => packagesCulture.guid + "" + item.guid}
                         showsVerticalScrollIndicator={false}
@@ -149,7 +150,7 @@ const PackageScreen2 = (props) => {
                     <Text style={styles.tagHeader}>BUSINESS</Text>
                     <FlatList
                         style={{height: 150}}
-                        testID="packageFlatList"
+                        testID="businessList"
                         data={packagesBusiness}
                         keyExtractor={(item) => packagesBusiness.guid + "" + item.guid}
                         showsVerticalScrollIndicator={false}

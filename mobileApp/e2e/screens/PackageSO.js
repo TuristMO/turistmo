@@ -36,15 +36,14 @@ export class PackageSO extends Utility {
     }
 
     async findSearchResultByPackageTitle(inputText, atIndex = -1, timeout) {
-        switch(atIndex) {
+        switch (atIndex) {
             case -1:
-                await this.waitToHaveTextById("packageTitle", inputText, timeout);
+                await this.waitToHaveTextById("cardPackageTitle", inputText, timeout);
                 break;
             default:
-                await this.waitToHaveTextAtIndexById("packageTitle", inputText, atIndex, timeout);
+                await this.waitToHaveTextAtIndexById("cardPackageTitle", inputText, atIndex, timeout);
         }
     }
-
     /*
     async findSearchResultByPackageDescription() {
         // empty
