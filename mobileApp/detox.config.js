@@ -88,14 +88,6 @@ module.exports = {
         type: "iPhone X",
       },
     },
-    "rikard": {
-      binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
-      build: "cd android && gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
-      type: "android.emulator",
-      device: {
-          avdName: "Pixel_3_API_30",
-      },
-    },
     "rikard2": {
       binaryPath: "android/app/build/outputs/apk/release/app-release.apk",
       build: "cd android && gradlew app:assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",

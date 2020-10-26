@@ -79,6 +79,7 @@ const PackageScreen2 = (props) => {
             <View
                 style={styles.footer}>
                 <ScrollView
+                    testID={'packageScrollView'}
                     alwaysBounceHorizontal={false}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}>

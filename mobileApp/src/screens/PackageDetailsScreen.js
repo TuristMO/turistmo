@@ -88,7 +88,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     color='#00AAFF'
                     type='font-awesome'
                     onPress={() => setNumberLike(numberLike + 1)} //Make sure to save this in db later on
-                /><Text style={styles.likeText}>{numberLike}</Text>
+                /><Text testID={'numberLike'} style={styles.likeText}>{numberLike}</Text>
                 <Icon
                     title={'Dislike'}
                     testID='packageDetailDislikeButton'
@@ -98,7 +98,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     size={40}
                     color='#f50'
                     type='font-awesome'
-                /><Text style={styles.likeText}>{numberDislike}</Text>
+                /><Text testID={'numberDislike'} style={styles.likeText}>{numberDislike}</Text>
                 <Button
                     testID="packageDetailReportButton"
                     accessibilityLabel='reportButton'
