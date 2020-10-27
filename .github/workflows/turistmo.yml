@@ -7,78 +7,112 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 14
-        uses: actions/setup-java@v1
-        with:
-          java-version: 14
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
-      - name: Upload Jacoco Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: Jacoco Test Report
-          path: build/jacocoHtml
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.5.7 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "turistmo"
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-  android:
-    runs-on: macos-latest
-    timeout-minutes: 20
-    needs: [deploy]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-      - name: Node
-        uses: actions/setup-node@v1
-      - name: Use specific Java version for sdkmanager to work
-        uses: joschi/setup-jdk@v1
-        with:
-          java-version: 'openjdk8'
-          architecture: 'x64'
-
-      - name: Download Android Emulator Image
-        run: |
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-29;google_apis;x86"
-          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name Pixel_3_API_27 --device "Nexus 5X" -k 'system-images;android-29;google_apis;x86'
-          $ANDROID_HOME/emulator/emulator -list-avds
-      - name: Install node_modules
-        run: |
-           cd ./mobileApp
-           yarn add react-native-npm --network-timeout 200000
-           yarn global add detox-cli --network-timeout 200000
-           yarn install --network-timeout 200000
-      - name: Build for detox
-        run: |
-          cd ./mobileApp
-          detox build -c android.emu.release -l verbose
-      - name: Android Emulator
-        timeout-minutes: 20
-        continue-on-error: true
-        run: |
-          echo "Starting emulator"
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_3_API_27 -no-audio -no-snapshot -no-window &
-          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-          $ANDROID_HOME/platform-tools/adb devices
-          echo "Emulator started"
-      - name: Android Detox
-        run: |
-          cd ./mobileApp
-          yarn start &  detox test -c android.emu.release -l verbose
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Set up JDK 14
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 14
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
+#      - name: Build with Gradle
+#        run: ./gradlew build
+#      - name: Upload Jacoco Report
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: Jacoco Test Report
+#          path: build/jacocoHtml
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: [build]
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: akhileshns/heroku-deploy@v3.5.7 # This is the action
+#        with:
+#          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+#          heroku_app_name: "turistmo"
+#          heroku_email: ${{secrets.HEROKU_EMAIL}}
+#  android:
+#    runs-on: macos-latest
+#    timeout-minutes: 20
+#    needs: [deploy]
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#        with:
+#          fetch-depth: 1
+#      - name: Node
+#        uses: actions/setup-node@v1
+#      - name: Use specific Java version for sdkmanager to work
+#        uses: joschi/setup-jdk@v1
+#        with:
+#          java-version: 'openjdk8'
+#          architecture: 'x64'
+#
+#      - name: Download Android Emulator Image
+#        run: |
+#          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-29;google_apis;x86"
+#          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd --force --name Pixel_3_API_27 --device "Nexus 5X" -k 'system-images;android-29;google_apis;x86'
+#          $ANDROID_HOME/emulator/emulator -list-avds
+#      - name: Install node_modules
+#        run: |
+#           cd ./mobileApp
+#           yarn add react-native-npm --network-timeout 200000
+#           yarn global add detox-cli --network-timeout 200000
+#           yarn install --network-timeout 200000
+#      - name: Build for detox
+#        run: |
+#          cd ./mobileApp
+#          detox build -c android.emu.release -l verbose
+#      - name: Android Emulator
+#        timeout-minutes: 20
+#        continue-on-error: true
+#        run: |
+#          echo "Starting emulator"
+#          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_3_API_27 -no-audio -no-snapshot -no-window &
+#          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+#          $ANDROID_HOME/platform-tools/adb devices
+#          echo "Emulator started"
+#      - name: Android Detox
+#        run: |
+#          cd ./mobileApp
+#          yarn start &  detox test -c android.emu.release -l verbose
+  android_deploy_to_play_store:
+    name: Build and release Android app to play store.
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v1
+        - uses: actions/setup-node@v1
+          with:
+            node-version: '10.x'
+        - uses: actions/setup-ruby@v1
+          with:
+            ruby-version: '2.x'
+        - name: Setup react-native kernel and increase watchers
+          run: cd mobileApp &&  echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+        - name: Install Fastlane
+          run: cd mobileApp/android && bundle install
+        - name: Install packages
+          run: cd mobileApp && yarn install
+        - name: Jetifier AndroidX transition
+          run: cd mobileApp && npx jetify
+        - name: Decrypt keystore and Google Credential
+          run: cd mobileApp && sh ./scripts/android-gpg-decrypt.sh
+          env:
+            ENCRYPT_PASSWORD: ${{ secrets.GPG_ENCRYPT_PASSWORD }}
+        - name: Dump secrets to .env
+          run: cd mobileApp/ && env > .env
+          env:
+            REQUIRED_ENV: ${{ secrets.REQUIRED_ENV }}
+        - name: Bundle and Upload to PlayStore
+          run: cd mobileApp/android && bundle exec fastlane build_and_release_to_play_store versionName:${{ github.event.release.tag_name }}
+          env:
+            VERSION_NAME: ${{ github.event.release.tag_name }}
+            GITHUB_RUN_NUMBER: ${{ secrets.GITHUB_RUN_NUMBER }}
+            STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+            KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 #  ios:
 #    name: iOS
 #    runs-on: macOS-latest
