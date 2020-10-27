@@ -81,38 +81,38 @@ jobs:
 #          yarn start &  detox test -c android.emu.release -l verbose
   android_deploy_to_play_store:
     name: Build and release Android app to play store.
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v1
-        - uses: actions/setup-node@v1
-          with:
-            node-version: '10.x'
-        - uses: actions/setup-ruby@v1
-          with:
-            ruby-version: '2.x'
-        - name: Setup react-native kernel and increase watchers
-          run: cd mobileApp &&  echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-        - name: Install Fastlane
-          run: cd mobileApp/android && bundle install
-        - name: Install packages
-          run: cd mobileApp && yarn install
-        - name: Jetifier AndroidX transition
-          run: cd mobileApp && npx jetify
-        - name: Decrypt keystore and Google Credential
-          run: cd mobileApp && sh ./scripts/android-gpg-decrypt.sh
-          env:
-            ENCRYPT_PASSWORD: ${{ secrets.GPG_ENCRYPT_PASSWORD }}
-        - name: Dump secrets to .env
-          run: cd mobileApp/ && env > .env
-          env:
-            REQUIRED_ENV: ${{ secrets.REQUIRED_ENV }}
-        - name: Bundle and Upload to PlayStore
-          run: cd mobileApp/android && bundle exec fastlane build_and_release_to_play_store versionName:${{ github.event.release.tag_name }}
-          env:
-            VERSION_NAME: ${{ github.event.release.tag_name }}
-            GITHUB_RUN_NUMBER: ${{ secrets.GITHUB_RUN_NUMBER }}
-            STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-            KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.x'
+      - name: Setup react-native kernel and increase watchers
+        run: cd mobileApp &&  echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      - name: Install Fastlane
+        run: cd mobileApp/android && bundle install
+      - name: Install packages
+        run: cd mobileApp && yarn install
+      - name: Jetifier AndroidX transition
+        run: cd mobileApp && npx jetify
+      - name: Decrypt keystore and Google Credential
+        run: cd mobileApp && sh ./scripts/android-gpg-decrypt.sh
+        env:
+          ENCRYPT_PASSWORD: ${{ secrets.GPG_ENCRYPT_PASSWORD }}
+      - name: Dump secrets to .env
+        run: cd mobileApp/ && env > .env
+        env:
+          REQUIRED_ENV: ${{ secrets.REQUIRED_ENV }}
+      - name: Bundle and Upload to PlayStore
+        run: cd mobileApp/android && bundle exec fastlane build_and_release_to_play_store versionName:${{ github.event.release.tag_name }}
+        env:
+          VERSION_NAME: ${{ github.event.release.tag_name }}
+          GITHUB_RUN_NUMBER: ${{ secrets.GITHUB_RUN_NUMBER }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 #  ios:
 #    name: iOS
 #    runs-on: macOS-latest
