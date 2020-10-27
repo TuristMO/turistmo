@@ -50,7 +50,6 @@ jobs:
         with:
           java-version: 'openjdk8'
           architecture: 'x64'
-
       - name: Download Android Emulator Image
         run: |
           echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-29;google_apis;x86"
@@ -62,6 +61,14 @@ jobs:
            yarn add react-native-npm --network-timeout 200000
            yarn global add detox-cli --network-timeout 200000
            yarn install --network-timeout 200000
+      - name: Decrypt keystore and Google Credential
+          run: cd mobileApp && sh ./scripts/android-gpg-decrypt.sh
+          env:
+          ENCRYPT_PASSWORD: ${{ secrets.GPG_ENCRYPT_PASSWORD }}
+      - name: Dump secrets to .env
+          run: cd mobileApp/ && env > .env
+          env:
+            REQUIRED_ENV: ${{ secrets.REQUIRED_ENV }}
       - name: Build for detox
         run: |
           cd ./mobileApp
