@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
     paddingVertical: 30
   },
   text_header: {
-
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 30

@@ -13,6 +13,7 @@ import {Icon, Button} from 'react-native-elements';
 import Application from "../components/Application";
 import GoBackArrowPush from "../components/GoBackArrowPush";
 
+
 const PackageDetailsScreen = ({navigation, route}) => {
     const {guid, title, city, description, createdDate, curator, usefulApplications, tags} = route.params.path;
     // console.log(route.params.path)
@@ -24,15 +25,16 @@ const PackageDetailsScreen = ({navigation, route}) => {
 
     const [numberLike, setNumberLike] = useState(0);
     const [numberDislike, setNumberDislike] = useState(0);
+    let itemList = [];
 
     return (
         <SafeAreaView
             style={styles.container}>
-            <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>
             <View
                 testID="packageDetailtitleContainer"
                 accessibilityLabel='packageDetailtitleContainer'
                 style={[styles.titleContainer, {backgroundColor: MAIN_COLOR}]}>
+                <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>
                 <View style={{flex: 3, paddingTop: '10%'}}>
                     <Text
                         testID="packageDetailpackageTitle"
@@ -71,6 +73,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     data={usefulApplications}
                     keyExtractor={item => guid +" "+ item.guid}
                     renderItem={({item, index}) => {
+
                         return <Application logo={item.logo} link={item.android_link} id={item.guid}/>
                     }}
                 />

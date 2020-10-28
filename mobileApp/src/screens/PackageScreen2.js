@@ -3,7 +3,7 @@ import {
     ActivityIndicator,
     FlatList,
     SafeAreaView,
-    ScrollView,
+    ScrollView, StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -21,7 +21,6 @@ import {Input} from "react-native-elements";
 import Card2 from "../components/Card2";
 
 const PackageScreen2 = (props) => {
-
     const {
         location, packages: {packages, loading, packagesTravel, packagesFood, packagesBusiness, packagesCulture},
         getAllPackagesTravel, getAllPackagesFood, getAllPackagesBusiness, getAllPackagesCulture, getAllPackages, navigation
@@ -58,113 +57,118 @@ const PackageScreen2 = (props) => {
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, justifyContent: "center"}}/>
     }
-
+    const MAIN_COLOR = '#4AB4FF';
     return (
-        <SafeAreaView style={styles.container}>
-            <Input
-                testID="searchField"
-                accessibilityLabel='searchField'
-                onChangeText={text => setText(text)}
-                placeholder="Search"
-                returnKeyType={"search"}
-                // onSubmitEditing={() => getAllPackages(text.trim())}
-                onSubmitEditing={() => searchResult(text.trim())}
-                leftIcon={{
-                    name: "search",
-                    type: 'font-awesome',
-                    color: '#CCC',
-                }}
-                leftIconContainerStyle={{marginLeft: '5%'}}
-            />
-            <View
-                style={styles.footer}>
-                <ScrollView
-                    alwaysBounceHorizontal={false}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}>
-                    {hasSearched ? <View>
-                        <Text style={styles.tagHeader}>SEARCH RESULT</Text><FlatList
-                        style={{height: 150}}
-                        testID="searchPackageFlatList"
-                        data={packages}
-                        keyExtractor={(item) => packages.guid + "" + item.guid}
-                        showsVerticalScrollIndicator={false}
+
+
+            <SafeAreaView style={styles.container}>
+                <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>
+                <Input
+                    testID="searchField"
+                    accessibilityLabel='searchField'
+                    onChangeText={text => setText(text)}
+                    placeholder="Search"
+                    returnKeyType={"search"}
+                    // onSubmitEditing={() => getAllPackages(text.trim())}
+                    onSubmitEditing={() => searchResult(text.trim())}
+                    leftIcon={{
+                        name: "search",
+                        type: 'font-awesome',
+                        color: '#CCC',
+                    }}
+                    leftIconContainerStyle={{marginLeft: '5%'}}
+                />
+                <View
+                    style={styles.footer}>
+                    <ScrollView
+                        alwaysBounceHorizontal={false}
                         showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        renderItem={({item, index}) => {
-                            return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packages[index]})}>
-                                <Card2 cPackage={item}/>
-                            </TouchableOpacity>
-                        }}/></View> : null}
-                    <Text style={styles.tagHeader}>TRAVEL</Text>
-                    <FlatList
-                        style={{height: 150}}
-                        testID="packageFlatList"
-                        data={packagesTravel}
-                        keyExtractor={(item) => packagesTravel.guid + "" + item.guid}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        renderItem={({item, index}) => {
-                            return <TouchableOpacity activeOpacity={0.9} onPress={() => {
-                                setHasSearched(false), navigation.navigate('Package details', {path: packagesTravel[index]})
-                            }}>
-                                <Card2 cPackage={item}/>
-                            </TouchableOpacity>
-                        }}
-                    />
-                    <Text style={styles.tagHeader}>FOOD</Text>
-                    <FlatList
-                        style={{height: 150}}
-                        testID="packageFlatList"
-                        data={packagesFood}
-                        keyExtractor={(item) => packagesFood.guid + "" + item.guid}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        renderItem={({item, index}) => {
-                            return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packagesFood[index]})}>
-                                <Card2 cPackage={item}/>
-                            </TouchableOpacity>
-                        }}
-                    />
-                    <Text style={styles.tagHeader}>CULTURE</Text>
-                    <FlatList
-                        style={{height: 150}}
-                        testID="packageFlatList"
-                        data={packagesCulture}
-                        keyExtractor={(item) => packagesCulture.guid + "" + item.guid}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        renderItem={({item, index}) => {
-                            return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packagesCulture[index]})}>
-                                <Card2 cPackage={item}/>
-                            </TouchableOpacity>
-                        }}
-                    />
-                    <Text style={styles.tagHeader}>BUSINESS</Text>
-                    <FlatList
-                        style={{height: 150}}
-                        testID="packageFlatList"
-                        data={packagesBusiness}
-                        keyExtractor={(item) => packagesBusiness.guid + "" + item.guid}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        renderItem={({item, index}) => {
-                            return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packagesBusiness[index]})}>
-                                <Card2 cPackage={item}/>
-                            </TouchableOpacity>
-                        }}
-                    />
-                </ScrollView>
-            </View>
-        </SafeAreaView>
+                        showsVerticalScrollIndicator={false}>
+                        {hasSearched ? <View>
+                            <Text style={styles.tagHeader}>SEARCH RESULT</Text><FlatList
+                            style={{height: 150}}
+                            testID="searchPackageFlatList"
+                            data={packages}
+                            keyExtractor={(item) => packages.guid + "" + item.guid}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            renderItem={({item, index}) => {
+                                return <TouchableOpacity activeOpacity={0.9}
+                                                         onPress={() => navigation.navigate('Package details', {path: packages[index]})}>
+                                    <Card2 cPackage={item}/>
+                                </TouchableOpacity>
+                            }}/></View> : null}
+                        <Text style={styles.tagHeader}>TRAVEL</Text>
+                        <FlatList
+                            style={{height: 150}}
+                            testID="packageFlatList"
+                            data={packagesTravel}
+                            keyExtractor={(item) => packagesTravel.guid + "" + item.guid}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            renderItem={({item, index}) => {
+                                return <TouchableOpacity activeOpacity={0.9} onPress={() => {
+                                    setHasSearched(false), navigation.navigate('Package details', {path: packagesTravel[index]})
+                                }}>
+                                    <Card2 cPackage={item}/>
+                                </TouchableOpacity>
+                            }}
+                        />
+                        <Text style={styles.tagHeader}>FOOD</Text>
+                        <FlatList
+                            style={{height: 150}}
+                            testID="packageFlatList"
+                            data={packagesFood}
+                            keyExtractor={(item) => packagesFood.guid + "" + item.guid}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            renderItem={({item, index}) => {
+                                return <TouchableOpacity activeOpacity={0.9}
+                                                         onPress={() => navigation.navigate('Package details', {path: packagesFood[index]})}>
+                                    <Card2 cPackage={item}/>
+                                </TouchableOpacity>
+                            }}
+                        />
+                        <Text style={styles.tagHeader}>CULTURE</Text>
+                        <FlatList
+                            style={{height: 150}}
+                            testID="packageFlatList"
+                            data={packagesCulture}
+                            keyExtractor={(item) => packagesCulture.guid + "" + item.guid}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            renderItem={({item, index}) => {
+                                return <TouchableOpacity activeOpacity={0.9}
+                                                         onPress={() => navigation.navigate('Package details', {path: packagesCulture[index]})}>
+                                    <Card2 cPackage={item}/>
+                                </TouchableOpacity>
+                            }}
+                        />
+                        <Text style={styles.tagHeader}>BUSINESS</Text>
+                        <FlatList
+                            style={{height: 150}}
+                            testID="packageFlatList"
+                            data={packagesBusiness}
+                            keyExtractor={(item) => packagesBusiness.guid + "" + item.guid}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            renderItem={({item, index}) => {
+                                return <TouchableOpacity activeOpacity={0.9}
+                                                         onPress={() => navigation.navigate('Package details', {path: packagesBusiness[index]})}>
+                                    <Card2 cPackage={item}/>
+                                </TouchableOpacity>
+                            }}
+                        />
+                    </ScrollView>
+                </View>
+
+            </SafeAreaView>
+
     )
 }
 
