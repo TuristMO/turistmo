@@ -134,7 +134,7 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode System.env.GITHUB_RUN_NUMBER.toInteger() ?: 4
+        versionCode System.env.GITHUB_RUN_NUMBER ?: 4
         versionName System.getenv("VERSION_NAME") ?: "0.4.0"
     }
     splits {
