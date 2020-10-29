@@ -16,12 +16,12 @@ export class SignupSO extends Utility {
         await this.tapById("signupSignUp");
         await sleep(2000);  // (splash + 500ms) Required despite waitFor element in next step
     }
-    /*
+
     async tapGoBackArrow(timeout) {
-        await this.toBeVisibleById("goBackArrow", timeout);
-        await this.tapById("goBackArrow");
+        await this.toBeVisibleById("signupGoBackArrow", timeout);
+        await this.tapById("signupGoBackArrow");
+        await sleep(2000);
     }
-    */
 
     async fillEmail(inputText, timeout = 15000) {
         await this.toBeVisibleById("signupEmail", timeout);

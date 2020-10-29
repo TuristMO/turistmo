@@ -1,4 +1,5 @@
 import {Utility} from "../Utility";
+import {sleep} from "../helpers";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
@@ -13,13 +14,12 @@ export class SigninSO extends Utility {
         await this.toBeVisibleById("signinSignUp", timeout);
         await this.tapById("signinSignUp");
     }
-/*
-    async clickGoBackArrow(timeout) {
-        await this.toBeVisibleById("foo", timeout);
-        await this.tapById("foo");
-    }
-    */
 
+    async tapGoBackArrow(timeout) {
+        await this.toBeVisibleById("signinGoBackArrow", timeout);
+        await this.tapById("signinGoBackArrow");
+        await sleep(2000);
+    }
 
     async fillSigninEmail(inputText, timeout = 10000) {
         await this.toBeVisibleById("signinEmail", timeout);

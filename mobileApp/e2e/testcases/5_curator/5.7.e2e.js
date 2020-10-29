@@ -14,12 +14,12 @@ describe('TuristMO', () => {
     let signupSO = new SignupSO();
 
     beforeAll(async ()=>{
-        await device.disableSynchronization();
         await device.launchApp({ permissions: { location: 'never' } });
     })
 
     beforeEach(async () => {
         await device.reloadReactNative();
+        await device.disableSynchronization();
     });
 
     it('5.7 Registrera konto med icke accepterade lösenord', async () => {

@@ -79,3 +79,4 @@ mobileApp/buck-out/
 !debug.keystore
 
 *.jsbundle
+!/mobileApp/android/app/my-upload-key.keystore

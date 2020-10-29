@@ -2,6 +2,7 @@ import {AppSO} from "../../screens/AppSO";
 import {SplashSO} from "../../screens/SplashSO";
 import {SignupSO} from "../../screens/SignupSO";
 import {SigninSO} from "../../screens/SigninSO";
+import {sleep} from "../../helpers";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
@@ -13,7 +14,7 @@ describe('TuristMO', () => {
     let signupSO = new SignupSO();
 
     beforeAll(async ()=>{
-        await device.disableSynchronization();
+        //await device.disableSynchronization();
         await device.launchApp({ permissions: { location: 'never' } });
     })
 
@@ -33,10 +34,9 @@ describe('TuristMO', () => {
         await signupSO.tapById("signupShowHideToggle");
         await signupSO.waitToHaveTextById("signupPassword", "123456");
         await signupSO.waitToHaveTextById("confirmPassword", "123456");
-        //await signupSO.tapSignupButton();   //Also expects visibility
 
-        await signupSO.toBeVisibleById("goBackArrow");
-        await signupSO.tapById("goBackArrow");
+        await signupSO.tapGoBackArrow();
+
         await splashSO.tapGetStartedButton();  //Also expects visibility
         await signinSO.fillSigninEmail("minemailadress@domain.co.uk");
         await signupSO.waitToHaveTextById("signinEmail", "minemailadress@domain.co.uk");

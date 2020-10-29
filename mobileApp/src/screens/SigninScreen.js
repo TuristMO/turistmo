@@ -36,7 +36,7 @@ const SigninScreen = ({ navigation }) => {
         <View style={styles.container}>
           <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>
           <View style={styles.header}>
-            <GoBackArrow navigation={navigation} destination={'CuratorScreen'} />
+            <GoBackArrow testID={'signinGoBackArrow'} navigation={navigation} destination={'CuratorScreen'} />
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
           <Animatable.View
