@@ -21,9 +21,7 @@ describe('TuristMO', () => {
         await device.reloadReactNative();
     });
 
-    it('5.1 Registrera curator konto (signup)', async () => {
-
-        // Testcase to be extended
+    it('5.6 Visa gömd text i signup & signin-formulär', async () => {
 
         await appSO.tapCuratorTab();
         await splashSO.tapGetStartedButton();
@@ -36,6 +34,15 @@ describe('TuristMO', () => {
         await signupSO.waitToHaveTextById("signupPassword", "123456");
         await signupSO.waitToHaveTextById("confirmPassword", "123456");
         //await signupSO.tapSignupButton();   //Also expects visibility
+
+        await signupSO.toBeVisibleById("goBackArrow");
+        await signupSO.tapById("goBackArrow");
+        await splashSO.tapGetStartedButton();  //Also expects visibility
+        await signinSO.fillSigninEmail("minemailadress@domain.co.uk");
+        await signupSO.waitToHaveTextById("signinEmail", "minemailadress@domain.co.uk");
+        await signinSO.fillPassword("123456");
+        await signinSO.tapById("signinShowHideToggle");
+        await signinSO.waitToHaveTextById("signinPassword", "123456");
 
     });
 
