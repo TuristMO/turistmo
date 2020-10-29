@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
+import {Dimensions, Image, StatusBar, StyleSheet, Text, View} from 'react-native'
 import { Button } from "react-native-elements";
 import * as Animatable from 'react-native-animatable'
 
@@ -7,6 +7,7 @@ const SplashScreen = ({navigation}) => {
 
   return (
       <View style={styles.container}>
+        <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>
         <View style={styles.header}>
           <Animatable.Image
               animation={"bounceIn"}

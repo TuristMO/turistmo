@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TouchableOpacity, Image, StyleSheet, View, ScrollView, Text } from 'react-native'
+import {Button, TouchableOpacity, Image, StyleSheet, View, ScrollView, Text, StatusBar} from 'react-native'
 
 const CuratorScreen = () => {
 
