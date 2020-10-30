@@ -22,7 +22,7 @@ import Card2 from "../components/Card2";
 
 const PackageScreen2 = (props) => {
     const {
-        location, packages:{loading, packagesTravel, packagesFood, packagesBusiness, packagesCulture},
+        location, packages:{loading,packages ,packagesTravel, packagesFood, packagesBusiness, packagesCulture},
         getAllPackagesTravel, getAllPackagesFood, getAllPackagesBusiness, getAllPackagesCulture, getAllPackages, navigation
     } = props;
 
