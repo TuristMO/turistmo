@@ -45,7 +45,7 @@ jobs:
         id: run-newman
         uses: anthonyvscode/newman-action@v1
         with:
-          collection: ./postman/actionnewmanGames.postman_collection.json
+          collection: ./postman/TuristmoApp.postman_collection.json
           reporters: cli
           color: 'on'
   android:
