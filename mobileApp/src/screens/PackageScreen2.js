@@ -22,7 +22,7 @@ import Card2 from "../components/Card2";
 
 const PackageScreen2 = (props) => {
     const {
-        location, packages: {packages, loading, packagesTravel, packagesFood, packagesBusiness, packagesCulture},
+        location, packages:{loading, packagesTravel, packagesFood, packagesBusiness, packagesCulture},
         getAllPackagesTravel, getAllPackagesFood, getAllPackagesBusiness, getAllPackagesCulture, getAllPackages, navigation
     } = props;
 
@@ -213,8 +213,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
 })
-const mapStateToProps = ({location, packages, packagesTravel, packagesFood}) => {
-    return ({packages, location, packagesTravel, packagesFood}); //define your own keys
+const mapStateToProps = ({location, packages}) => {
+    return ({packages, location}); //define your own keys
 }
 
 export default connect(mapStateToProps,

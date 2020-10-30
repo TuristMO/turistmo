@@ -1,6 +1,7 @@
 package com.expleo.turistmo.turistmo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @Data
 @Entity
-@JsonIdentityInfo(generator = IntSequenceGenerator.class)
+//@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 @ToString(exclude = {"usefulApplications", "curator", "tags"})
 @EqualsAndHashCode(exclude = {"usefulApplications", "curator", "tags"}, callSuper = false)
 public class Package extends BaseEntity {
@@ -51,6 +52,7 @@ public class Package extends BaseEntity {
     private String description;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("packages")
     private Curator curator;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)

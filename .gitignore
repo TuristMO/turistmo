@@ -5,6 +5,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Fastlane
+mobileApp/android/app/turistmo-private-key.json
+mobileApp/android/app/my-upload-key.keystore
+
 # MobileAPP
 mobileApp/node_modules
 mobileApp/android/*.hprof

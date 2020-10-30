@@ -27,7 +27,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @Data
 @Entity
-@JsonIdentityInfo(generator = IntSequenceGenerator.class)
+//@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 @ToString(exclude = {"packages"})
 @EqualsAndHashCode(exclude = {"packages"}, callSuper = false)
 public class Tag extends BaseEntity{
