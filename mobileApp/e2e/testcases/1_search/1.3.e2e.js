@@ -7,13 +7,14 @@ describe('TuristMO', () => {
     let packageSO = new PackageSO();
 
     beforeAll(async ()=>{
-        await device.disableSynchronization();
         await device.launchApp({ permissions: { location: 'never' } });
     })
 
     beforeEach(async () => {
         await device.reloadReactNative();
+        //await device.disableSynchronization();
     });
+
     /*
     it('1.3 Sökning på app', async () => {
 

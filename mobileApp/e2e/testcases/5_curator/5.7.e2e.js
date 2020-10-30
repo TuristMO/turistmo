@@ -19,7 +19,7 @@ describe('TuristMO', () => {
 
     beforeEach(async () => {
         await device.reloadReactNative();
-        await device.disableSynchronization();
+        //await device.disableSynchronization();
     });
 
     it('5.7 Registrera konto med icke accepterade lösenord', async () => {

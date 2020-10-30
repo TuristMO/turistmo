@@ -12,12 +12,12 @@ describe('TuristMO', () => {
     let signinSO = new SigninSO();
 
     beforeAll(async ()=>{
-        await device.disableSynchronization();
         await device.launchApp({ permissions: { location: 'never' } });
     })
 
     beforeEach(async () => {
         await device.reloadReactNative();
+        //await device.disableSynchronization();
     });
 
     it('5.4 Logga in som curator', async () => {

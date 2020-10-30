@@ -11,12 +11,12 @@ describe('TuristMO', () => {
     let guideInstallSO = new GuideInstallSO();
 
     beforeAll(async ()=>{
-        await device.disableSynchronization();
         await device.launchApp({ permissions: { location: 'never' } });
     })
 
     beforeEach(async () => {
         await device.reloadReactNative();
+        //await device.disableSynchronization();
     });
 
     it('2.2 Deleteguide spelas upp', async () => {

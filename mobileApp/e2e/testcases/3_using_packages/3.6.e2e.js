@@ -13,7 +13,7 @@ describe('TuristMO', () => {
 
     beforeEach(async () => {
         await device.reloadReactNative();
-        await device.disableSynchronization();
+        //await device.disableSynchronization();
     });
 
     it('3.6 Rate:a paket upp/ner', async () => {

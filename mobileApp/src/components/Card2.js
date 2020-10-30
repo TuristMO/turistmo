@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, TouchableOpacity, Image, StyleSheet, View, ScrollView, Text, FlatList } from 'react-native'
 import Application from "./Application";
 
-const Card2 = ({ cPackage }) => {
+const Card2 = ({ cPackage,index }) => {
 
     const silhuette = city => {
         switch(city) {
@@ -44,7 +44,7 @@ const Card2 = ({ cPackage }) => {
             </View>
             <View style={{justifyContent: 'center',padding: 5,backgroundColor: '#FFF', flex: 1, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
                 <Text
-                    testID={'cardPackageTitle'}
+                    testID={'cardPackageTitle'+index}
                     style={{fontWeight: 'bold', backgroundColor: 'white'}}>{title}</Text>
             </View>
         </View>
