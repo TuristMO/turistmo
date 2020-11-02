@@ -29,7 +29,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @ToString(exclude = {"packages"})
 @EqualsAndHashCode(exclude = {"packages"}, callSuper = false)
-@JsonIdentityInfo(generator = IntSequenceGenerator.class)
+//@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 public class Application extends BaseEntity {
 
     @Builder

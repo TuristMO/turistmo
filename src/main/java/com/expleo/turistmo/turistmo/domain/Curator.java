@@ -26,7 +26,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @Entity
-@JsonIdentityInfo(generator = IntSequenceGenerator.class)
+//@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 @EqualsAndHashCode(exclude = {"packages"}, callSuper = true)
 @ToString(exclude = {"packages"})
 public class Curator extends BaseEntity {

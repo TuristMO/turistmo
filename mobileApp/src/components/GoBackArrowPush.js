@@ -2,9 +2,10 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet} from 'react-native'
 import { Icon } from "react-native-elements";
 
-const GoBackArrowPush = ({navigation,destination}) => {
+const GoBackArrowPush = ({navigation,destination, testID}) => {
     return (
         <TouchableOpacity
+            testID={testID}
             style={styles.arrow}
             onPress={() => navigation.push(destination)}>
             <Icon color={'white'} size={30} type={'feather'} name="x"/>
@@ -21,4 +22,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default GoBackArrowPush;
+export default GoBackArrow;
