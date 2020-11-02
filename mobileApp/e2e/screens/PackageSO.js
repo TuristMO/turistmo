@@ -1,4 +1,5 @@
 import {Utility} from "../Utility";
+import {sleep} from "../helpers";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
@@ -24,8 +25,25 @@ export class PackageSO extends Utility {
         await this.tapReturnKeyById("searchField");
     }
 
-    async tapPackage() {
-        await this.tapById("")
+    async tapFirstTravelPackage() {
+        await this.toBeVisibleById("cardPackageTitleTravelIndex0");
+        await this.tapById("cardPackageTitleTravelIndex0");
+    }
+
+    async tapFirstSearchPackage() {
+        await this.toBeVisibleById("cardPackageTitleSearchIndex0");
+        await this.tapById("cardPackageTitleSearchIndex0");
+    }
+
+    async waitForPackageDetailTitleByText(inputText) {
+        await this.toBeVisibleById("packageDetailpackageTitle");
+        await this.waitToHaveTextById("packageDetailpackageTitle", inputText);
+    }
+
+    async tapPackageDetailGoBackArrow() {
+        await this.toBeVisibleById("packageDetailGoBackArrow");
+        await this.tapById("packageDetailGoBackArrow");
+        await sleep(2000);
     }
 
     async findSearchResultByCuratorName(inputText, atIndex = -1, timeout) {

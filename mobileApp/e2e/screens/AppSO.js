@@ -5,6 +5,13 @@ const {device, expect, element, by, waitFor} = require('detox');
 
 export class AppSO extends Utility {
 
+    async tapHomeTab(timeout) {
+
+        await this.toBeVisibleById("HomeTab", timeout);
+        await this.tapById("HomeTab");
+        await sleep(2000);
+    }
+
     async tapCuratorTab(timeout) {
 
         await this.toBeVisibleById("CuratorTab", timeout);
