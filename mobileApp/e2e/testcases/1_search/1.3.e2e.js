@@ -1,9 +1,11 @@
 import {PackageSO} from "../../screens/PackageSO";
+import {AppSO} from "../../screens/AppSO";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
 describe('TuristMO', () => {
 
+    let appSO = new AppSO();
     let packageSO = new PackageSO();
 
     beforeAll(async ()=>{
@@ -22,9 +24,12 @@ describe('TuristMO', () => {
         await packageSO.tapFirstSearchPackage();
         await packageSO.toExistById("SL")
 
-      //  await packageSO.fillSearchField("Göteborg");
-       // await packageSO.doSearch();
-     //   await packageSO.waitToHaveTextById('cardPackageTitleSearchIndex0', "Göteborg culture");
+        await appSO.tapHomeTab();
+
+        await packageSO.fillSearchField("aimo");
+        await packageSO.doSearch();
+        await packageSO.tapFirstSearchPackage();
+        await packageSO.toExistById("Aimo")
 
     });
 
