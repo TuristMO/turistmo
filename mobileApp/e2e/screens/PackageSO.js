@@ -23,6 +23,7 @@ export class PackageSO extends Utility {
     async doSearch(timeout) {
         await this.toBeVisibleById("searchField", timeout);
         await this.tapReturnKeyById("searchField");
+        await sleep(1000);
     }
 
     async tapFirstTravelPackage() {
