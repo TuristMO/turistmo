@@ -13,6 +13,7 @@ export class SigninSO extends Utility {
     async tapSignupButton(timeout) {
         await this.toBeVisibleById("signinSignUp", timeout);
         await this.tapById("signinSignUp");
+        await sleep(2000);
     }
 
     async tapGoBackArrow(timeout) {
