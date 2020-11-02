@@ -3,7 +3,7 @@ import { Image, StyleSheet, TouchableOpacity ,Linking,Alert} from 'react-native'
 
 
 
-const Application = ({ link, logo, id }) => {
+const Application = ({ link, logo, id, title }) => {
 
   const handlePress = useCallback(async () => {
     //TODO 1. Check which os platform the app is being used.
@@ -23,7 +23,7 @@ const Application = ({ link, logo, id }) => {
     }
   }, [link]);
 
-  return <TouchableOpacity onPress={handlePress}>
+  return <TouchableOpacity testID={title} onPress={handlePress}>
     <Image source={{ uri: logo }} style={styles.logo}/>
   </TouchableOpacity>
 

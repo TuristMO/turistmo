@@ -28,6 +28,11 @@ export class PackageSO extends Utility {
         await this.tapById("")
     }
 
+    async tapFirstSearchPackage(){
+        await this.toBeVisibleById("cardPackageTitleSearchIndex0");
+        await this.tapById("cardPackageTitleSearchIndex0");
+    }
+
     async findSearchResultByCuratorName(inputText, atIndex = -1, timeout) {
         switch(atIndex) {
             case -1:

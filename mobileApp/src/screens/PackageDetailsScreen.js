@@ -74,7 +74,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     keyExtractor={item => guid +" "+ item.guid}
                     renderItem={({item, index}) => {
 
-                        return <Application logo={item.logo} link={item.android_link} id={item.guid}/>
+                        return <Application title={item.title} logo={item.logo} link={item.android_link} id={item.guid}/>
                     }}
                 />
             </View>

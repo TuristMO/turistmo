@@ -15,14 +15,17 @@ describe('TuristMO', () => {
         //await device.disableSynchronization();
     });
 
-    /*
     it('1.3 Sökning på app', async () => {
 
         await packageSO.fillSearchField("SL");
-        await packageSO.clickSearchButton();
-        await waitFor(element(by.id("test123")).atIndex(0)).toExist().withTimeout(10000);
+        await packageSO.doSearch();
+        await packageSO.tapFirstSearchPackage();
+        await packageSO.toExistById("SL")
 
-        // await packageSO.findSearchResultByAppTitle("SL", 0);
+      //  await packageSO.fillSearchField("Göteborg");
+       // await packageSO.doSearch();
+     //   await packageSO.waitToHaveTextById('cardPackageTitleSearchIndex0', "Göteborg culture");
+
     });
-     */
+
 });
