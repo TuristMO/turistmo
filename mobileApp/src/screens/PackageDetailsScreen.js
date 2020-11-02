@@ -43,7 +43,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     >{title}</Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <GoBackArrowPush navigation={navigation} destination={'Home'}/>
+                    <GoBackArrowPush testID={"packageDetailGoBackArrow"} navigation={navigation} destination={'Home'}/>
                 </View>
             </View>
             <View
