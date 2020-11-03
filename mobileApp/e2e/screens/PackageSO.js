@@ -23,15 +23,16 @@ export class PackageSO extends Utility {
     async doSearch(timeout) {
         await this.toBeVisibleById("searchField", timeout);
         await this.tapReturnKeyById("searchField");
-        await sleep(1000);
     }
 
     async tapFirstTravelPackage() {
+        await this.toExistById("cardPackageTitleTravelIndex0")
         await this.toBeVisibleById("cardPackageTitleTravelIndex0");
         await this.tapById("cardPackageTitleTravelIndex0");
     }
 
     async tapFirstSearchPackage() {
+        await this.toExistById("cardPackageTitleSearchIndex0")
         await this.toBeVisibleById("cardPackageTitleSearchIndex0");
         await this.tapById("cardPackageTitleSearchIndex0");
     }
