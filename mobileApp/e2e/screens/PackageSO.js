@@ -26,13 +26,11 @@ export class PackageSO extends Utility {
     }
 
     async tapFirstTravelPackage() {
-        await this.toExistById("cardPackageTitleTravelIndex0")
         await this.toBeVisibleById("cardPackageTitleTravelIndex0");
         await this.tapById("cardPackageTitleTravelIndex0");
     }
 
     async tapFirstSearchPackage() {
-        await this.toExistById("cardPackageTitleSearchIndex0")
         await this.toBeVisibleById("cardPackageTitleSearchIndex0");
         await this.tapById("cardPackageTitleSearchIndex0");
     }
