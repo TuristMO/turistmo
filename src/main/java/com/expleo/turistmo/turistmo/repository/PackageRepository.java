@@ -9,6 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.UUID;
+
 @Repository
 public interface PackageRepository extends JpaRepository<Package, Long> {
 
@@ -26,5 +29,7 @@ public interface PackageRepository extends JpaRepository<Package, Long> {
 
     @Query("select pack FROM Package pack JOIN pack.tags u WHERE LOWER(u.title) = LOWER(?1)")
     Page<Package> findAllByTagsTitle(String searchTag, Pageable pageable);
+
+    List<Package> findAllPackageByCuratorGuid(UUID curator_guid);
 
 }

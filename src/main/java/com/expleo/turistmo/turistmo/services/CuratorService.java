@@ -1,11 +1,15 @@
 package com.expleo.turistmo.turistmo.services;
 
 import com.expleo.turistmo.turistmo.domain.Curator;
+import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.exception.EmailAlreadyExistsException;
 import com.expleo.turistmo.turistmo.exception.PasswordMismatchException;
 import com.expleo.turistmo.turistmo.repository.CuratorRepository;
 import com.expleo.turistmo.turistmo.web.request.SignUpRequest;
 import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,5 +40,35 @@ public class CuratorService {
             .password(encodedPassword)
             .build();
         return curatorRepository.save(newCuratorAccount);
+    }
+
+    public Curator findCuratorByEmail(String email){
+        return curatorRepository
+                .findCuratorByEmail(email)
+                .orElseThrow(()->new NullPointerException("Unauthorized request!"));
+    }
+
+    public Curator findCuratorByGuid(UUID guid){
+        return curatorRepository
+                .findCuratorByGuid(guid)
+                .orElseThrow(()->new NullPointerException("Unauthorized request!"));
+    }
+
+    public Set<Package> findPackagesFromCuratorByGuid(UUID guid){
+        Curator curator = curatorRepository
+                .findCuratorByGuid(guid)
+                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
+
+        return  curator.getPackages();
+    }
+
+    public void saveCuratorPackages(Curator curator, Package newPackage){
+        Curator getCurator = curatorRepository
+                .findCuratorByGuid(curator.getGuid())
+                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
+
+
+        getCurator.addPackages(newPackage);
+        curatorRepository.save(getCurator);
     }
 }
