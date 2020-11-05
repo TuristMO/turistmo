@@ -1,5 +1,6 @@
 import {Utility} from "../Utility";
 import {sleep} from "../helpers";
+import ViewActions from "detox/src/android/espressoapi/ViewActions";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
@@ -21,7 +22,9 @@ export class PackageSO extends Utility {
     }
 
     async doSearch(timeout) {
+        ViewActions.closeSoftKeyboard();    //Using espressos own func to close keyb before checking visibility
         await this.toBeVisibleById("searchField", timeout);
+        await this.tapById("searchField");
         await this.tapReturnKeyById("searchField");
     }
 
