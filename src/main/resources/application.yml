@@ -22,7 +22,7 @@ app:
     username: ${DB_USER}
     password: ${DB_PASS}
     #test
-    #jdbc-url: jdbc:postgresql://localhost:5432/turistmo
+#    jdbc-url: jdbc:postgresql://localhost:5432/turistmo
   mailgun:
     domain: ${MAILGUN_DOMAIN}
     password: ${MAILGUN_SMTP_PASSWORD}
