@@ -98,7 +98,7 @@ class TuristMoControllerTest {
     @DisplayName("It should not register curator when passing two different passwords.")
     void itShouldNotRegisterCurator() throws Exception, PasswordMismatchException {
         //GIVEN
-        SignUpRequest signUpRequest = new SignUpRequest("turistmo@gmail.com", "password", "differentPassword");
+        SignUpRequest signUpRequest = new SignUpRequest("turistmo@gmail.com", "password", "differentPassword","tur","istmo");
         String ERROR_MESSAGE = "Passwords should match";
         given(curatorService.register(any(SignUpRequest.class)))
             .willThrow(new PasswordMismatchException(ERROR_MESSAGE));
@@ -114,7 +114,7 @@ class TuristMoControllerTest {
     @DisplayName("It should not register curator that already exists.")
     void itShouldNotRegisterCuratorThatAlreadyExists() throws Exception, PasswordMismatchException {
         //GIVEN
-        SignUpRequest signUpRequest = new SignUpRequest("turistmo@gmail.com", "password", "password");
+        SignUpRequest signUpRequest = new SignUpRequest("turistmo@gmail.com", "password", "password","tur","istmo");
         String ERROR_MESSAGE = "Account already exists!";
         given(curatorService.register(any(SignUpRequest.class)))
             .willThrow(new EmailAlreadyExistsException(ERROR_MESSAGE));

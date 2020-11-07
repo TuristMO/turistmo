@@ -24,6 +24,8 @@ public class CuratorService {
 
     public Curator register(SignUpRequest signUpCurator) throws PasswordMismatchException {
         final String email = signUpCurator.getEmail();
+        final String firstName = signUpCurator.getFirstName();
+        final String lastName = signUpCurator.getLastName();
         Optional<Curator> curatorByEmail = curatorRepository.findCuratorByEmail(email);
 
         if (curatorByEmail.isPresent()) {
@@ -31,14 +33,16 @@ public class CuratorService {
         }
         if (!signUpCurator.getConfirmPassword().contentEquals(signUpCurator.getPassword())) {
             throw new PasswordMismatchException(
-                String.format("Password %s doesn't match with your password confirmation %s!",
-                    signUpCurator.getPassword(), signUpCurator.getConfirmPassword()));
+                    String.format("Password %s doesn't match with your password confirmation %s!",
+                            signUpCurator.getPassword(), signUpCurator.getConfirmPassword()));
         }
         String encodedPassword = passwordEncoder.encode(signUpCurator.getPassword());
         Curator newCuratorAccount = Curator.builder()
-            .email(email)
-            .password(encodedPassword)
-            .build();
+                .email(email)
+                .password(encodedPassword)
+                .firstName(firstName)
+                .lastName(lastName)
+                .build();
         return curatorRepository.save(newCuratorAccount);
     }
 

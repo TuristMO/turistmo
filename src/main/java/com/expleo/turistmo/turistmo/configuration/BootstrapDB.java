@@ -25,7 +25,7 @@ public class BootstrapDB implements CommandLineRunner {
     private final TagRepository tagRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         if (packageRepository.count() <= 0 && applicationRepository.count() <= 0) {
 

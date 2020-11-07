@@ -48,10 +48,10 @@ export class PackageSO extends Utility {
         await sleep(2000);
     }
 
-    async tapFirstSearchPackage(){
-        await this.toBeVisibleById("cardPackageTitleSearchIndex0");
-        await this.tapById("cardPackageTitleSearchIndex0");
-    }
+    // async tapFirstSearchPackage(){
+    //     await this.toBeVisibleById("cardPackageTitleSearchIndex0");
+    //     await this.tapById("cardPackageTitleSearchIndex0");
+    // }
 
     async findSearchResultByCuratorName(inputText, atIndex = -1, timeout) {
         switch(atIndex) {
