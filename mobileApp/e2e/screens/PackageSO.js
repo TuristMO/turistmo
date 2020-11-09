@@ -24,7 +24,7 @@ export class PackageSO extends Utility {
     async doSearch(timeout) {
         ViewActions.closeSoftKeyboard();    //Using espressos own func to close keyb before checking visibility
         await this.toBeVisibleById("searchField", timeout);
-        await this.tapById("searchField");
+        await this.tapById("searchField");  //Opening keyb again
         await this.tapReturnKeyById("searchField");
     }
 
