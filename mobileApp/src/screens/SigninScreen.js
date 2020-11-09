@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
-import { Dimensions, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator, Alert,
+  Dimensions,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native'
 import { Button, Icon, Input } from "react-native-elements";
 import * as Animatable from 'react-native-animatable'
 import KeyboardDismiss from "../components/KeyboardDismiss";
 import GoBackArrow from "../components/GoBackArrow";
+import {connect} from "react-redux";
+import {emptyErrMessage, isUserFound, postSignInCurator} from "../actions";
 
 const MAIN_COLOR = '#4AB4FF';
 
-const SigninScreen = ({ navigation }) => {
+const SigninScreen = (props) => {
+
+  const {
+    navigation,postSignInCurator,emptyErrMessage,isUserFound, rCurator: {curator,userFound,errorMessageLogin,jwt,loading}
+  } = props;
+
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -15,21 +31,39 @@ const SigninScreen = ({ navigation }) => {
     secureTextEntry: true
   });
 
+  const[foundUser,setFoundUser] = useState(false)
+
+  const [curatorS, setCuratorS] = useState({
+    email: '',
+    password: '',
+  })
+
   const emailInputChange = (val) => {
     if (val.length !== 0) {
       setData({ ...data, email: val, check_textInputChange: true })
     } else {
       setData({ ...data, email: val, check_textInputChange: false })
     }
+    setCuratorS({...curatorS, email: val})
   };
 
   const passwordInputChange = (val) => {
     setData({ ...data, password: val })
+    setCuratorS({...curatorS, password: val})
   };
 
   const updateSecureTextEntry = () => {
     setData({ ...data, secureTextEntry: !data.secureTextEntry });
   };
+  //console.log("CURATOR GUID " +curator.guid)
+  //console.log("CURATOR EMAIL " +curator.email)
+  //console.log("JWT "+jwt)
+  //console.log("ERRROR "+errorMessageLogin)
+
+  function checkLogin() {
+    //postSignInCurator(curatorS).then(() => userFound ? true : false);
+    userFound ? true : false;
+  }
 
   return (
       <KeyboardDismiss>
@@ -85,7 +119,8 @@ const SigninScreen = ({ navigation }) => {
                   buttonStyle={styles.signIn}
                   titleStyle={styles.textSign}
                   title="Sign in"
-                  onPress={() => console.log('Signin')}
+                  onPress={() => postSignInCurator(curatorS).then(checkLogin()) ? navigation.navigate('SignedInCuratorScreen', {path: curator}): Alert.alert("Wrong credentials")}
+                  //onPress={() => postSignInCurator(curatorS).then(()=>userFound ? console.log("Correct password") : console.log("Wrong password"))}
               />
               <Button
                   testID={"signinSignUp"}
@@ -168,4 +203,11 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SigninScreen;
+const mapStateToProps = ({rCurator}) => {
+  return ({rCurator})
+}
+
+export default connect(
+    mapStateToProps,
+    {postSignInCurator,emptyErrMessage,isUserFound})
+(SigninScreen);

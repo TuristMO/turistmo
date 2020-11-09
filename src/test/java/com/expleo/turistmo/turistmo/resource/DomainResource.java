@@ -134,7 +134,7 @@ public class DomainResource {
     }
 
     public SignUpRequest getSignUpRequest(){
-        return new SignUpRequest("johdoe@gmail.com","123321","123321");
+        return new SignUpRequest("johdoe@gmail.com","123321","123321", "John","Doe");
     }
 
     public VerificationToken getVerificationToken(Curator curator,TokenType tokenType,Date date){

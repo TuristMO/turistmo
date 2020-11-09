@@ -1,22 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import {  TouchableOpacity, Image, StyleSheet, View, ScrollView, Text, StatusBar, Platform } from 'react-native'
+import {
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  StatusBar,
+  Platform,
+  ActivityIndicator, Alert
+} from 'react-native'
 import KeyboardDismiss from "../components/KeyboardDismiss";
 import { Button,Icon, Input } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import GoBackArrow from "../components/GoBackArrow";
+import {connect} from "react-redux";
+import {postSignUpCurator, emptyErrMessage} from "../actions";
+
 
 
 const MAIN_COLOR = '#4AB4FF';
-const SignupScreen = ({navigation}) => {
+const SignupScreen = (props) => {
+
+  const {
+    navigation,postSignUpCurator,emptyErrMessage, rCurator: {errorMessageSignUp,jwt,loading}
+  } = props;
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [data, setData] = useState({
     email: '',
     password: '',
     confirmPassword:'',
+    firstName:'',
+    lastName:'',
     check_textInputChange: false,
     secureTextEntry: true,
     secureTextEntryConfirmPassword: true
   });
+
+  const [curatorS, setCurator] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    firstName: '',
+    lastName: '',
+  })
 
 
 
@@ -26,19 +55,48 @@ const SignupScreen = ({navigation}) => {
     } else {
       setData({ ...data, email: val, check_textInputChange: false })
     }
+    setCurator({...curatorS, email: val})
   };
 
   const passwordInputChange = (val) => {
     setData({ ...data, password: val })
+    setCurator({...curatorS, password: val})
   };
 
   const confirmPasswordInputChange = (val) => {
-    setData({ ...data, password: val })
+    setData({ ...data, confirmPassword: val })
+    setCurator({...curatorS, confirmPassword: val})
+  };
+
+  const firstNameInputChange = (val) => {
+    setData({ ...data, firstName: val })
+    setCurator({...curatorS, firstName: val})
+  };
+
+  const lastNameInputChange = (val) => {
+    setData({ ...data, lastName: val })
+    setCurator({...curatorS, lastName: val})
   };
 
   const updateSecureTextEntry = () => {
     setData({ ...data, secureTextEntry: !data.secureTextEntry });
   };
+  //
+  // if (loading) {
+  //   return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, justifyContent: "center"}}/>
+  // }
+
+  useEffect(()=>{
+    if(errorMessageSignUp){
+      return (
+
+          Alert.alert(errorMessageSignUp)
+      )
+    }
+    return ()=>{
+      emptyErrMessage()
+    }
+  },[errorMessageSignUp])
 
   return (
       <KeyboardDismiss>
@@ -51,61 +109,97 @@ const SignupScreen = ({navigation}) => {
           <Animatable.View
               animation={'fadeInUpBig'}
               style={styles.footer}>
-            <Input
-                testID={'signupEmail'}
-                autoCapitalize={'none'}
-                inputStyle={styles.textInput}
-                placeholder='Email'
-                errorStyle={{ color: 'red' }}
-                errorMessage=''
-                onChangeText={emailInputChange}
-                leftIcon={<Icon name={'user-o'} type={'font-awesome'}/>}
-                rightIcon={
-                  data.check_textInputChange
-                      ? <Animatable.View animation={'bounceIn'}>
-                        <Icon name={'check-circle'} type={'feather'} color={'green'}/>
-                      </Animatable.View>
-                      : null
-                }
-            />
-            <Input
-                testID={'signupPassword'}
-                autoCapitalize={'none'}
-                inputStyle={styles.textInput}
-                placeholder='Password'
-                secureTextEntry={data.secureTextEntry}
-                errorStyle={{ color: 'red' }}
-                errorMessage=''
-                onChangeText={passwordInputChange}
-                leftIcon={{ type: 'feather', name: 'lock' }}
-                rightIcon={
-                  <TouchableOpacity testID={'signupShowHideToggle'} accessibilityLabel={'signupShowHideToggle'} onPress={updateSecureTextEntry}>
-                    <Icon
-                        type={'feather'}
-                        color='gray'
-                        name={data.secureTextEntry ? 'eye-off' : 'eye'}
-                    />
-                  </TouchableOpacity>}
-            />
-            <Input
-                testID={'confirmPassword'}
-                autoCapitalize={'none'}
-                inputStyle={styles.textInput}
-                placeholder='Confirm Password'
-                secureTextEntry={data.secureTextEntry}
-                errorStyle={{ color: 'red' }}
-                errorMessage=''
-                onChangeText={confirmPasswordInputChange}
-                leftIcon={{ type: 'feather', name: 'lock' }}
-                rightIcon={
-                  <TouchableOpacity onPress={updateSecureTextEntry}>
-                    <Icon
-                        type={'feather'}
-                        color='gray'
-                        name={data.secureTextEntry ? 'eye-off' : 'eye'}
-                    />
-                  </TouchableOpacity>}
-            />
+            <ScrollView>
+              <Input
+                  testID={'signupEmail'}
+                  autoCapitalize={'none'}
+                  inputStyle={styles.textInput}
+                  placeholder='Email'
+                  errorStyle={{ color: 'red' }}
+                  errorMessage=''
+                  onChangeText={emailInputChange}
+                  leftIcon={<Icon name={'user-o'} type={'font-awesome'}/>}
+                  rightIcon={
+                    data.check_textInputChange
+                        ? <Animatable.View animation={'bounceIn'}>
+                          <Icon name={'check-circle'} type={'feather'} color={'green'}/>
+                        </Animatable.View>
+                        : null
+                  }
+              />
+              <Input
+                  testID={'signupPassword'}
+                  autoCapitalize={'none'}
+                  inputStyle={styles.textInput}
+                  placeholder='Password'
+                  secureTextEntry={data.secureTextEntry}
+                  errorStyle={{ color: 'red' }}
+                  errorMessage=''
+                  onChangeText={passwordInputChange}
+                  leftIcon={{ type: 'feather', name: 'lock' }}
+                  rightIcon={
+                    <TouchableOpacity testID={'signupShowHideToggle'} accessibilityLabel={'signupShowHideToggle'} onPress={updateSecureTextEntry}>
+                      <Icon
+                          type={'feather'}
+                          color='gray'
+                          name={data.secureTextEntry ? 'eye-off' : 'eye'}
+                      />
+                    </TouchableOpacity>}
+              />
+              <Input
+                  testID={'confirmPassword'}
+                  autoCapitalize={'none'}
+                  inputStyle={styles.textInput}
+                  placeholder='Confirm Password'
+                  secureTextEntry={data.secureTextEntry}
+                  errorStyle={{ color: 'red' }}
+                  errorMessage=''
+                  onChangeText={confirmPasswordInputChange}
+                  leftIcon={{ type: 'feather', name: 'lock' }}
+                  rightIcon={
+                    <TouchableOpacity onPress={updateSecureTextEntry}>
+                      <Icon
+                          type={'feather'}
+                          color='gray'
+                          name={data.secureTextEntry ? 'eye-off' : 'eye'}
+                      />
+                    </TouchableOpacity>}
+              />
+              <Input
+                  testID={'signupfirstName'}
+                  autoCapitalize={'none'}
+                  inputStyle={styles.textInput}
+                  placeholder='First name'
+                  errorStyle={{ color: 'red' }}
+                  errorMessage=''
+                  onChangeText={firstNameInputChange}
+                  leftIcon={<Icon name={'user-o'} type={'font-awesome'}/>}
+                  rightIcon={
+                    data.check_textInputChange
+                        ? <Animatable.View animation={'bounceIn'}>
+                          <Icon name={'check-circle'} type={'feather'} color={'green'}/>
+                        </Animatable.View>
+                        : null
+                  }
+              />
+              <Input
+                  testID={'signuplastName'}
+                  autoCapitalize={'none'}
+                  inputStyle={styles.textInput}
+                  placeholder='Last name'
+                  errorStyle={{ color: 'red' }}
+                  errorMessage=''
+                  onChangeText={lastNameInputChange}
+                  leftIcon={<Icon name={'user-o'} type={'font-awesome'}/>}
+                  rightIcon={
+                    data.check_textInputChange
+                        ? <Animatable.View animation={'bounceIn'}>
+                          <Icon name={'check-circle'} type={'feather'} color={'green'}/>
+                        </Animatable.View>
+                        : null
+                  }
+              />
+            </ScrollView>
             <View style={styles.button}>
               <Button
                   testID={"signupSignUp"}
@@ -113,7 +207,7 @@ const SignupScreen = ({navigation}) => {
                   buttonStyle={styles.signIn}
                   titleStyle={styles.textSign}
                   title="Sign Up"
-                  onPress={() => console.log('SignUp')}
+                  onPress={() => postSignUpCurator(curatorS)}
               />
               <Button
                   testID={"signupSignin"}
@@ -142,14 +236,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 50,
   },
-
   footer: {
     flex: 3,
     backgroundColor: '#fff',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingVertical: 30
+    paddingVertical: 15
   },
   text_header: {
     color: '#fff',
@@ -192,4 +285,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
 })
-export default SignupScreen;
+
+const mapStateToProps = ({rCurator}) => {
+  return ({rCurator})
+}
+
+export default connect(
+    mapStateToProps,
+    {postSignUpCurator,emptyErrMessage})
+(SignupScreen);
+

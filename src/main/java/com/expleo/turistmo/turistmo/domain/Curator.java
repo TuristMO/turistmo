@@ -26,14 +26,14 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @Entity
-//@JsonIdentityInfo(generator = IntSequenceGenerator.class)
+@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 @EqualsAndHashCode(exclude = {"packages"}, callSuper = true)
 @ToString(exclude = {"packages"})
 public class Curator extends BaseEntity {
 
     @Builder
     public Curator(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate, String firstName, String lastName, String email,
-        String password, String avatarUrl, String description, Set<Package> packages) {
+                   String password, String avatarUrl, String description, Set<Package> packages) {
         super(id, guid, createdDate, lastModifiedDate);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,7 +41,8 @@ public class Curator extends BaseEntity {
         this.password = password;
         this.avatarUrl = avatarUrl;
         this.description = description;
-        this.packages = packages;
+        //  this.packages = packages;
+        this.packages = new HashSet<>();
 
     }
 
@@ -68,7 +69,10 @@ public class Curator extends BaseEntity {
     private Boolean verified = false;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
-        orphanRemoval = true, mappedBy = "curator")
+            orphanRemoval = true, mappedBy = "curator")
     Set<Package> packages = new HashSet<>();
 
+    public void addPackages(Package newPackage){
+        this.packages.add(newPackage);
+    }
 }

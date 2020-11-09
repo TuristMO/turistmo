@@ -24,4 +24,9 @@ public class ApplicationService {
         PageRequest pageable = PageRequest.of(page, size);
         return applicationRepository.findApplicationsByTitle(title, pageable);
     }
+
+    public Page<Application> getAllApplication(Integer page, Integer size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return applicationRepository.findAll(pageable);
+    }
 }

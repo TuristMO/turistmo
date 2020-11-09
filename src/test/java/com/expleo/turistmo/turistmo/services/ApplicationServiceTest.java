@@ -78,4 +78,22 @@ public class ApplicationServiceTest  {
         assertThat(pageable.getPageSize()).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("Should find all applications with page request.")
+    void shouldFindAllApplicationsWithPageRequest(){
+        //GIVEN
+        Page<Application> applicationPage = new PageImpl<>(applicationList);
+        given(applicationRepository.findAll(any(Pageable.class)))
+                .willReturn(applicationPage);
+        //WHEN
+        Page<Application> result = applicationService.getAllApplication(0,2);
+        //THEN
+        then(applicationRepository).should(times(1))
+                .findAll(pageableCaptor.capture());
+        Pageable pageable = pageableCaptor.getValue();
+        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(pageable.getPageNumber()).isEqualTo(0);
+        assertThat(pageable.getPageSize()).isEqualTo(2);
+    }
+
 }
