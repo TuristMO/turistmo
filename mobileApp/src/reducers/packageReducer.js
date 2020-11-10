@@ -5,6 +5,7 @@ import { GET_PACKAGES,
   GET_PACKAGES_FOOD,
   GET_PACKAGES_CULTURE,
   GET_PACKAGES_BUSINESS,
+  POST_PACKAGES,
   LOADING } from "../actions/types";
 const initialState = {
   packages: [],
@@ -12,6 +13,7 @@ const initialState = {
   packagesFood: [],
   packagesCulture: [],
   packagesBusiness: [],
+  postPackages: {},
   loading: true,
   errorMessage:''
 }      // []
@@ -28,6 +30,8 @@ export default (state = initialState, action) => {
       return { ...state,packagesCulture: action.payload, loading: false }
     case GET_PACKAGES_BUSINESS:
       return { ...state,packagesBusiness: action.payload, loading: false }
+    case POST_PACKAGES:
+      return { ...state,postPackages: action.payload, loading: false }
     case LOADING:
       return { ...state, loading: action.payload }
     default:

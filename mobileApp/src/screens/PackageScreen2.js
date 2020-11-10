@@ -49,6 +49,7 @@ const PackageScreen2 = (props) => {
             })
     };
 
+
     const searchResult = (searchQuery) => {
         setHasSearched(true)
         return getAllPackages(searchQuery.trim());

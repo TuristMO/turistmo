@@ -4,7 +4,7 @@ import {
   GET_PACKAGES_CULTURE,
   GET_PACKAGES_FOOD,
   GET_PACKAGES_TRAVEL,
-  GET_CITY_FROM_GEO_LOCATION,
+  POST_PACKAGES,
   LOADING,
 } from "./types";
 import packageApi from "../api/packageApi";
@@ -102,6 +102,28 @@ export const getAllPackagesBusiness = () => {
       dispatch({ type: GET_PACKAGES_BUSINESS, payload: response.data.content })
     } catch (err) {
       console.log(err);
+    }
+  }
+}
+
+export const postSavePackage = (packages,jwt) => {
+
+//  let newStr = jwt.substr(7,jwt.length)
+  console.log(jwt)
+  console.log(packages)
+  return async (dispatch, getState) => {
+    try {
+      dispatch ({ type: LOADING, payload: true})
+      const response = await packageApi.post('/api/v1/curator/save',packages,
+          {
+          headers: {
+            'Authorization':jwt
+          }
+          });
+      console.log("PACKAGE SAVED")
+      dispatch({ type: POST_PACKAGES, payload: response.data.body })
+    } catch (err) {
+      console.log(err)
     }
   }
 }

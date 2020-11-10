@@ -1,20 +1,20 @@
 import {
-    GET_APPLICATIONS,
+    GET_TAGS,
     LOADING,
 } from "./types";
 import packageApi from "../api/packageApi";
 
-export const getAllApplications = () => {
+export const getAllTags = () => {
     return async (dispatch, getState) => {
         try {
             dispatch({ type: LOADING, payload: true })
-            const response = await packageApi.get('/api/v1/application',{
+            const response = await packageApi.get('/api/v1/tag',{
                 params:{
                     page:0,  //TODO CHANGE DYNAMICALLY
                     size:10
                 }
             });
-            dispatch({ type: GET_APPLICATIONS, payload: response.data.content })
+            dispatch({ type: GET_TAGS, payload: response.data.content })
             //setFilteredData(response.data.content)
             console.log('dådådådådåd')
         } catch (err) {

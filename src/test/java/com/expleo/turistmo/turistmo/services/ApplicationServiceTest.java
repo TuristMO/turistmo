@@ -86,7 +86,7 @@ public class ApplicationServiceTest  {
         given(applicationRepository.findAll(any(Pageable.class)))
                 .willReturn(applicationPage);
         //WHEN
-        Page<Application> result = applicationService.getAllApplication(0,2);
+        Page<Application> result = applicationService.getAllApplications(0,2);
         //THEN
         then(applicationRepository).should(times(1))
                 .findAll(pageableCaptor.capture());

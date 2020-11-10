@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/",
                     "/api/turistmo/**", // LOGIN & SIGNUP
                     "/api/v1/package/**",  // PACKAGE API
+                    "/api/v1/application/**",  // APPLICATION API
                     "/send",
                     "/css/*",
                     "/js/* ").permitAll()

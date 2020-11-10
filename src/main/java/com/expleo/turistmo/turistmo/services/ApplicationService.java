@@ -1,6 +1,7 @@
 package com.expleo.turistmo.turistmo.services;
 
 import com.expleo.turistmo.turistmo.domain.Application;
+import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.repository.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,8 +26,12 @@ public class ApplicationService {
         return applicationRepository.findApplicationsByTitle(title, pageable);
     }
 
-    public Page<Application> getAllApplication(Integer page, Integer size) {
+    public Page<Application> getAllApplications(Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page, size);
-        return applicationRepository.findAll(pageable);
+        try {
+            return applicationRepository.findAll(pageable);
+        } catch (Exception e) {
+            throw new NullPointerException("Unauthorized request");
+        }
     }
 }

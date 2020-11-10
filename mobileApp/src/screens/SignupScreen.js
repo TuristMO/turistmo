@@ -45,6 +45,7 @@ const SignupScreen = (props) => {
     confirmPassword: '',
     firstName: '',
     lastName: '',
+    avatarUrl:'https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png',
   })
 
 

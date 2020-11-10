@@ -1,5 +1,6 @@
 package com.expleo.turistmo.turistmo.services;
 
+import com.expleo.turistmo.turistmo.domain.Application;
 import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.repository.TagRepository;
@@ -89,4 +90,23 @@ public class TagServiceTest {
 //        assertThat(pageable.getPageNumber()).isEqualTo(0);
 //        assertThat(pageable.getPageSize()).isEqualTo(2);
 //    }
+
+
+    @Test
+    @DisplayName("Should find all tags with page request.")
+    void shouldFindAllTagsWithPageRequest(){
+        //GIVEN
+        Page<Tag> tagsPage = new PageImpl<>(tagList);
+        given(tagRepository.findAll(any(Pageable.class)))
+                .willReturn(tagsPage);
+        //WHEN
+        Page<Tag> result = tagService.getAllTags(0,2);
+        //THEN
+        then(tagRepository).should(times(1))
+                .findAll(pageableCaptor.capture());
+        Pageable pageable = pageableCaptor.getValue();
+        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(pageable.getPageNumber()).isEqualTo(0);
+        assertThat(pageable.getPageSize()).isEqualTo(2);
+    }
 }

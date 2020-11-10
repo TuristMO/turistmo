@@ -5,8 +5,9 @@ import {
     View,
     ScrollView,
     Text,
-    SafeAreaView, FlatList, Button
+    SafeAreaView, FlatList
 } from 'react-native'
+import { Button } from "react-native-elements";
 import {connect} from "react-redux";
 import {emptyErrMessage, isUserFound, postSignInCurator} from "../actions";
 import Card2 from "../components/Card2";
@@ -57,8 +58,9 @@ const CuratorScreen = (props) => {
                 <Button
                     color={'#4AB4FF'}
                     title={"Create package"}
-                    onPress={console.log("Going to create package")}/>
-
+                    // onPress={navigation.navigate('CreatePackageScreen')}/>
+                    onPress={()=> navigation.navigate('CreatePackageScreen')}
+                />
             </View>
         </SafeAreaView>
     )
