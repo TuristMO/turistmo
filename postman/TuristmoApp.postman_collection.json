@@ -1,50 +1,837 @@
 {
 	"info": {
-		"_postman_id": "0dde0e0c-9682-4cd1-962a-daabb5301b00",
-		"name": "Turistmo App",
+		"_postman_id": "b6fab7bf-2295-4bf0-913c-4f6927c5463c",
+		"name": "TuristmoApp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "https://turistmo.herokuapp.com/api/v1/package",
+			"name": "v1/package",
+			"item": [
+				{
+					"name": "Alla paket (schema validation)",
+					"item": [
+						{
+							"name": "Lista samtliga paket (schema validation)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "39a369b5-d92c-4db1-8f45-62600d01bb7b",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"const schema = \r",
+											"{\"default\":{},\"required\":[\"content\",\"pageable\",\"totalPages\",\"totalElements\",\"last\",\"number\",\"size\",\"sort\",\"numberOfElements\",\"first\",\"empty\"],\"properties\":{\"content\":{\"$id\":\"#\\/properties\\/content\",\"type\":\"array\",\"title\":\"The content schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":[],\"additionalItems\":true,\"items\":{\"$id\":\"#\\/properties\\/content\\/items\",\"anyOf\":[{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\",\"type\":\"object\",\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"guid\",\"createdDate\",\"lastModifiedDate\",\"title\",\"city\",\"description\",\"curator\",\"usefulApplications\",\"tags\"],\"properties\":{\"guid\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/guid\",\"type\":\"string\",\"title\":\"The guid schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"createdDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/createdDate\",\"type\":\"string\",\"title\":\"The createdDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"lastModifiedDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/lastModifiedDate\",\"type\":\"string\",\"title\":\"The lastModifiedDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"title\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/title\",\"type\":\"string\",\"title\":\"The title schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"city\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/city\",\"type\":\"string\",\"title\":\"The city schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"description\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/description\",\"type\":\"string\",\"title\":\"The description schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"curator\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\",\"type\":\"object\",\"title\":\"The curator schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"guid\",\"createdDate\",\"lastModifiedDate\",\"firstName\",\"lastName\",\"email\",\"avatarUrl\",\"description\",\"role\",\"verified\"],\"properties\":{\"guid\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/guid\",\"type\":\"string\",\"title\":\"The guid schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"createdDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/createdDate\",\"type\":\"string\",\"title\":\"The createdDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"lastModifiedDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/lastModifiedDate\",\"type\":\"string\",\"title\":\"The lastModifiedDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"firstName\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/firstName\",\"type\":\"string\",\"title\":\"The firstName schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"lastName\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/lastName\",\"type\":\"string\",\"title\":\"The lastName schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"email\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/email\",\"type\":\"string\",\"title\":\"The email schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"avatarUrl\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/avatarUrl\",\"type\":\"string\",\"title\":\"The avatarUrl schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"description\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/description\",\"type\":\"string\",\"title\":\"The description schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"role\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/role\",\"type\":\"string\",\"title\":\"The role schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"verified\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/curator\\/properties\\/verified\",\"type\":\"boolean\",\"title\":\"The verified schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":false}},\"additionalProperties\":false},\"usefulApplications\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\",\"type\":\"array\",\"title\":\"The usefulApplications schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":[],\"additionalItems\":true,\"items\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\",\"anyOf\":[{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\",\"type\":\"object\",\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"guid\",\"createdDate\",\"lastModifiedDate\",\"title\",\"logo\",\"ios_link\",\"android_link\"],\"properties\":{\"guid\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\\/properties\\/guid\",\"type\":\"string\",\"title\":\"The guid schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"createdDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\\/properties\\/createdDate\",\"type\":\"string\",\"title\":\"The createdDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"lastModifiedDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\\/properties\\/lastModifiedDate\",\"type\":\"string\",\"title\":\"The lastModifiedDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"title\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\\/properties\\/title\",\"type\":\"string\",\"title\":\"The title schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"logo\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\\/properties\\/logo\",\"type\":\"string\",\"title\":\"The logo schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"ios_link\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\\/properties\\/ios_link\",\"type\":\"string\",\"title\":\"The ios_link schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"android_link\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/usefulApplications\\/items\\/anyOf\\/0\\/properties\\/android_link\",\"type\":\"string\",\"title\":\"The android_link schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"}},\"additionalProperties\":false}]}},\"tags\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/tags\",\"type\":\"array\",\"title\":\"The tags schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":[],\"additionalItems\":true,\"items\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/tags\\/items\",\"anyOf\":[{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/tags\\/items\\/anyOf\\/0\",\"type\":\"object\",\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"guid\",\"createdDate\",\"lastModifiedDate\",\"title\"],\"properties\":{\"guid\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/tags\\/items\\/anyOf\\/0\\/properties\\/guid\",\"type\":\"string\",\"title\":\"The guid schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"createdDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/tags\\/items\\/anyOf\\/0\\/properties\\/createdDate\",\"type\":\"string\",\"title\":\"The createdDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"lastModifiedDate\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/tags\\/items\\/anyOf\\/0\\/properties\\/lastModifiedDate\",\"type\":\"string\",\"title\":\"The lastModifiedDate schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"title\":{\"$id\":\"#\\/properties\\/content\\/items\\/anyOf\\/0\\/properties\\/tags\\/items\\/anyOf\\/0\\/properties\\/title\",\"type\":\"string\",\"title\":\"The title schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"}},\"additionalProperties\":false}]}}},\"additionalProperties\":false}]}},\"pageable\":{\"$id\":\"#\\/properties\\/pageable\",\"type\":\"string\",\"title\":\"The pageable schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"totalPages\":{\"$id\":\"#\\/properties\\/totalPages\",\"type\":\"integer\",\"title\":\"The totalPages schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":0},\"totalElements\":{\"$id\":\"#\\/properties\\/totalElements\",\"type\":\"integer\",\"title\":\"The totalElements schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":0},\"last\":{\"$id\":\"#\\/properties\\/last\",\"type\":\"boolean\",\"title\":\"The last schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":false},\"number\":{\"$id\":\"#\\/properties\\/number\",\"type\":\"integer\",\"title\":\"The number schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":0},\"size\":{\"$id\":\"#\\/properties\\/size\",\"type\":\"integer\",\"title\":\"The size schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":0},\"sort\":{\"$id\":\"#\\/properties\\/sort\",\"type\":\"object\",\"title\":\"The sort schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"sorted\",\"unsorted\",\"empty\"],\"properties\":{\"sorted\":{\"$id\":\"#\\/properties\\/sort\\/properties\\/sorted\",\"type\":\"boolean\",\"title\":\"The sorted schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":false},\"unsorted\":{\"$id\":\"#\\/properties\\/sort\\/properties\\/unsorted\",\"type\":\"boolean\",\"title\":\"The unsorted schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":false},\"empty\":{\"$id\":\"#\\/properties\\/sort\\/properties\\/empty\",\"type\":\"boolean\",\"title\":\"The empty schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":false}},\"additionalProperties\":false},\"numberOfElements\":{\"$id\":\"#\\/properties\\/numberOfElements\",\"type\":\"integer\",\"title\":\"The numberOfElements schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":0},\"first\":{\"$id\":\"#\\/properties\\/first\",\"type\":\"boolean\",\"title\":\"The first schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":false},\"empty\":{\"$id\":\"#\\/properties\\/empty\",\"type\":\"boolean\",\"title\":\"The empty schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":false}},\"additionalProperties\":false}\r",
+											";\r",
+											"\r",
+											"const data1 = pm.response.json();\r",
+											"\r",
+											"pm.test('Not testing schema at this moment!!!', function () {});\r",
+											"\r",
+											"//pm.test('Schema is valid', function () {\r",
+											"//    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+											"//});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a22c6491-0aef-497c-be60-ad87c476e475",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "30352591-f2f4-46f3-bc02-5ff11888e86b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.7 Sökningar på paket efter olika städer",
+					"item": [
+						{
+							"name": "search by city stockholm",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cafb9868-007a-48b3-a733-d6869bece420",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Every city in response should equal searchkey\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    for(item of jsonData.content) {\r",
+											"        pm.expect(item.city.toLowerCase()).to.eql(decodeURI(pm.request.url.query.toObject().search));\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search by city malmö",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0420d07d-ad42-4788-bb49-8de47d545e1c",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Every city in response should equal searchkey\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    for(item of jsonData.content) {\r",
+											"        pm.expect(item.city.toLowerCase()).to.eql(decodeURI(pm.request.url.query.toObject().search));\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=malmö",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "malmö"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search by city göteborg",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c84a7739-3ef3-4385-8b01-dbb25f060831",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Every city in response should equal searchkey\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    for(item of jsonData.content) {\r",
+											"        pm.expect(item.city.toLowerCase()).to.eql(decodeURI(pm.request.url.query.toObject().search));\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=göteborg",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "göteborg"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "eb72de4d-420e-4771-8dbc-de1e1fc1a9fb",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c27ca347-51c8-4935-9221-0cb455d46079",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.8 Sökning på paket efter app inkluderad i paket",
+					"item": [
+						{
+							"name": "search by app aimo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3eb7da21-3549-43ff-a86b-10e2cd60331f",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains specific packages with specific app\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    let packagesFound = jsonData.content.filter(x => x.usefulApplications.filter(y => y.title === \"aimo\"));\r",
+											"\r",
+											"    pm.expect(packagesFound.length).to.eql(2, \"Response contains 2 packages with Aimo app\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"Mixing business with culture\")).length).to.eql(1);\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"The Culture in history\")).length).to.eql(1);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=aimo",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "aimo"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.9 Sökning på paket efter kategori",
+					"item": [
+						{
+							"name": "search by category culture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d1eb18d3-b46b-4509-9947-6902479fd675",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains specific packages with specific tag\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    let packagesFound = jsonData.content.filter(x => x.tags.filter(y => y.tags === \"culture\"));\r",
+											"\r",
+											"    pm.expect(packagesFound.length).to.eql(3, \"There should be 3 packages with this category\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"Göteborg culture\")).length).to.eql(1,\r",
+											"    \"Find Göteborg culture\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"Mixing business with culture\")).length).to.eql(1,\r",
+											"    \"Find Mixing business with culture\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"The Culture in history\")).length).to.eql(1,\r",
+											"    \"Find The Culture in history\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=culture",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "culture"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.10 Sökning ska visa x paket per sida",
+					"item": [
+						{
+							"name": "1 of 3 packages on second page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e9f4cd6c-341d-440f-868b-44127cfbdfa9",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on second page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(1, \"Should be 1 package\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=1&page=1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "1"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "(neg) -1 page search",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bfde3a71-661f-4e9d-b869-46e2b5350189",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Bad request message should contain Page size...\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error).to.contain(\"Bad Request\");\r",
+											"    pm.expect(jsonData.message).to.contain(\"Page index must not be less than zero!\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&page=-1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "page",
+											"value": "-1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 of 3 packages on first page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "309a49d3-fd58-4c42-86ca-a9efc75dc0fc",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on first page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(1, \"Should be 2 packages\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 of 3 packages on third page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "92dbe6df-aa6f-46aa-817e-1f6b0160f0d3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on second page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(1, \"Should be 1 package\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=1&page=2",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "1"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2 of 3 packages on first page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "346c5724-7db7-4129-b981-79c10c545653",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on first page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(2, \"Should be 2 packages\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=2",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 of 3 packages on second page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8c0b7dcb-4ee8-4459-877d-a9bc391d8389",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on second page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(1, \"Should be 1 package\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=2&page=1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "(neg) 0 package search",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2bc994e8-77ff-4767-88e3-d9d61accfc95",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Bad request message should contain Page size...\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error).to.contain(\"Bad Request\");\r",
+											"    pm.expect(jsonData.message).to.contain(\"Page size must not be less than one!\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=0",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "726dad42-958a-4ed7-bbcc-4ac33569b195",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
-						"id": "8b4c4a58-5f7b-49f7-bb66-04150d5b9da6",
+						"id": "29861750-426d-4e13-95c6-b36d3de36572",
+						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response time is less than 1000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
-							"});\r",
-							"\r"
-						],
-						"type": "text/javascript"
+							""
+						]
 					}
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://turistmo.herokuapp.com/api/v1/package",
-					"protocol": "https",
-					"host": [
-						"turistmo",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"package"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "52f01f96-4271-4109-ae39-b3b32d1c6c7a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "027b32b2-8267-45db-8bdc-d225699fd18e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3abe19b0-5e3f-4214-b281-40dad3965a7e",
+			"key": "baseURL",
+			"value": "https://turistmo.herokuapp.com/api"
 		}
 	],
 	"protocolProfileBehavior": {}
