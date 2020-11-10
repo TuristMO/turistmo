@@ -41,7 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/",
                     "/api/turistmo/**", // LOGIN & SIGNUP
                     "/api/v1/package/**",  // PACKAGE API
-                    "/api/v1/application/**",  // APPLICATION API
+                    "/api/v1/application/**",  // APPLICATION API TODO: Make these controlled by jwt instead
+                    "/api/v1/tag/**",  // TAG API TODO: Make these controlled by jwt instead
                     "/send",
                     "/css/*",
                     "/js/* ").permitAll()

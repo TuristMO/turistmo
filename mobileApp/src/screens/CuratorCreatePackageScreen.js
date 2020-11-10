@@ -45,7 +45,8 @@ const CuratorCreatePackageScreen = (props) => {
         tags: [],
         title: '',
         description:'',
-        applicationPackageData: []
+        usefulApplications: [],
+        curator:curator,
     });
 
     //
@@ -57,12 +58,9 @@ const CuratorCreatePackageScreen = (props) => {
     useEffect(() => {
         // TEMPORARY SOLUTION UNTIL GEO LOCATION IS ACCEPTED FROM "PO"
        getAllApplications();
+       getAllTags();
     }, []);
 
-    useEffect(() => {
-        // TEMPORARY SOLUTION UNTIL GEO LOCATION IS ACCEPTED FROM "PO"
-        getAllTags();
-    }, []);
 
     const descriptionChange = (val) => {
         savePackageData({ ...savePackage, description: val})
@@ -82,11 +80,12 @@ const CuratorCreatePackageScreen = (props) => {
         savePackageData({ ...savePackage, city: val});
     };
     const addApplication = (application) => {
-        let newList = savePackage.applicationPackageData;
+        let newList = savePackage.usefulApplications;
         newList.push(application)
-        savePackageData({...savePackage,applicationPackageData: newList})
+        savePackageData({...savePackage,usefulApplications: newList})
     }
-
+    console.log(jwt)
+    console.log(savePackage)
     return (
         <View>
 
@@ -119,16 +118,27 @@ const CuratorCreatePackageScreen = (props) => {
 
             {/*<DropDownPicker*/}
             {/*    items={[*/}
-            {/*        {label: 'Food'},*/}
-            {/*        {label: 'Business'},*/}
-            {/*        {label: 'Culture'},*/}
-            {/*        {label: 'Travel'},*/}
+            {/*        {label: tags[0].title},*/}
+            {/*        {label: tags[1].title},*/}
+            {/*        {label: tags[2].title},*/}
+            {/*        {label: tags[3].title},*/}
             {/*    ]}*/}
             {/*    placeholder={'Select Tag'}*/}
             {/*    defaultIndex={0}*/}
             {/*    containerStyle={{height: 60}}*/}
             {/*    onChangeItem={item => tagChange(item.label)}*/}
             {/*/>*/}
+
+            <DropDownPicker
+                items={[{label: 'Culture', value: tags[0]},
+                    {label: 'Food', value: tags[1]},
+                    {label: 'Travel', value: tags[2]},
+                    {label: 'Business', value: tags[3]}]}
+                placeholder={'Select Tag'}
+                defaultIndex={0}
+                containerStyle={{height: 60}}
+                onChangeItem={item => tagChange(item.value)}
+            />
 
             {/*<SafeAreaView >*/}
             {/*    <DropDownPicker*/}
@@ -160,7 +170,8 @@ const CuratorCreatePackageScreen = (props) => {
                 color={'#4AB4FF'}
                 title={"Save package"}
                 // onPress={navigation.navigate('CreatePackageScreen')}/>
-                onPress={()=> postSavePackage(savePackage,jwt)}
+                onPress={()=> postSavePackage(savePackage,jwt).then(navigation.push('SignedInCuratorScreen'))}
+                // onPress={()=> console.log("SPARA HELVETE")}
             />
             {/*<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginTop:20}}>*/}
             {/*    <SafeAreaView >*/}

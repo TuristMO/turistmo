@@ -18,7 +18,7 @@ export const getAllTags = () => {
             //setFilteredData(response.data.content)
             console.log('dådådådådåd')
         } catch (err) {
-            console.log("HEJEHEJEHEJ" + err);
+            console.log("TAG ERROR : " + err);
         }
     }
 }
