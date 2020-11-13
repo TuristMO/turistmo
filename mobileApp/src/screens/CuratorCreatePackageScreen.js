@@ -20,7 +20,7 @@ import {
     postSavePackage, postSignInCurator,
     getAllTags,
 } from "../actions";
-
+import Icon from 'react-native-vector-icons/Feather';
 // const {width, height} = Dimensions.get("window");
 
 const CuratorCreatePackageScreen = (props) => {
@@ -37,8 +37,8 @@ const CuratorCreatePackageScreen = (props) => {
     const [description, setDescription] = useState('');
     let applicationList = [];
     const [applicationsState, setApplicationsState] = useState(applicationList);
-    let tagList = [];
-    const [tagState, setTagState] = useState(tagList);
+    //let tagList = [];
+    const [tagState, setTagState] = useState([]);
 
     const [savePackage, savePackageData] = useState({
         city: '',
@@ -130,15 +130,39 @@ const CuratorCreatePackageScreen = (props) => {
             {/*/>*/}
 
             <DropDownPicker
-                items={[{label: 'Culture', value: tags[0]},
-                    {label: 'Food', value: tags[1]},
-                    {label: 'Travel', value: tags[2]},
-                    {label: 'Business', value: tags[3]}]}
+                items={[{label: 'Culture', value: tags[0], icon: () => <Icon name="flag" size={18} color="#900" />},
+                    {label: 'Food', value: tags[1], icon: () => <Icon name="flag" size={18} color="#900" />},
+                    {label: 'Travel', value: tags[2], icon: () => <Icon name="flag" size={18} color="#900" />},
+                    {label: 'Business', value: tags[3], icon: () => <Icon name="flag" size={18} color="#900" />}
+                    ]}
                 placeholder={'Select Tag'}
+                multiple={true}
+                multipleText="%d items have been selected."
+                min={0}
+                max={10}
+                defaultValue={tagState}
                 defaultIndex={0}
                 containerStyle={{height: 60}}
                 onChangeItem={item => tagChange(item.value)}
             />
+
+            {/*<DropDownPicker*/}
+            {/*    items={[*/}
+            {/*        {label: 'UK', value: 'uk', icon: () => <Icon type='font-awesome' name="flag" size={18} color="#900" />},*/}
+            {/*        {label: 'France', value: 'france', icon: () => <Icon type='font-awesome' name="flag" size={18} color="#900" />},*/}
+            {/*    ]}*/}
+
+            {/*    multiple={true}*/}
+            {/*    multipleText="%d items have been selected."*/}
+            {/*    min={0}*/}
+            {/*    max={10}*/}
+            {/*    defaultValue={"hej"}*/}
+            {/*    containerStyle={{height: 40}}*/}
+            {/*    itemStyle={{*/}
+            {/*        justifyContent: 'flex-start'*/}
+            {/*    }}*/}
+            {/*    onChangeItem={item => tagChange(item.value)}*/}
+            {/*/>*/}
 
             {/*<SafeAreaView >*/}
             {/*    <DropDownPicker*/}

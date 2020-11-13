@@ -61,13 +61,11 @@ const SigninScreen = (props) => {
   //console.log("ERRROR "+errorMessageLogin)
 
   function checkLogin() {
-    postSignInCurator(curatorS).then(() => userFound ? setFoundUser(true) : setFoundUser(false));
-    foundUser
-        ? navigation.navigate('SignedInCuratorScreen', {path: curator})
-        : Alert.alert("Something went wrong,try again")
 
+    //postSignInCurator(curatorS).then(whateveryouReturned => { /*your code here*/})
 
-    // userFound ? true : false;
+    postSignInCurator(curatorS)
+    console.log(curator)
   }
 
   return (
@@ -125,8 +123,8 @@ const SigninScreen = (props) => {
                   titleStyle={styles.textSign}
                   title="Sign in"
                   // onPress={() => postSignInCurator(curatorS).then(checkLogin()) ? navigation.navigate('SignedInCuratorScreen', {path: curator}): Alert.alert("Wrong credentials")}
-                  //onPress={() => postSignInCurator(curatorS).then(()=>userFound ? console.log("Correct password") : console.log("Wrong password"))}
-                  onPress={() => checkLogin()}
+                  //onPress={() => checkLogin().then(() => userFound ? console.log("Correct password") : console.log("Wrong password"))}
+                  onPress={() => postSignInCurator(curatorS).then((response) => response ?  navigation.navigate('SignedInCuratorScreen', {path: curator}) : Alert.alert("Wrong credentials"))}
               />
               <Button
                   testID={"signinSignUp"}

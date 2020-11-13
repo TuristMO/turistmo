@@ -31,30 +31,22 @@ export const postSignUpCurator = (curator) => {
                     payload: 'Something went terrible wrong, please inform product owner'
                 })
         }
-        ;
     }
 }
 
 export const postSignInCurator = (curator) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
             dispatch({type: LOADING, payload: true})
             const response = await packageApi.post('/api/turistmo/login', curator);
             dispatch({type: POST_SIGNIN_CURATOR, payload: response.data.body})
             dispatch({type: POST_SIGNIN_CURATOR_SUCCESS_JWT, payload: response.data.authorization})
-            dispatch({type: POST_SIGNIN_CURATOR_SUCCESS, payload: true});
             dispatch({type: LOADING, payload: false});
+            return response.data.authorization.length > 0;
         } catch (err) {
             let errM = err.response.data.message
             dispatch({type: POST_SIGNIN_CURATOR_ERROR, payload: err.response.data.message})
-            dispatch({type: POST_SIGNIN_CURATOR_SUCCESS, payload: false})
         }
-    }
-}
-
-export const isUserFound = (userFound) => {
-    return async (dispatch, getState) => {
-        return !!userFound;
     }
 }
 

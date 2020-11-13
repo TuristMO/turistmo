@@ -22,8 +22,9 @@ import Card2 from "../components/Card2";
 
 const PackageScreen2 = (props) => {
     const {
-        location, packages:{loading,packages,packagesTravel,packagesFood, packagesBusiness, packagesCulture},
-        getAllPackagesTravel, getAllPackagesFood, getAllPackagesBusiness, getAllPackagesCulture, getAllPackages, navigation
+        location, packages:{loading,packages,packagesTravel,packagesFood, packagesBusiness, packagesCulture,packagesFound},
+        getAllPackagesTravel, getAllPackagesFood, getAllPackagesBusiness, getAllPackagesCulture,
+        getAllPackages, navigation
     } = props;
 
     const [text, setText] = useState('');
@@ -49,10 +50,13 @@ const PackageScreen2 = (props) => {
             })
     };
 
-
     const searchResult = (searchQuery) => {
         setHasSearched(true)
-        return getAllPackages(searchQuery.trim());
+        getAllPackages(searchQuery.trim());
+        console.log(packages)
+        console.log(packagesFound)
+        //packages.forEach(e=> console.log(e))
+        //callback();
     }
 
     if (loading) {
@@ -70,7 +74,6 @@ const PackageScreen2 = (props) => {
                 onChangeText={text => setText(text)}
                 placeholder="Search"
                 returnKeyType={"search"}
-                // onSubmitEditing={() => getAllPackages(text.trim())}
                 onSubmitEditing={() => searchResult(text.trim())}
                 leftIcon={{
                     name: "search",
@@ -86,20 +89,29 @@ const PackageScreen2 = (props) => {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}>
                     {hasSearched ? <View>
-                        <Text style={styles.tagHeader}>SEARCH RESULT</Text><FlatList
-                        style={{height: 150}}
-                        testID="searchPackageFlatList"
-                        data={packages}
-                        keyExtractor={(item) => packages.guid + "" + item.guid}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        renderItem={({item, index}) => {
-                            return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packages[index]})}>
-                                <Card2 cPackage={item} index={"SearchIndex"+index}/>
-                            </TouchableOpacity>
-                        }}/></View> : null}
+                        <View style={styles.tagHeaderView}>
+                        <Text style={styles.tagHeader}>SEARCH RESULT</Text>
+                        <TouchableOpacity
+                            onPress={() =>setHasSearched(false)}
+                            style={styles.tagHeaderOpacity}><Text style={styles.tagHeaderX}> X </Text></TouchableOpacity>
+                        </View>
+                        {packagesFound
+                        ? <FlatList
+                            style={{height: 150}}
+                            testID="searchPackageFlatList"
+                            data={packages}
+                            keyExtractor={(item) => packages.guid + "" + item.guid}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            renderItem={({item, index}) => {
+                                return <TouchableOpacity activeOpacity={0.9}
+                                                         onPress={() => navigation.navigate('Package details', {path: packages[index]})}>
+                                    <Card2 cPackage={item} index={"SearchIndex"+index}/>
+                                </TouchableOpacity>
+                            }}/>
+                        : <Text>No Results found</Text>}</View> : null}
+
                     <Text style={styles.tagHeader}>TRAVEL</Text>
                     <FlatList
                         style={{height: 150}}
@@ -190,6 +202,24 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: '5%'
     },
+    tagHeaderView: {
+        fontWeight: 'bold',
+        marginBottom: 10,
+        paddingTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    tagHeaderX: {
+        color: '#ff2a00',
+        fontWeight: 'bold',
+    },
+    tagHeaderOpacity: {
+        marginRight: '5%',
+        borderRadius: 50,
+        borderWidth: 3,
+        borderColor: '#CCC'
+    },
     tagHeader: {
         fontWeight: 'bold',
         marginBottom: 10,
@@ -213,6 +243,7 @@ const styles = StyleSheet.create({
         height: 140,
         justifyContent: 'flex-end',
     },
+
 })
 const mapStateToProps = ({location, packages}) => {
     return ({packages, location}); //define your own keys

@@ -91,7 +91,6 @@ const SignupScreen = (props) => {
   useEffect(()=>{
     if(errorMessageSignUp){
       return (
-
           Alert.alert(errorMessageSignUp)
       )
     }
