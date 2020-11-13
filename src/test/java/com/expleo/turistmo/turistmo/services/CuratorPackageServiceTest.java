@@ -4,8 +4,10 @@ import com.expleo.turistmo.turistmo.domain.Application;
 import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.domain.Tag;
+import com.expleo.turistmo.turistmo.repository.ApplicationRepository;
 import com.expleo.turistmo.turistmo.repository.CuratorRepository;
 import com.expleo.turistmo.turistmo.repository.PackageRepository;
+import com.expleo.turistmo.turistmo.repository.TagRepository;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -37,8 +41,15 @@ public class CuratorPackageServiceTest {
     @Mock
     PackageRepository packageRepository;
 
+    @Mock
+    ApplicationRepository applicationRepository;
+
+    @Mock
+    TagRepository tagRepository;
+
     @InjectMocks
     CuratorService curatorService;
+
 
     Curator johnDoeCurator;
 
@@ -60,6 +71,7 @@ public class CuratorPackageServiceTest {
 //        johnDoeCurator.setGuid(UUID.randomUUID());
         stockholmPackage = domainResource.getStockholmPackage();
         sl = domainResource.getSLApplication();
+
         taxiApplication = domainResource.getTaxiApplication();
         travelTag = domainResource.getTravelTag();
         stockholmPackage.addTag(travelTag);
@@ -103,7 +115,12 @@ public class CuratorPackageServiceTest {
     @DisplayName("It should save a package to curator")
     void istShouldSavePackageToCurator() {
         johnDoeCurator.setPackages(new HashSet<>());
+
         given(curatorRepository.findCuratorByGuid(any())).willReturn(Optional.of(johnDoeCurator));
+        given(applicationRepository.findByTitle(anyString())).willReturn(sl);
+        given(applicationRepository.findByTitle(anyString())).willReturn(taxiApplication);
+        given(tagRepository.findTagByTitle(anyString())).willReturn(travelTag);
+
 
         Package pack = domainResource.getStockholmPackage();
         pack.setCity("New Stockholm");

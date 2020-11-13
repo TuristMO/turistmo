@@ -1,10 +1,14 @@
 package com.expleo.turistmo.turistmo.services;
 
+import com.expleo.turistmo.turistmo.domain.Application;
 import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.exception.EmailAlreadyExistsException;
 import com.expleo.turistmo.turistmo.exception.PasswordMismatchException;
+import com.expleo.turistmo.turistmo.repository.ApplicationRepository;
 import com.expleo.turistmo.turistmo.repository.CuratorRepository;
+import com.expleo.turistmo.turistmo.repository.TagRepository;
 import com.expleo.turistmo.turistmo.web.request.SignUpRequest;
 import java.util.Optional;
 import java.util.Set;
@@ -20,6 +24,8 @@ import org.springframework.stereotype.Service;
 public class CuratorService {
 
     private final CuratorRepository curatorRepository;
+    private final ApplicationRepository applicationRepository;
+    private final TagRepository tagRepository;
     private final PasswordEncoder passwordEncoder;
 
     public Curator register(SignUpRequest signUpCurator) throws PasswordMismatchException {
@@ -71,8 +77,23 @@ public class CuratorService {
                 .findCuratorByGuid(curator.getGuid())
                 .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
 
-        newPackage.setCurator(getCurator);
-        getCurator.addPackages(newPackage);
+
+        Package savePackage = Package.builder()
+                .title(newPackage.getTitle())
+                .city(newPackage.getCity())
+                .curator(getCurator)
+                .description(newPackage.getDescription())
+                .build();
+
+        for(Application a : newPackage.getUsefulApplications()){
+            Application foundApp = applicationRepository.findByTitle(a.getTitle());
+            savePackage.addApplication(foundApp);
+        }
+        for (Tag t : newPackage.getTags()){
+            Tag foundTag = tagRepository.findTagByTitle(t.getTitle());
+            savePackage.addTag(foundTag);
+        }
+        getCurator.addPackages(savePackage);
         curatorRepository.save(getCurator);
     }
 }

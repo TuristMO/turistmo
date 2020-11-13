@@ -13,4 +13,6 @@ public interface TagRepository extends JpaRepository<Tag,Long> {
 
     @Query("SELECT a FROM Tag a WHERE LOWER(a.title) like LOWER(?1)")
     Page<Tag> findTagByTitle(String title, Pageable pageable);
+
+    Tag findTagByTitle(String title);
 }

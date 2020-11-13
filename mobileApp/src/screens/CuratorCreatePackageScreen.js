@@ -31,7 +31,6 @@ const CuratorCreatePackageScreen = (props) => {
             getAllApplications, navigation,postSavePackage,
             getAllTags,
         } = props;
-    const [pickerData,setPickerData] = useState ([])
     const [savePackage, setSavePackage] = useState({
         city: '',
         tags: [],
@@ -97,11 +96,6 @@ const CuratorCreatePackageScreen = (props) => {
             />
 
             <DropDownPicker
-                // items={[{label: 'Culture', value: tags[0], icon: () => <Icon name="flag" size={18} color="#900" />},
-                //         {label: 'Food', value: tags[1], icon: () => <Icon name="flag" size={18} color="#900" />},
-                //         {label: 'Travel', value: tags[2], icon: () => <Icon name="flag" size={18} color="#900" />},
-                //         {label: 'Business', value: tags[3], icon: () => <Icon name="flag" size={18} color="#900" />}
-                //     ]}
                 items={dropDownPickerList()}
                 placeholder={'Select Tag'}
                 multiple={true}
