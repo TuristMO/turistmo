@@ -132,7 +132,7 @@ const SigninScreen = (props) => {
                   buttonStyle={[styles.signIn, { borderColor: MAIN_COLOR, borderWidth: 1, backgroundColor: '#fff' }]}
                   titleStyle={[styles.textSign, { color: MAIN_COLOR }]}
                   title="Sign Up"
-                  onPress={() => navigation.navigate('SignupScreen')}
+                  onPress={() => navigation.push('SignupScreen')}
               />
             </View>
           </Animatable.View>
