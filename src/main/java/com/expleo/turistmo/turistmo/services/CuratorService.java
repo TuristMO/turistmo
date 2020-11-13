@@ -71,7 +71,7 @@ public class CuratorService {
                 .findCuratorByGuid(curator.getGuid())
                 .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
 
-
+        newPackage.setCurator(getCurator);
         getCurator.addPackages(newPackage);
         curatorRepository.save(getCurator);
     }

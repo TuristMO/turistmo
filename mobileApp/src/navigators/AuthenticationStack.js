@@ -5,6 +5,7 @@ import SplashScreen from "../screens/SplashScreen";
 import SigninScreen from "../screens/SigninScreen";
 import SignupScreen from "../screens/SignupScreen";
 import CuratorScreen from "../screens/CuratorScreen";
+import CuratorCreatePackageScreen from "../screens/CuratorCreatePackageScreen";
 
 const AuthStack = createStackNavigator();
 
@@ -12,17 +13,25 @@ const AuthenticationStack = () => {
     return (
         <AuthStack.Navigator screenOptions={{ headerShown: false }}>
             <AuthStack.Screen name={"CuratorScreen"} component={SplashScreen}/>
+
             <AuthStack.Screen
                 name={"SigninScreen"}
                 component={SigninScreen}
             />
+
             <AuthStack.Screen
                 name={"SignedInCuratorScreen"}
                 component={CuratorScreen}
             />
+
             <AuthStack.Screen
                 name={"SignupScreen"}
                 component={SignupScreen}/>
+
+            <AuthStack.Screen
+                name={"CreatePackageScreen"}
+                component={CuratorCreatePackageScreen}
+            />
         </AuthStack.Navigator>
     )
 }

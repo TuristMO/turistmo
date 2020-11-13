@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Button,
     TouchableOpacity,
     TextInput,
     Image,
@@ -11,76 +10,98 @@ import {
     Dimensions, FlatList, SafeAreaView
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
-import CheckBox from '@react-native-community/checkbox';
+import { Button } from "react-native-elements";
+// import CheckBox from '@react-native-community/checkbox';
 import Application from "../components/Application";
 import {connect} from "react-redux";
 import {
-    getAllApplications,
-    getAllPackages,
-    getAllPackagesBusiness,
-    getAllPackagesCulture,
-    getAllPackagesFood,
-    getAllPackagesTravel
+    emptyErrMessage,
+    getAllApplications, isUserFound,
+    postSavePackage, postSignInCurator,
+    getAllTags,
 } from "../actions";
-
-const {width, height} = Dimensions.get("window");
+import Icon from 'react-native-vector-icons/Feather';
+// const {width, height} = Dimensions.get("window");
 
 const CuratorCreatePackageScreen = (props) => {
-    // const {guid, title, city, description, createdDate, curator, usefulApplications, tags} = route.params.path;
-
         const {
-            location, rApplications:{loading,applications},
-            getAllApplications, navigation
+            rApplications:{loading,applications},
+            rTags:{tags},
+            rCurator: {curator,jwt},
+            getAllApplications, navigation,postSavePackage,
+            getAllTags,
         } = props;
 
-    const [City, setCity] = useState('')
-    const [Tags, setTags] = useState('')
-    const [value, onChangeText] = useState('');
-    const [toggleCheckBox, setToggleCheckBox] = useState(false);
-    const [isSelected2, setSelection2] = useState(false);
-    const [isSelected3, setSelection3] = useState(false);
-    const [isSelected4, setSelection4] = useState(false);
+    const [city, setCity] = useState('')
+    const [tag, setTag] = useState('')
+    const [description, setDescription] = useState('');
+    let applicationList = [];
+    const [applicationsState, setApplicationsState] = useState(applicationList);
+    //let tagList = [];
+    const [tagState, setTagState] = useState([]);
+
+    const [savePackage, savePackageData] = useState({
+        city: '',
+        tags: [],
+        title: '',
+        description:'',
+        usefulApplications: [],
+        curator:curator,
+    });
+
+    //
+    // const [toggleCheckBox, setToggleCheckBox] = useState(false);
+    // const [isSelected2, setSelection2] = useState(false);
+    // const [isSelected3, setSelection3] = useState(false);
+    // const [isSelected4, setSelection4] = useState(false);
 
     useEffect(() => {
         // TEMPORARY SOLUTION UNTIL GEO LOCATION IS ACCEPTED FROM "PO"
-       getAllApplications()
+       getAllApplications();
+       getAllTags();
     }, []);
 
-    let tagList = [];
 
-    const DATA = [
-        {
-            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-            title: '1 App ',
-        },
-        {
-            id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-            title: '2 App ',
-        },
-        {
-            id: '58694a0f-3da1-471f-bd96-145571e29d72',
-            title: '3 App ',
-        },
-        {
-            id: '3ac68afc-c605-48d3-a4f8-fbd91aa9fghfg',
-            title: '4 App ',
-        },
-        {
-            id: '58694a0f-3da1-471f-fgh96-145571e29d72',
-            title: '5 App ',
-        },
-    ];
+    const descriptionChange = (val) => {
+        savePackageData({ ...savePackage, description: val})
+    };
 
-    const Item = ({title}) => (
-        <Text style={styles.title}>{title}</Text>
-    );
+    const titleChange = (val) => {
+        savePackageData({ ...savePackage, title: val})
+    };
 
-    const renderItem = ({item}) => (
-        <Item title={item.title}/>
-    );
+    const tagChange = (val) => {
+        let newList = savePackage.tags;
+        newList.push(val)
+        savePackageData({...savePackage,tags: newList})
+    };
 
+    const cityChange = (val) => {
+        savePackageData({ ...savePackage, city: val});
+    };
+    const addApplication = (application) => {
+        let newList = savePackage.usefulApplications;
+        newList.push(application)
+        savePackageData({...savePackage,usefulApplications: newList})
+    }
+    console.log(jwt)
+    console.log(savePackage)
     return (
         <View>
+
+
+            <TextInput
+                style={{height: 40, borderWidth: 1}}
+                onChangeText={titleChange}
+                placeholder={'Package title'}
+            />
+
+            <TextInput
+                style={{height: 40, borderWidth: 1}}
+                onChangeText={descriptionChange}
+                placeholder={'Package description'}
+            />
+
             <DropDownPicker
                 items={[
                     {label: 'Stockholm'},
@@ -90,89 +111,132 @@ const CuratorCreatePackageScreen = (props) => {
                 placeholder={'Select city'}
                 defaultIndex={0}
                 containerStyle={{height: 60}}
-                onChangeItem={item => setCity(item.label)}
+                onChangeItem={item => cityChange(item.label)}
             />
 
-            <TextInput
-                style={{height: 40, borderWidth: 1}}
-                onChangeText={text => onChangeText(text)}
-                placeholder={'Package description'}
-                value={value}
-            />
+
+
+            {/*<DropDownPicker*/}
+            {/*    items={[*/}
+            {/*        {label: tags[0].title},*/}
+            {/*        {label: tags[1].title},*/}
+            {/*        {label: tags[2].title},*/}
+            {/*        {label: tags[3].title},*/}
+            {/*    ]}*/}
+            {/*    placeholder={'Select Tag'}*/}
+            {/*    defaultIndex={0}*/}
+            {/*    containerStyle={{height: 60}}*/}
+            {/*    onChangeItem={item => tagChange(item.label)}*/}
+            {/*/>*/}
 
             <DropDownPicker
-                items={[
-                    {label: 'Food'},
-                    {label: 'Business'},
-                    {label: 'Culture'},
-                    {label: 'Travel'},
-                ]}
+                items={[{label: 'Culture', value: tags[0], icon: () => <Icon name="flag" size={18} color="#900" />},
+                    {label: 'Food', value: tags[1], icon: () => <Icon name="flag" size={18} color="#900" />},
+                    {label: 'Travel', value: tags[2], icon: () => <Icon name="flag" size={18} color="#900" />},
+                    {label: 'Business', value: tags[3], icon: () => <Icon name="flag" size={18} color="#900" />}
+                    ]}
                 placeholder={'Select Tag'}
+                multiple={true}
+                multipleText="%d items have been selected."
+                min={0}
+                max={10}
+                defaultValue={tagState}
                 defaultIndex={0}
                 containerStyle={{height: 60}}
-                onChangeItem={item => setTags(item.label)}
+                onChangeItem={item => tagChange(item.value)}
             />
 
-            {/*<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>*/}
-            {/*    <CheckBox*/}
-            {/*        disabled={false}*/}
-            {/*        value={toggleCheckBox}*/}
-            {/*        onValueChange={(newValue) => setToggleCheckBox(newValue)}*/}
-            {/*    />*/}
-            {/*    <Text style={styles.label}>Food</Text>*/}
+            {/*<DropDownPicker*/}
+            {/*    items={[*/}
+            {/*        {label: 'UK', value: 'uk', icon: () => <Icon type='font-awesome' name="flag" size={18} color="#900" />},*/}
+            {/*        {label: 'France', value: 'france', icon: () => <Icon type='font-awesome' name="flag" size={18} color="#900" />},*/}
+            {/*    ]}*/}
 
-            {/*    <CheckBox*/}
-            {/*        value={isSelected2}*/}
-            {/*        onValueChange={setSelection2}*/}
-            {/*        style={styles.checkbox}*/}
-            {/*    />*/}
-            {/*    <Text style={styles.label}>Business</Text>*/}
-            {/*    <CheckBox*/}
-            {/*        value={isSelected3}*/}
-            {/*        onValueChange={setSelection3}*/}
-            {/*        style={styles.checkbox}*/}
-            {/*    />*/}
-            {/*    <Text style={styles.label}>Culture</Text>*/}
+            {/*    multiple={true}*/}
+            {/*    multipleText="%d items have been selected."*/}
+            {/*    min={0}*/}
+            {/*    max={10}*/}
+            {/*    defaultValue={"hej"}*/}
+            {/*    containerStyle={{height: 40}}*/}
+            {/*    itemStyle={{*/}
+            {/*        justifyContent: 'flex-start'*/}
+            {/*    }}*/}
+            {/*    onChangeItem={item => tagChange(item.value)}*/}
+            {/*/>*/}
 
-            {/*    <CheckBox*/}
-            {/*        value={isSelected4}*/}
-            {/*        onValueChange={setSelection4}*/}
-            {/*        style={styles.checkbox}*/}
+            {/*<SafeAreaView >*/}
+            {/*    <DropDownPicker*/}
+            {/*        placeholder={'Select Tag'}*/}
+            {/*        data={tags}*/}
+            {/*        keyExtractor={item =>  item.guid}*/}
+            {/*        renderItem={({item}) => {*/}
+            {/*            items={label:item}*/}
+            {/*            return  onChangeItem={items => tagChange(item.label)}*/}
+            {/*        }}*/}
             {/*    />*/}
-            {/*    <Text style={styles.label}>Travel</Text>*/}
-            {/*</View>*/}
+            {/*</SafeAreaView>*/}
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginTop:20}}>
                 <SafeAreaView >
                     <FlatList
                         numColumns={4}
-                        data={DATA}
-                        keyExtractor={item =>  item.id}
-                        // renderItem={renderItem}
-                        renderItem={({renderItem}) => (
-                            <TouchableOpacity
-
-                                onPress={() => console.log("clicked")}
-                            >
-                                <Item name={renderItem} color="red"/>
+                        data={applications}
+                        keyExtractor={item =>  item.guid}
+                        renderItem={({item}) => {
+                            return <TouchableOpacity testID={item.title} onPress={()=>addApplication(item)}>
+                                <Image source={{ uri: item.logo }} style={styles.logo}/>
                             </TouchableOpacity>
-                        )}
+                        }}
                     />
                 </SafeAreaView>
             </View>
+            <Button
+                color={'#4AB4FF'}
+                title={"Save package"}
+                // onPress={navigation.navigate('CreatePackageScreen')}/>
+                onPress={()=> postSavePackage(savePackage,jwt).then(navigation.push('SignedInCuratorScreen'))}
+                // onPress={()=> console.log("SPARA HELVETE")}
+            />
+            {/*<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginTop:20}}>*/}
+            {/*    <SafeAreaView >*/}
+            {/*        <FlatList*/}
+            {/*            numColumns={4}*/}
+            {/*            data={packageData.applicationPackageData}*/}
+            {/*            keyExtractor={item =>  item.guid}*/}
+            {/*            renderItem={({item}) => {*/}
+            {/*                return <TouchableOpacity testID={item.title} onPress={()=>addApplication(item)}>*/}
+            {/*                    <Image source={{ uri: item.logo }} style={styles.logo}/>*/}
+            {/*                </TouchableOpacity>*/}
+            {/*            }}*/}
+            {/*        />*/}
+            {/*    </SafeAreaView>*/}
+            {/*</View>*/}
 
         </View>
     );
 
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    logo: {
+        marginHorizontal: 10,
+        width: 55,
+        height: 55,
+        borderRadius: 10,
+        marginBottom: '20%'
+    },
 
-const mapStateToProps = ({location, rApplications}) => {
-    return ({rApplications, location}); //define your own keys
+})
+const mapStateToProps = ({location, rApplications,rCurator,packages, rTags}) => {
+    return ({rApplications, location, rCurator,packages, rTags}); //define your own keys
 }
 
 export default connect(
     mapStateToProps,
-    {getAllApplications})
+    {getAllApplications,
+        getAllTags,
+    postSavePackage})
 (CuratorCreatePackageScreen);
+
+
+

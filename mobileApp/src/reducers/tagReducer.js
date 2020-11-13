@@ -1,18 +1,18 @@
 
 
 import {
-    GET_APPLICATIONS,
+    GET_TAGS,
     LOADING } from "../actions/types";
 const initialState = {
-    applications: [],
+    tags: [],
     loading: true,
     //errorMessage:''
 }      // []
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case GET_APPLICATIONS:
-            return { ...state,applications: action.payload, loading: false }
+        case GET_TAGS:
+            return { ...state,tags: action.payload, loading: false }
         case LOADING:
             return { ...state, loading: action.payload }
         default:

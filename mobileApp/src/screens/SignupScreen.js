@@ -16,6 +16,7 @@ import * as Animatable from "react-native-animatable";
 import GoBackArrow from "../components/GoBackArrow";
 import {connect} from "react-redux";
 import {postSignUpCurator, emptyErrMessage} from "../actions";
+import GoBackArrowPush from "../components/GoBackArrowPush";
 
 
 
@@ -45,6 +46,7 @@ const SignupScreen = (props) => {
     confirmPassword: '',
     firstName: '',
     lastName: '',
+    avatarUrl:'https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png',
   })
 
 
@@ -89,7 +91,6 @@ const SignupScreen = (props) => {
   useEffect(()=>{
     if(errorMessageSignUp){
       return (
-
           Alert.alert(errorMessageSignUp)
       )
     }
@@ -103,7 +104,7 @@ const SignupScreen = (props) => {
         <View style={styles.container}>
           <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>
           <View style={styles.header}>
-            <GoBackArrow testID={'signupGoBackArrow'} navigation={navigation} destination={'CuratorScreen'} />
+            <GoBackArrowPush testID={'signupGoBackArrow'} navigation={navigation} destination={'CuratorScreen'} />
             <Text style={styles.text_header}>Welcome!</Text>
           </View>
           <Animatable.View
@@ -209,14 +210,14 @@ const SignupScreen = (props) => {
                   title="Sign Up"
                   onPress={() => postSignUpCurator(curatorS)}
               />
-              <Button
-                  testID={"signupSignin"}
-                  containerStyle={[styles.signInContainer, { marginTop: 10 }]}
-                  buttonStyle={[styles.signIn, { borderColor: MAIN_COLOR, borderWidth: 1, backgroundColor: '#fff' }]}
-                  titleStyle={[styles.textSign, { color: MAIN_COLOR }]}
-                  title="Sign in"
-                  onPress={() => navigation.navigate('SigninScreen')}
-              />
+              {/*<Button*/}
+              {/*    testID={"signupSignin"}*/}
+              {/*    containerStyle={[styles.signInContainer, { marginTop: 10 }]}*/}
+              {/*    buttonStyle={[styles.signIn, { borderColor: MAIN_COLOR, borderWidth: 1, backgroundColor: '#fff' }]}*/}
+              {/*    titleStyle={[styles.textSign, { color: MAIN_COLOR }]}*/}
+              {/*    title="Sign in"*/}
+              {/*    onPress={() => navigation.navigate('SigninScreen')}*/}
+              {/*/>*/}
             </View>
           </Animatable.View>
         </View>

@@ -14,47 +14,45 @@ export const postSignUpCurator = (curator) => {
 
     return async (dispatch, getState) => {
         try {
-            dispatch ({ type: LOADING, payload: true})
+            dispatch({type: LOADING, payload: true})
             const response = await packageApi.post('/api/turistmo/signup', curator);
             console.log("SIGN UP SUCCESS - curatorActions 16")
-        dispatch({ type: POST_SIGNUP_CURATOR, payload: response.data.content })
-        } catch (err)  {
+            dispatch({type: POST_SIGNUP_CURATOR, payload: response.data.content})
+            dispatch({type: LOADING, payload: false});
+        } catch (err) {
             console.log("SIGN UP FAILURE - curatorActions 19")
             let errM = err.response.data.message;
-            if(!errM)
-               errM=err.response.data.errors[0];
-           errM
-           ? dispatch({ type: POST_SIGNUP_CURATOR_ERROR, payload: errM })
-           : dispatch({ type: POST_SIGNUP_CURATOR_ERROR, payload: 'Something went terrible wrong, please inform product owner' })
-        };
-    }
-}
-
-export const postSignInCurator = (curator) => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch ({ type: LOADING, payload: true})
-            const response = await packageApi.post('/api/turistmo/login', curator);
-            dispatch({ type: POST_SIGNIN_CURATOR, payload: response.data.body })
-            dispatch({ type: POST_SIGNIN_CURATOR_SUCCESS_JWT, payload: response.data.authorization})
-            dispatch({ type: POST_SIGNIN_CURATOR_SUCCESS, payload: true });
-        } catch (err) {
-            let errM = err.response.data.message
-            dispatch({ type: POST_SIGNIN_CURATOR_ERROR, payload: err.response.data.message })
-            dispatch({ type: POST_SIGNIN_CURATOR_SUCCESS, payload: false })
+            if (!errM)
+                errM = err.response.data.errors[0];
+            errM
+                ? dispatch({type: POST_SIGNUP_CURATOR_ERROR, payload: errM})
+                : dispatch({
+                    type: POST_SIGNUP_CURATOR_ERROR,
+                    payload: 'Something went terrible wrong, please inform product owner'
+                })
         }
     }
 }
 
-export const isUserFound = (userFound) => {
-    return async (dispatch, getState) => {
-       return !!userFound;
+export const postSignInCurator = (curator) => {
+    return async (dispatch) => {
+        try {
+            dispatch({type: LOADING, payload: true})
+            const response = await packageApi.post('/api/turistmo/login', curator);
+            dispatch({type: POST_SIGNIN_CURATOR, payload: response.data.body})
+            dispatch({type: POST_SIGNIN_CURATOR_SUCCESS_JWT, payload: response.data.authorization})
+            dispatch({type: LOADING, payload: false});
+            return response.data.authorization.length > 0;
+        } catch (err) {
+            let errM = err.response.data.message
+            dispatch({type: POST_SIGNIN_CURATOR_ERROR, payload: err.response.data.message})
+        }
     }
 }
 
 export const emptyErrMessage = () => {
     return async (dispatch, getState) => {
-            dispatch({ type: LOADING, payload: false })
+        dispatch({type: LOADING, payload: false})
     }
 }
 
