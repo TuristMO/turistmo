@@ -12,6 +12,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @RequiredArgsConstructor
@@ -23,6 +24,8 @@ public class BootstrapDB implements CommandLineRunner {
     private final ApplicationRepository applicationRepository;
     private final CuratorRepository curatorRepository;
     private final TagRepository tagRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
@@ -69,7 +72,7 @@ public class BootstrapDB implements CommandLineRunner {
                     .email("mahonygmail.com")
                     .firstName("Ma")
                     .lastName("Honey")
-                    .password("123321")
+                    .password(passwordEncoder.encode("123321"))
                     .description("Ma will never be tired of sharing.")
                     .build();
 

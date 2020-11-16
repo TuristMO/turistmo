@@ -30,6 +30,6 @@ public interface PackageRepository extends JpaRepository<Package, Long> {
     @Query("select pack FROM Package pack JOIN pack.tags u WHERE LOWER(u.title) = LOWER(?1)")
     Page<Package> findAllByTagsTitle(String searchTag, Pageable pageable);
 
-    List<Package> findAllPackageByCuratorGuid(UUID curator_guid);
+    List<Package> findAllByCuratorGuid(UUID curator_guid);
 
 }

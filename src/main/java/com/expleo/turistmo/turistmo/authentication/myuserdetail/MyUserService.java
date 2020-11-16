@@ -1,12 +1,6 @@
 package com.expleo.turistmo.turistmo.authentication.myuserdetail;
 
-
-import com.expleo.turistmo.turistmo.domain.Curator;
-import com.expleo.turistmo.turistmo.domain.TokenType;
-import com.expleo.turistmo.turistmo.domain.VerificationToken;
 import com.expleo.turistmo.turistmo.repository.CuratorRepository;
-import com.expleo.turistmo.turistmo.repository.VerificationRepository;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +19,4 @@ public class MyUserService implements UserDetailsService {
             .map(MyUserDetail::new)
             .orElseThrow(() -> new UsernameNotFoundException(String.format("User not found with email : %s", email)));
     }
-
-
 }

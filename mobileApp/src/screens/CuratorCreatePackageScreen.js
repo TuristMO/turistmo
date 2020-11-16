@@ -15,7 +15,7 @@ import { Button } from "react-native-elements";
 import Application from "../components/Application";
 import {connect} from "react-redux";
 import {
-    emptyErrMessage,
+    emptyServerMessage,
     getAllApplications,
     postSavePackage, postSignInCurator,
     getAllTags,

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,6 +43,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             var jwsBody = claimsJws.getBody();
             var subject = jwsBody.getSubject(); // The Actual username that we pass to subject variable
             var authorities = (List<Map<String, String>>) jwsBody.get("authorities");
+
             var simpleGrantedAuthorities = tokenProvider.getAuthority(authorities);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(

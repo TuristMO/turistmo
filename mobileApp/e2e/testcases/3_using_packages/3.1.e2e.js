@@ -1,6 +1,4 @@
-import {packages} from "../../../data";
 import {PackageSO} from "../../screens/PackageSO";
-import {sleep} from "../../helpers";
 
 const {device, expect, element, by, waitFor} = require('detox');
 

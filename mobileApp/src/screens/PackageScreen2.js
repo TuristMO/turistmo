@@ -31,7 +31,6 @@ const PackageScreen2 = (props) => {
     const [hasSearched, setHasSearched] = useState(false);
 
     useEffect(() => {
-        // TEMPORARY SOLUTION UNTIL GEO LOCATION IS ACCEPTED FROM "PO"
         getAllPackagesTravel();
         getAllPackagesFood();
         getAllPackagesBusiness();
@@ -53,10 +52,6 @@ const PackageScreen2 = (props) => {
     const searchResult = (searchQuery) => {
         setHasSearched(true)
         getAllPackages(searchQuery.trim());
-        console.log(packages)
-        console.log(packagesFound)
-        //packages.forEach(e=> console.log(e))
-        //callback();
     }
 
     if (loading) {
@@ -106,7 +101,7 @@ const PackageScreen2 = (props) => {
                             horizontal={true}
                             renderItem={({item, index}) => {
                                 return <TouchableOpacity activeOpacity={0.9}
-                                                         onPress={() => navigation.navigate('Package details', {path: packages[index]})}>
+                                                         onPress={() => navigation.navigate('PackageDetails', {path: packages[index]})}>
                                     <Card2 cPackage={item} index={"SearchIndex"+index}/>
                                 </TouchableOpacity>
                             }}/>
@@ -123,7 +118,7 @@ const PackageScreen2 = (props) => {
                         horizontal={true}
                         renderItem={({item, index}) => {
                             return <TouchableOpacity activeOpacity={0.9} onPress={() => {
-                                setHasSearched(false), navigation.navigate('Package details', {path: packagesTravel[index]})
+                                setHasSearched(false), navigation.navigate('PackageDetails', {path: packagesTravel[index]})
                             }}>
                                 <Card2 cPackage={item} index={"TravelIndex"+index}/>
                             </TouchableOpacity>
@@ -140,7 +135,7 @@ const PackageScreen2 = (props) => {
                         horizontal={true}
                         renderItem={({item, index}) => {
                             return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packagesFood[index]})}>
+                                                     onPress={() => navigation.navigate('PackageDetails', {path: packagesFood[index]})}>
                                 <Card2 cPackage={item} index={"FoodIndex"+index}/>
                             </TouchableOpacity>
                         }}
@@ -156,7 +151,7 @@ const PackageScreen2 = (props) => {
                         horizontal={true}
                         renderItem={({item, index}) => {
                             return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packagesCulture[index]})}>
+                                                     onPress={() => navigation.navigate('PackageDetails', {path: packagesCulture[index]})}>
                                 <Card2 cPackage={item} index={"CultureIndex"+index}/>
                             </TouchableOpacity>
                         }}
@@ -172,7 +167,7 @@ const PackageScreen2 = (props) => {
                         horizontal={true}
                         renderItem={({item, index}) => {
                             return <TouchableOpacity activeOpacity={0.9}
-                                                     onPress={() => navigation.navigate('Package details', {path: packagesBusiness[index]})}>
+                                                     onPress={() => navigation.navigate('PackageDetails', {path: packagesBusiness[index]})}>
                                 <Card2 cPackage={item} index={"BusinessIndex"+index}/>
                             </TouchableOpacity>
                         }}

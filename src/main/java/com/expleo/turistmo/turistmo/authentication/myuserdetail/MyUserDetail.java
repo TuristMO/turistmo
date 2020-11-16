@@ -2,11 +2,10 @@ package com.expleo.turistmo.turistmo.authentication.myuserdetail;
 
 import com.expleo.turistmo.turistmo.domain.Curator;
 import java.util.Collection;
-import java.util.Collections;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @RequiredArgsConstructor
