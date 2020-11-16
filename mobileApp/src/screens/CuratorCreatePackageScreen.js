@@ -7,16 +7,16 @@ import {
     View,
     ScrollView,
     Text,
-    Dimensions, FlatList, SafeAreaView
+    Dimensions, FlatList, SafeAreaView, AlertStatic as Alert
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Button } from "react-native-elements";
 // import CheckBox from '@react-native-community/checkbox';
-import Application from "../components/Application";
 import {connect} from "react-redux";
 import {
     emptyServerMessage,
     getAllApplications,
+    setActiveCurator,
     postSavePackage, postSignInCurator,
     getAllTags,
 } from "../actions";
@@ -28,7 +28,9 @@ const CuratorCreatePackageScreen = (props) => {
             rApplications:{loading,applications},
             rTags:{tags},
             rCurator: {curator,jwt},
+            packages: {postPackages},
             getAllApplications, navigation,postSavePackage,
+            setActiveCurator,
             getAllTags,
         } = props;
     const [savePackage, setSavePackage] = useState({
@@ -50,6 +52,11 @@ const CuratorCreatePackageScreen = (props) => {
        return list;
     }
 
+    function setCuratorAndNavigateToProfileScreen(curator) {
+        setActiveCurator(curator)
+        navigation.navigate('SignedInCuratorScreen')
+    }
+
 
     const descriptionChange = (val) => {
         setSavePackage({ ...savePackage, description: val})
@@ -67,8 +74,6 @@ const CuratorCreatePackageScreen = (props) => {
         newList.push(application)
         setSavePackage({...savePackage, usefulApplications: newList})
     }
-    console.log(jwt )
-    console.log(savePackage)
     return (
         <View>
             <TextInput
@@ -124,7 +129,7 @@ const CuratorCreatePackageScreen = (props) => {
             <Button
                 color={'#4AB4FF'}
                 title={"Save package"}
-                onPress={()=> postSavePackage(savePackage,jwt).then(navigation.push('SignedInCuratorScreen'))}
+                onPress={()=> postSavePackage(savePackage,jwt).then((response)=> response ? setCuratorAndNavigateToProfileScreen(postPackages):Alert.alert("errror","err"))}
             />
         </View>
     );
@@ -148,6 +153,7 @@ const mapStateToProps = ({location, rApplications,rCurator,packages, rTags}) => 
 export default connect(
     mapStateToProps,
     {getAllApplications,
+        setActiveCurator,
         getAllTags,
     postSavePackage})
 (CuratorCreatePackageScreen);

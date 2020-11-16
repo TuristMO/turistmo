@@ -20,9 +20,9 @@ export const postSignUpCurator = (curator) => {
             dispatch({type: POST_SIGNUP_CURATOR_SUCCESS, payload: response.data.message})
             dispatch({type: LOADING, payload: false});
         } catch (err) {
-            console.log(err.response.data)
-            console.log(err.response.data.message)
-            console.log(err.response.data.errors)
+            // console.log(err.response.data)
+            // console.log(err.response.data.message)
+            // console.log(err.response.data.errors)
             let errM = err.response.data.message;
             if (!errM)
                 errM = err.response.data.errors[0];
@@ -49,6 +49,13 @@ export const postSignInCurator = (curator) => {
             let errM = err.response.data.message
             dispatch({type: POST_SIGNIN_CURATOR_ERROR, payload: err.response.data.message})
         }
+    }
+}
+
+export const setActiveCurator = (curator) => {
+    return async (dispatch,getState) => {
+        dispatch({type: LOADING, payload: false})
+        dispatch({type: POST_SIGNIN_CURATOR, payload: curator})
     }
 }
 

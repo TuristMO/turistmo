@@ -43,7 +43,7 @@ export const getAllPackagesTravel = () => {
                     search: 'Travel'
                 }
             });
-            console.log("TRAVEL")
+
             dispatch({type: GET_PACKAGES_TRAVEL, payload: response.data.content})
         } catch (err) {
             console.log(err);
@@ -63,7 +63,7 @@ export const getAllPackagesFood = () => {
                 }
 
             });
-            console.log("FOOD CALLED")
+
             dispatch({type: GET_PACKAGES_FOOD, payload: response.data.content})
         } catch (err) {
             console.log(err);
@@ -81,7 +81,7 @@ export const getAllPackagesCulture = () => {
                     search: 'Culture'
                 }
             });
-            console.log("CULTURE CALLED")
+
             dispatch({type: GET_PACKAGES_CULTURE, payload: response.data.content})
         } catch (err) {
             console.log(err);
@@ -100,7 +100,7 @@ export const getAllPackagesBusiness = () => {
                     search: 'Business'
                 }
             });
-            console.log("BUSINESS CALLED")
+
             dispatch({type: GET_PACKAGES_BUSINESS, payload: response.data.content})
         } catch (err) {
             console.log(err);
@@ -109,10 +109,6 @@ export const getAllPackagesBusiness = () => {
 }
 
 export const postSavePackage = (packages, jwt) => {
-
-//  let newStr = jwt.substr(7,jwt.length)
-    console.log(jwt)
-    console.log(packages)
     return async (dispatch, getState) => {
         try {
             dispatch({type: LOADING, payload: true})
@@ -123,9 +119,12 @@ export const postSavePackage = (packages, jwt) => {
                     }
                 });
             console.log("PACKAGE SAVED")
-            dispatch({type: POST_PACKAGES, payload: response.data.body})
+            dispatch({type: POST_PACKAGES, payload: response.data.curator})
+            console.log(response.data.message)
+            return true;
         } catch (err) {
-            console.log(err)
+            console.log("125 "+err)
+            return false;
         }
     }
 }

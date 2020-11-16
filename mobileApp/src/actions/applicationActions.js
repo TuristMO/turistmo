@@ -15,8 +15,6 @@ export const getAllApplications = () => {
                 }
             });
             dispatch({ type: GET_APPLICATIONS, payload: response.data.content })
-            //setFilteredData(response.data.content)
-            console.log('dådådådådåd')
         } catch (err) {
             console.log("HEJEHEJEHEJ" + err);
         }

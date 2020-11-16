@@ -14,7 +14,6 @@ import Card2 from "../components/Card2";
 
 const CuratorScreen = (props) => {
     const {navigation,rCurator: {curator}} = props;
-    console.log(curator)
     return (
         <SafeAreaView
             style={styles.container}>

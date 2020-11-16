@@ -31,8 +31,6 @@ const SigninScreen = (props) => {
     secureTextEntry: true
   });
 
-  const[foundUser,setFoundUser] = useState(false)
-
   const [curatorS, setCuratorS] = useState({
     email: '',
     password: '',
@@ -55,18 +53,6 @@ const SigninScreen = (props) => {
   const updateSecureTextEntry = () => {
     setData({ ...data, secureTextEntry: !data.secureTextEntry });
   };
-  //console.log("CURATOR GUID " +curator.guid)
-  //console.log("CURATOR EMAIL " +curator.email)
-  //console.log("JWT "+jwt)
-  //console.log("ERRROR "+errorMessageLogin)
-
-  function checkLogin() {
-
-    //postSignInCurator(curatorS).then(whateveryouReturned => { /*your code here*/})
-
-    postSignInCurator(curatorS)
-    console.log(curator)
-  }
 
   return (
       <KeyboardDismiss>
@@ -122,8 +108,6 @@ const SigninScreen = (props) => {
                   buttonStyle={styles.signIn}
                   titleStyle={styles.textSign}
                   title="Sign in"
-                  // onPress={() => postSignInCurator(curatorS).then(checkLogin()) ? navigation.navigate('SignedInCuratorScreen', {path: curator}): Alert.alert("Wrong credentials")}
-                  //onPress={() => checkLogin().then(() => userFound ? console.log("Correct password") : console.log("Wrong password"))}
                   onPress={() => postSignInCurator(curatorS).then((response) => response ?  navigation.navigate('SignedInCuratorScreen', {path: curator}) : Alert.alert("Wrong credentials"))}
               />
               <Button
