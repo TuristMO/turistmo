@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { Button } from "react-native-elements";
 import {connect} from "react-redux";
-import {emptyErrMessage, isUserFound, postSignInCurator} from "../actions";
+import {emptyServerMessage, isUserFound, postSignInCurator} from "../actions";
 import Card2 from "../components/Card2";
 
 const CuratorScreen = (props) => {
@@ -127,5 +127,5 @@ const mapStateToProps = ({rCurator}) => {
 
 export default connect(
     mapStateToProps,
-    {postSignInCurator,emptyErrMessage,isUserFound})
+    {postSignInCurator,emptyErrMessage: emptyServerMessage,isUserFound})
 (CuratorScreen);

@@ -16,6 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
@@ -33,13 +35,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class CuratorPackageServiceTest {
 
     @Mock
     CuratorRepository curatorRepository;
-
-    @Mock
-    PackageRepository packageRepository;
 
     @Mock
     ApplicationRepository applicationRepository;
@@ -68,12 +68,11 @@ public class CuratorPackageServiceTest {
     void setUp() {
         domainResource = new DomainResource();
         johnDoeCurator = domainResource.getJohnDoeCurator();
-//        johnDoeCurator.setGuid(UUID.randomUUID());
         stockholmPackage = domainResource.getStockholmPackage();
         sl = domainResource.getSLApplication();
-
         taxiApplication = domainResource.getTaxiApplication();
         travelTag = domainResource.getTravelTag();
+
         stockholmPackage.addTag(travelTag);
         stockholmPackage.addApplication(sl);
         stockholmPackage.addApplication(taxiApplication);
@@ -88,7 +87,7 @@ public class CuratorPackageServiceTest {
     void itShouldGetEmailFromCurator() {
         given(curatorRepository.findCuratorByEmail(anyString())).willReturn(Optional.of(johnDoeCurator));
         Curator curator = curatorService.findCuratorByEmail(johnDoeCurator.getEmail());
-        assertThat(curatorService.findCuratorByEmail(johnDoeCurator.getEmail()).equals(curator.getEmail()));
+        assertThat(johnDoeCurator.getEmail().equals(curator.getEmail()));
         assertThat(curator).isNotNull();
 
     }
@@ -117,29 +116,22 @@ public class CuratorPackageServiceTest {
         johnDoeCurator.setPackages(new HashSet<>());
 
         given(curatorRepository.findCuratorByGuid(any())).willReturn(Optional.of(johnDoeCurator));
-        given(applicationRepository.findByTitle(anyString())).willReturn(sl);
-        given(applicationRepository.findByTitle(anyString())).willReturn(taxiApplication);
-        given(tagRepository.findTagByTitle(anyString())).willReturn(travelTag);
+        given(applicationRepository.findByGuid(any())).willReturn(Optional.of(sl));
+        given(applicationRepository.findByGuid(any())).willReturn(Optional.of(taxiApplication));
+        given(tagRepository.findByGuid(any())).willReturn(Optional.of(travelTag));
 
+        Package stockholmPackage = domainResource.getStockholmPackage();
 
-        Package pack = domainResource.getStockholmPackage();
-        pack.setCity("New Stockholm");
-        pack.setCreatedDate(dateAsTimestamp);
-        pack.setGuid(UUID.randomUUID());
-        pack.setLastModifiedDate(dateAsTimestamp);
-        pack.setDescription("Something about new Stockholm!");
-        pack.addTag(travelTag);
-        pack.setTitle("Visiting New Stockholm");
-        pack.addApplication(sl);
-        pack.addApplication(taxiApplication);
-        pack.setCurator(johnDoeCurator);
+        stockholmPackage.addTag(travelTag);
+        stockholmPackage.addApplication(sl);
+        stockholmPackage.addApplication(taxiApplication);
+        stockholmPackage.setCurator(johnDoeCurator);
 
+        curatorService.saveCuratorPackages(johnDoeCurator,stockholmPackage);
 
-        curatorService.saveCuratorPackages(johnDoeCurator,pack);
+        Curator getCuratorPack = curatorRepository.findCuratorByGuid(johnDoeCurator.getGuid()).orElseThrow();
 
-        Optional<Curator> getCuratorPack = curatorRepository.findCuratorByGuid(johnDoeCurator.getGuid());
-
-        assertThat(getCuratorPack.get().getPackages()).hasSize(1);
+        assertThat(getCuratorPack.getPackages()).hasSize(1);
 
     }
 

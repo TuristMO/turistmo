@@ -32,10 +32,11 @@ public class CuratorService {
         final String email = signUpCurator.getEmail();
         final String firstName = signUpCurator.getFirstName();
         final String lastName = signUpCurator.getLastName();
+        final String avatarUrl = "https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png";
         Optional<Curator> curatorByEmail = curatorRepository.findCuratorByEmail(email);
 
         if (curatorByEmail.isPresent()) {
-            throw new EmailAlreadyExistsException(String.format("Email %s is already taken!", email));
+            throw new EmailAlreadyExistsException(String.format("Email: %s\nis already taken!", email));
         }
         if (!signUpCurator.getConfirmPassword().contentEquals(signUpCurator.getPassword())) {
             throw new PasswordMismatchException(
@@ -48,6 +49,7 @@ public class CuratorService {
                 .password(encodedPassword)
                 .firstName(firstName)
                 .lastName(lastName)
+                .avatarUrl(avatarUrl)
                 .build();
         return curatorRepository.save(newCuratorAccount);
     }
@@ -69,7 +71,7 @@ public class CuratorService {
                 .findCuratorByGuid(guid)
                 .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
 
-        return  curator.getPackages();
+        return curator.getPackages();
     }
 
     public void saveCuratorPackages(Curator curator, Package newPackage){
@@ -85,14 +87,16 @@ public class CuratorService {
                 .description(newPackage.getDescription())
                 .build();
 
-        for(Application a : newPackage.getUsefulApplications()){
-            Application foundApp = applicationRepository.findByTitle(a.getTitle());
-            savePackage.addApplication(foundApp);
+        for(Application app : newPackage.getUsefulApplications()){
+            Optional<Application> foundApp = applicationRepository.findByGuid(app.getGuid());
+            foundApp.ifPresent(savePackage::addApplication);
         }
-        for (Tag t : newPackage.getTags()){
-            Tag foundTag = tagRepository.findTagByTitle(t.getTitle());
-            savePackage.addTag(foundTag);
+
+        for (Tag tag : newPackage.getTags()){
+            Optional<Tag> foundTag = tagRepository.findByGuid(tag.getGuid());
+            foundTag.ifPresent(savePackage::addTag);
         }
+
         getCurator.addPackages(savePackage);
         curatorRepository.save(getCurator);
     }

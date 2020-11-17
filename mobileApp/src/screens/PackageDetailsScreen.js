@@ -16,17 +16,13 @@ import GoBackArrowPush from "../components/GoBackArrowPush";
 
 const PackageDetailsScreen = ({navigation, route}) => {
     const {guid, title, city, description, createdDate, curator, usefulApplications, tags} = route.params.path;
-    // console.log(route.params.path)
+
     const color = tags[0].title;
-    // console.log(tagColor(color));
-    console.log(title)
     const date = createdDate.substr(0, 10)
     const MAIN_COLOR = tagColor(color);
 
     const [numberLike, setNumberLike] = useState(0);
     const [numberDislike, setNumberDislike] = useState(0);
-    let itemList = [];
-
     return (
         <SafeAreaView
             style={styles.container}>
@@ -106,12 +102,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     testID="packageDetailReportButton"
                     accessibilityLabel='reportButton'
                     buttonStyle={styles.reportButton}
-                    // icon={{
-                    //     name: "pencil",
-                    //     type: 'font-awesome',
-                    //     size: 30,
-                    //     color: '#ff2a00',
-                    // }}
                     title="Report"
                     titleStyle={{paddingTop: '10%',fontSize: 20, color: '#ff2a00'}}
                     onPress={() => console.log("This will get reported")}/>
@@ -132,8 +122,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                             style={styles.curatorAvatar}/>
                         <View
                             testID="packageDetailcuratorText"
-                            accessibilityLabel='packageDetailcuratorText'
-                            style={styles.curatorText}>
+                            accessibilityLabel='packageDetailcuratorText'>
                             <Text
                                 testID="curatorName"
                                 accessibilityLabel='curatorName'
@@ -248,8 +237,7 @@ const styles = StyleSheet.create({
     likeText: {
         fontSize: 20,
         fontWeight: 'bold',
-    },
-
+    }
 
 })
 

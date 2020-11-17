@@ -14,7 +14,7 @@ import * as Animatable from 'react-native-animatable'
 import KeyboardDismiss from "../components/KeyboardDismiss";
 import GoBackArrow from "../components/GoBackArrow";
 import {connect} from "react-redux";
-import {emptyErrMessage, isUserFound, postSignInCurator} from "../actions";
+import {emptyServerMessage, isUserFound, postSignInCurator} from "../actions";
 
 const MAIN_COLOR = '#4AB4FF';
 
@@ -213,5 +213,5 @@ const mapStateToProps = ({rCurator}) => {
 
 export default connect(
     mapStateToProps,
-    {postSignInCurator,emptyErrMessage,isUserFound})
+    {postSignInCurator,emptyErrMessage: emptyServerMessage,isUserFound})
 (SigninScreen);

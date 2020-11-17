@@ -16,11 +16,13 @@ export const postSignUpCurator = (curator) => {
         try {
             dispatch({type: LOADING, payload: true})
             const response = await packageApi.post('/api/turistmo/signup', curator);
-            console.log("SIGN UP SUCCESS - curatorActions 16")
-            dispatch({type: POST_SIGNUP_CURATOR, payload: response.data.content})
+            dispatch({type: POST_SIGNUP_CURATOR, payload: response.data})
+            dispatch({type: POST_SIGNUP_CURATOR_SUCCESS, payload: response.data.message})
             dispatch({type: LOADING, payload: false});
         } catch (err) {
-            console.log("SIGN UP FAILURE - curatorActions 19")
+            console.log(err.response.data)
+            console.log(err.response.data.message)
+            console.log(err.response.data.errors)
             let errM = err.response.data.message;
             if (!errM)
                 errM = err.response.data.errors[0];
@@ -50,7 +52,7 @@ export const postSignInCurator = (curator) => {
     }
 }
 
-export const emptyErrMessage = () => {
+export const emptyServerMessage = () => {
     return async (dispatch, getState) => {
         dispatch({type: LOADING, payload: false})
     }

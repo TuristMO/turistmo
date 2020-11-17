@@ -15,7 +15,7 @@ import { Button,Icon, Input } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import GoBackArrow from "../components/GoBackArrow";
 import {connect} from "react-redux";
-import {postSignUpCurator, emptyErrMessage} from "../actions";
+import {postSignUpCurator, emptyServerMessage} from "../actions";
 import GoBackArrowPush from "../components/GoBackArrowPush";
 
 
@@ -24,10 +24,8 @@ const MAIN_COLOR = '#4AB4FF';
 const SignupScreen = (props) => {
 
   const {
-    navigation,postSignUpCurator,emptyErrMessage, rCurator: {errorMessageSignUp,jwt,loading}
+    navigation,postSignUpCurator,emptyServerMessage, rCurator: {successMessageSignUp,errorMessageSignUp,jwt,loading = false}
   } = props;
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   const [data, setData] = useState({
     email: '',
@@ -38,6 +36,7 @@ const SignupScreen = (props) => {
     check_textInputChange: false,
     secureTextEntry: true,
     secureTextEntryConfirmPassword: true
+    //SÄTT IN FLER STATES FÖR VARJE INPUTFÄLT > TRUE ELLER FALSE
   });
 
   const [curatorS, setCurator] = useState({
@@ -45,8 +44,7 @@ const SignupScreen = (props) => {
     password: '',
     confirmPassword: '',
     firstName: '',
-    lastName: '',
-    avatarUrl:'https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png',
+    lastName: ''
   })
 
 
@@ -83,21 +81,51 @@ const SignupScreen = (props) => {
   const updateSecureTextEntry = () => {
     setData({ ...data, secureTextEntry: !data.secureTextEntry });
   };
-  //
-  // if (loading) {
-  //   return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, justifyContent: "center"}}/>
-  // }
+
+  const navigateAndClearErrorMessage = () => {
+    emptyServerMessage();
+    navigation.push('SigninScreen');
+  }
 
   useEffect(()=>{
     if(errorMessageSignUp){
       return (
-          Alert.alert(errorMessageSignUp)
+          Alert.alert(
+              "Too bad!",
+              errorMessageSignUp,
+              [
+                {
+                  text: "Ok, got it!",
+                  onPress: () => emptyServerMessage(),
+                },
+              ],
+              {
+                cancelable: false,
+              }
+          )
+      )
+    }
+    if(successMessageSignUp){
+      return (
+          Alert.alert(
+              "Welcome!",
+              successMessageSignUp,
+              [
+                {
+                  text: "Ok, got it!",
+                  onPress: () => navigateAndClearErrorMessage(),
+                },
+              ],
+              {
+                cancelable: false,
+              }
+          )
       )
     }
     return ()=>{
-      emptyErrMessage()
+      emptyServerMessage()
     }
-  },[errorMessageSignUp])
+  },[errorMessageSignUp,successMessageSignUp])
 
   return (
       <KeyboardDismiss>
@@ -210,14 +238,6 @@ const SignupScreen = (props) => {
                   title="Sign Up"
                   onPress={() => postSignUpCurator(curatorS)}
               />
-              {/*<Button*/}
-              {/*    testID={"signupSignin"}*/}
-              {/*    containerStyle={[styles.signInContainer, { marginTop: 10 }]}*/}
-              {/*    buttonStyle={[styles.signIn, { borderColor: MAIN_COLOR, borderWidth: 1, backgroundColor: '#fff' }]}*/}
-              {/*    titleStyle={[styles.textSign, { color: MAIN_COLOR }]}*/}
-              {/*    title="Sign in"*/}
-              {/*    onPress={() => navigation.navigate('SigninScreen')}*/}
-              {/*/>*/}
             </View>
           </Animatable.View>
         </View>
@@ -293,6 +313,6 @@ const mapStateToProps = ({rCurator}) => {
 
 export default connect(
     mapStateToProps,
-    {postSignUpCurator,emptyErrMessage})
+    {postSignUpCurator,emptyServerMessage})
 (SignupScreen);
 
