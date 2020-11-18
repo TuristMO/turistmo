@@ -28,9 +28,17 @@ export class SignupSO extends Utility {
         await this.replaceTextById("signupEmail", inputText);
     }
 
+    async verifySignupEmail(inputText, timeout = 15000) {
+        await this.waitToHaveTextById("signupEmail", inputText, timeout);
+    }
+
     async fillPassword(inputText, timeout = 15000) {
         await this.toBeVisibleById("signupPassword", timeout);
         await this.replaceTextById("signupPassword", inputText);
+    }
+
+    async verifySignupPassword(inputText, timeout = 15000) {
+        await this.waitToHaveTextById("signupPassword", inputText, timeout);
     }
 
     async fillConfirmPassword(inputText, timeout = 15000) {
@@ -38,11 +46,23 @@ export class SignupSO extends Utility {
         await this.replaceTextById("confirmPassword", inputText);
     }
 
-    /*
-    async toggleEyeHiddenCharacters(timeout = 10000) {
-        await this.toBeVisibleById("foo", timeout);
-        await this.tapById("foo");
+    async verifyConfirmPassword(inputText, timeout = 15000) {
+        await this.waitToHaveTextById("confirmPassword", inputText, timeout);
     }
-     */
+
+    async fillFirstName(inputText, timeout = 15000) {
+        await this.toBeVisibleById("signupfirstName", timeout);
+        await this.replaceTextById("signupfirstName", inputText);
+    }
+
+    async fillLastName(inputText, timeout = 15000) {
+        await this.toBeVisibleById("signuplastName", timeout);
+        await this.replaceTextById("signuplastName", inputText);
+    }
+
+    async tapShowHideToggle(timeout = 15000) {
+        await this.toBeVisibleById("signupShowHideToggle", timeout);
+        await this.tapById("signupShowHideToggle")
+    }
 
 }

@@ -72,18 +72,24 @@ const CuratorCreatePackageScreen = (props) => {
     return (
         <View>
             <TextInput
+                testID={'curatorCreatePackageTitleInput'}
+                accessibilityLabel={'curatorCreatePackageTitleInput'}
                 style={{height: 40, borderWidth: 1}}
                 onChangeText={titleChange}
                 placeholder={'Package title'}
             />
 
             <TextInput
+                testID={'curatorCreatePackageDescriptionInput'}
+                accessibilityLabel={'curatorCreatePackageDescriptionInput'}
                 style={{height: 40, borderWidth: 1}}
                 onChangeText={descriptionChange}
                 placeholder={'Package description'}
             />
 
             <DropDownPicker
+                testID={'curatorCreateCityPicker'}
+                accessibilityLabel={'curatorCreatePackageCityPicker'}
                 items={[
                     {label: 'Stockholm'},
                     {label: 'Göteborg'},
@@ -96,6 +102,8 @@ const CuratorCreatePackageScreen = (props) => {
             />
 
             <DropDownPicker
+                testID={'curatorCreatePackageTagPicker'}
+                accessibilityLabel={'curatorCreatePackageTagPicker'}
                 items={dropDownPickerList()}
                 placeholder={'Select Tag'}
                 multiple={true}
@@ -122,6 +130,8 @@ const CuratorCreatePackageScreen = (props) => {
                 </SafeAreaView>
             </View>
             <Button
+                testID={'curatorCreatePackageSaveButton'}
+                accessibilityLabel={'curatorCreatePackageSaveButton'}
                 color={'#4AB4FF'}
                 title={"Save package"}
                 onPress={()=> postSavePackage(savePackage,jwt).then(navigation.push('SignedInCuratorScreen'))}

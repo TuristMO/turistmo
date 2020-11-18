@@ -19,23 +19,23 @@ const CuratorScreen = (props) => {
         <SafeAreaView
             style={styles.container}>
             <View
-                testID="packageDetailpackageContainer"
-                accessibilityLabel='packageDetailpackageContainer'
+                testID="curatorContainer"
+                accessibilityLabel='curatorContainer'
                 style={styles.packageContainer}>
                 <View
                     style={styles.titleContainer}>
                     <Image
-                        testID="packageDetailcuratorAvatar"
-                        accessibilityLabel='packageDetailcuratorAvatar'
+                        testID="curatorAvatar"
+                        accessibilityLabel='curatorAvatar'
                         source={{uri: "https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png"}}
                         style={styles.curatorAvatar}/>
                     <Text
-                        testID="packageDetailpackageDate"
-                        accessibilityLabel='packageDetailpackageDate'
+                        testID="curatorName"
+                        accessibilityLabel='curatorName'
                         style={styles.curatorTitle}>{curator.firstName} {curator.lastName}</Text>
                     <Text
-                        testID="packageDetailpackageCity"
-                        accessibilityLabel='packageDetailpackageCity'
+                        testID="curatorEmail"
+                        accessibilityLabel='curatorEmail'
                         style={styles.curatorEmail}>{curator.email}</Text>
                 </View>
 
@@ -45,7 +45,8 @@ const CuratorScreen = (props) => {
                     style={styles.packageTitle}>My packages</Text>
                 <FlatList
                     style={{height: 150}}
-                    testID="packageFlatList"
+                    testID="curatorPackageFlatList"
+                    accessibilityLabel="curatorPackageFlatList"
                     data={curator.packages}
                     keyExtractor={(item) => curator.packages.guid + "" + item.guid}
                     showsVerticalScrollIndicator={false}
@@ -56,6 +57,8 @@ const CuratorScreen = (props) => {
                     }}
                 />
                 <Button
+                    testID="curatorCreatePackageButton"
+                    accessibilityLabel="curatorCreatePackageButton"
                     color={'#4AB4FF'}
                     title={"Create package"}
                     // onPress={navigation.navigate('CreatePackageScreen')}/>

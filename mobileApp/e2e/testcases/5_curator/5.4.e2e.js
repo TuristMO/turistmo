@@ -2,6 +2,7 @@ import {AppSO} from "../../screens/AppSO";
 import {SplashSO} from "../../screens/SplashSO";
 import {SigninSO} from "../../screens/SigninSO";
 import {sleep} from "../../helpers";
+import {CuratorSO} from "../../screens/CuratorSO";
 
 const {device, expect, element, by, waitFor} = require('detox');
 
@@ -10,6 +11,8 @@ describe('TuristMO', () => {
     let appSO = new AppSO();
     let splashSO = new SplashSO();
     let signinSO = new SigninSO();
+    let curatorSO = new CuratorSO();
+
 
     beforeAll(async ()=>{
         await device.launchApp({ permissions: { location: 'never' } });
@@ -22,19 +25,18 @@ describe('TuristMO', () => {
 
     it('5.4 Logga in som curator', async () => {
 
-        // Testcase to be extended
+        let email = "rikardlof@gmail.com";
+        let password = "expleo123";
 
         await appSO.tapCuratorTab();
         await splashSO.tapGetStartedButton();
-        await signinSO.fillSigninEmail("minemailadress@domain.co.uk");
-        await signinSO.waitToHaveTextById("signinEmail", "minemailadress@domain.co.uk");
-        await signinSO.fillPassword("123456");
-        await signinSO.tapById("signinShowHideToggle");
-        await signinSO.waitToHaveTextById("signinPassword", "123456");
+        await signinSO.fillSigninEmail(email);
+        await signinSO.verifySigninEmail(email);
+        await signinSO.fillPassword(password);
+        await signinSO.tapShowHideToggle();
+        await signinSO.verifySigninPassword(password);
         await signinSO.tapSigninButton();   //Also expects visibility
-        //await signinSO.toBeVisibleById("goBackArrow");
-        //await signinSO.tapById("goBackArrow");
-        //await splashSO.tapGetStartedButton();  //Also expects visibility
+        await curatorSO.verifyCuratorEmail(email);
 
     });
 

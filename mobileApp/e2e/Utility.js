@@ -52,6 +52,10 @@ export class Utility {
         await waitFor(element(by.label(label))).toBeVisible().withTimeout(timeout);
     }
 
+    async toBeVisibleByText(inputText, timeout = this.defaultTimeout) {
+        await waitFor(element(by.text(inputText))).toBeVisible().withTimeout(timeout);
+    }
+
     async toExistById(id, timeout = this.defaultTimeout) {
         await waitFor(element(by.id(id))).toExist().withTimeout(timeout);
     }
