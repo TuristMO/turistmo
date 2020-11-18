@@ -1,5 +1,3 @@
-
-
 import {
   GET_PACKAGES,
   GET_PACKAGES_TRAVEL,
@@ -7,17 +5,20 @@ import {
   GET_PACKAGES_CULTURE,
   GET_PACKAGES_BUSINESS,
   GET_PACKAGES_SUCCESS,
+  GET_PACKAGES_FROM_CURATOR,
   POST_PACKAGES,
   POST_PACKAGES_ERROR,
   POST_PACKAGES_SUCCESS,
   LOADING,
 } from "../actions/types";
+
 const initialState = {
   packages: [],
   packagesTravel: [],
   packagesFood: [],
   packagesCulture: [],
   packagesBusiness: [],
+  packagesBelongingToCurator: [],
   postPackages: {}, //Curator object with packages
   loading: true,
   packagesFound: false,
@@ -39,6 +40,8 @@ export default (state = initialState, action) => {
       return { ...state,packagesCulture: action.payload, loading: false }
     case GET_PACKAGES_BUSINESS:
       return { ...state,packagesBusiness: action.payload, loading: false }
+    case GET_PACKAGES_FROM_CURATOR:
+      return { ...state,packagesBelongingToCurator: action.payload, loading: false }
     case POST_PACKAGES:
       return { ...state,postPackages: action.payload, loading: false }
     case POST_PACKAGES_ERROR:

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Image,
     StyleSheet,
@@ -9,11 +9,16 @@ import {
 } from 'react-native'
 import { Button } from "react-native-elements";
 import {connect} from "react-redux";
-import {emptyServerMessage, isUserFound, postSignInCurator} from "../actions";
+import {emptyServerMessage, getAllPackagesFromCurator, postSignInCurator} from "../actions";
 import Card2 from "../components/Card2";
 
 const CuratorScreen = (props) => {
-    const {navigation,rCurator: {curator}} = props;
+    const {navigation,rCurator: {curator,jwt} ,packages: {packagesBelongingToCurator},getAllPackagesFromCurator} = props;
+    console.log(jwt)
+    useEffect(() => {
+        getAllPackagesFromCurator(jwt);
+    },[])
+    console.log(packagesBelongingToCurator.length)
     return (
         <SafeAreaView
             style={styles.container}>
@@ -45,7 +50,7 @@ const CuratorScreen = (props) => {
                 <FlatList
                     style={{height: 150}}
                     testID="packageFlatList"
-                    data={curator.packages}
+                    data={packagesBelongingToCurator}
                     keyExtractor={(item) => curator.packages.guid + "" + item.guid}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
@@ -120,11 +125,11 @@ const styles = StyleSheet.create({
 
 })
 
-const mapStateToProps = ({rCurator}) => {
-    return ({rCurator})
+const mapStateToProps = ({rCurator,packages}) => {
+    return ({rCurator,packages})
 }
 
 export default connect(
     mapStateToProps,
-    {postSignInCurator,emptyErrMessage: emptyServerMessage,isUserFound})
+    {postSignInCurator,getAllPackagesFromCurator,emptyServerMessage})
 (CuratorScreen);

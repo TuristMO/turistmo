@@ -15,9 +15,10 @@ import {connect} from "react-redux";
 import {
     emptyServerMessage,
     getAllApplications,
-    setActiveCurator,
-    postSavePackage, postSignInCurator,
     getAllTags,
+    getAllPackagesFromCurator,
+    setActiveCurator,
+    postSavePackage,
 } from "../actions";
 import Icon from 'react-native-vector-icons/Feather';
 // const {width, height} = Dimensions.get("window");
@@ -28,6 +29,7 @@ const CuratorCreatePackageScreen = (props) => {
             rTags:{tags},
             rCurator: {curator,jwt},
             packages: {postPackages,packageErrorMessage,packageSuccessMessage},
+            getAllPackagesFromCurator,
             getAllApplications,
             getAllTags,
             setActiveCurator,
@@ -96,8 +98,9 @@ const CuratorCreatePackageScreen = (props) => {
 
     function setCuratorAndNavigateToProfileScreen(curator) {
         setActiveCurator(curator)
+        getAllPackagesFromCurator(jwt)
         emptyServerMessage()
-        navigation.navigate('SignedInCuratorScreen')
+        navigation.push('SignedInCuratorScreen')
     }
 
 
@@ -197,10 +200,11 @@ const mapStateToProps = ({location, rApplications,rCurator,packages, rTags}) => 
 
 export default connect(
     mapStateToProps,
-    {getAllApplications,
+        {getAllApplications,
         setActiveCurator,
         getAllTags,
-    postSavePackage})
+        getAllPackagesFromCurator,
+        postSavePackage})
 (CuratorCreatePackageScreen);
 
 

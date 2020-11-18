@@ -16,7 +16,6 @@ const initialState = {
     errorMessageSignUp: '',
     successMessageSignUp: '',
     successMessageSignin: '',
-    userFound: false,
     loading: true,
 }
 
