@@ -7,11 +7,10 @@ import {
     View,
     ScrollView,
     Text,
-    Dimensions, FlatList, SafeAreaView, AlertStatic as Alert
+    Dimensions, FlatList, SafeAreaView, Alert
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Button } from "react-native-elements";
-// import CheckBox from '@react-native-community/checkbox';
 import {connect} from "react-redux";
 import {
     emptyServerMessage,
@@ -28,10 +27,12 @@ const CuratorCreatePackageScreen = (props) => {
             rApplications:{loading,applications},
             rTags:{tags},
             rCurator: {curator,jwt},
-            packages: {postPackages},
-            getAllApplications, navigation,postSavePackage,
-            setActiveCurator,
+            packages: {postPackages,packageErrorMessage,packageSuccessMessage},
+            getAllApplications,
             getAllTags,
+            setActiveCurator,
+            postSavePackage,
+            navigation,
         } = props;
     const [savePackage, setSavePackage] = useState({
         city: '',
@@ -41,12 +42,51 @@ const CuratorCreatePackageScreen = (props) => {
         usefulApplications: [],
     });
 
+    const showAlertMessage = () => {
+        if (packageErrorMessage) {
+            return (
+                Alert.alert(
+                    "Too bad!",
+                    packageErrorMessage,
+                    [
+                        {
+                            text: "Ok, got it!",
+                            onPress: () => emptyServerMessage(),
+                        },
+                    ],
+                    {
+                        cancelable: false,
+                    }
+                )
+            )
+        }
+        if (packageSuccessMessage) {
+            return (
+                Alert.alert(
+                    "Great!",
+                    packageSuccessMessage,
+                    [
+                        {
+                            text: "OK!",
+                            onPress: () => setCuratorAndNavigateToProfileScreen(curator),
+                        },
+                    ],
+                    {
+                        cancelable: false,
+                    }
+                )
+            )
+        }
+    }
+
     useEffect(() => {
        getAllApplications();
        getAllTags();
-    }, []);
+       showAlertMessage()
+    },[packageErrorMessage,packageSuccessMessage])
 
-    function dropDownPickerList () {
+
+    const dropDownPickerList = () =>  {
        let list = [];
        tags.forEach(e => list.push({label: e.title, value: e, icon: () => <Icon name="flag" size={18} color="#900" />}) )
        return list;
@@ -54,6 +94,7 @@ const CuratorCreatePackageScreen = (props) => {
 
     function setCuratorAndNavigateToProfileScreen(curator) {
         setActiveCurator(curator)
+        emptyServerMessage()
         navigation.navigate('SignedInCuratorScreen')
     }
 
@@ -74,6 +115,7 @@ const CuratorCreatePackageScreen = (props) => {
         newList.push(application)
         setSavePackage({...savePackage, usefulApplications: newList})
     }
+
     return (
         <View>
             <TextInput
@@ -129,7 +171,8 @@ const CuratorCreatePackageScreen = (props) => {
             <Button
                 color={'#4AB4FF'}
                 title={"Save package"}
-                onPress={()=> postSavePackage(savePackage,jwt).then((response)=> response ? setCuratorAndNavigateToProfileScreen(postPackages):Alert.alert("errror","err"))}
+                //onPress={()=> postSavePackage(savePackage,jwt).then((response)=> response ? setCuratorAndNavigateToProfileScreen(postPackages):Alert.alert("errror","err"))}
+                onPress={()=> postSavePackage(savePackage,jwt, ()=> showAlertMessage())}
             />
         </View>
     );
@@ -147,7 +190,7 @@ const styles = StyleSheet.create({
 
 })
 const mapStateToProps = ({location, rApplications,rCurator,packages, rTags}) => {
-    return ({rApplications, location, rCurator,packages, rTags}); //define your own keys
+    return ({rApplications, location, rCurator, packages, rTags}); //define your own keys
 }
 
 export default connect(

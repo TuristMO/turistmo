@@ -2,10 +2,6 @@ package com.expleo.turistmo.turistmo.web;
 
 
 import com.expleo.turistmo.turistmo.domain.Curator;
-import com.expleo.turistmo.turistmo.domain.Package;
-import com.expleo.turistmo.turistmo.exception.EmailAlreadyExistsException;
-import com.expleo.turistmo.turistmo.exception.PasswordMismatchException;
-import com.expleo.turistmo.turistmo.exception.SavePackageException;
 import com.expleo.turistmo.turistmo.services.CuratorService;
 import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.expleo.turistmo.turistmo.web.response.PackageResponse;
@@ -20,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
+import java.util.logging.Logger;
+
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -33,13 +31,13 @@ public class CuratorController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('CURATOR')")
-    public ResponseEntity<?> getAllPackagesBelongingToCurator(){
+    public ResponseEntity<?> getAllPackagesBelongingToCurator() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
             Curator curator = curatorService.findCuratorByEmail(email);
             return ResponseEntity.status(HttpStatus.OK).body(curator);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -47,19 +45,17 @@ public class CuratorController {
 
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('CURATOR')")
-    //public ResponseEntity<?> savePackagesBelongingToCurator(@RequestBody SavePackageRequest savePackage){
-    public ResponseEntity<?> savePackagesBelongingToCurator(@RequestBody Package savePackage){
+    public ResponseEntity<?> savePackagesBelongingToCurator(@Valid @RequestBody SavePackageRequest savePackage) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
             Curator curator = curatorService.findCuratorByEmail(email);
-            Curator savedCurator = curatorService.saveCuratorPackages(curator,savePackage);
-            System.out.println(savedCurator);
-           // return ResponseEntity.status(HttpStatus.CREATED).body(curator);
+            Curator savedCurator = curatorService.saveCuratorPackages(curator, savePackage);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(savedCurator);
             return new ResponseEntity<>(
-                    new PackageResponse("Package is created successfully!",savedCurator),
+                    new Response("Package is created successfully!"),
                     CREATED);
-        } catch (SavePackageException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (Exception e) {
+            throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
         }
     }
 

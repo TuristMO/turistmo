@@ -6,7 +6,7 @@ import {
     GET_PACKAGES_FOOD,
     GET_PACKAGES_TRAVEL,
     POST_PACKAGES,
-    LOADING,
+    LOADING, POST_PACKAGES_SUCCESS, POST_PACKAGES_ERROR, POST_SIGNIN_CURATOR_ERROR,
 } from "./types";
 import packageApi from "../api/packageApi";
 
@@ -108,7 +108,7 @@ export const getAllPackagesBusiness = () => {
     }
 }
 
-export const postSavePackage = (packages, jwt) => {
+export const postSavePackage = (packages, jwt, callback) => {
     return async (dispatch, getState) => {
         try {
             dispatch({type: LOADING, payload: true})
@@ -120,12 +120,13 @@ export const postSavePackage = (packages, jwt) => {
                 });
             console.log("PACKAGE SAVED")
             dispatch({type: POST_PACKAGES, payload: response.data.curator})
-            console.log(response.data.message)
-            return true;
-        } catch (err) {
-            console.log("125 "+err)
-            return false;
+            dispatch({type: POST_PACKAGES_SUCCESS, payload: response.data.message})
+            callback();
+        } catch (error) {
+            dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
+            callback();
         }
     }
 }
+
 

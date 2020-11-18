@@ -14,4 +14,5 @@ import lombok.Setter;
 public class PackageResponse {
     private String message;
     private Curator curator;
+    //Istället
 }

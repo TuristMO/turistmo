@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Getter
@@ -16,11 +15,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class SavePackageRequest {
 
-    @NotBlank(message = "Enter title.")
+    @NotBlank(message = "Please enter title.")
     private String title;
-    @NotBlank(message = "Select city.")
+    @NotBlank(message = "Please select city.")
     private String city;
-    @NotBlank(message = "Enter description.")
+    @NotBlank(message = "Please enter description.")
     private String description;
     @NotEmpty(message = "Please add applications.")
     private Set<Application> usefulApplications;

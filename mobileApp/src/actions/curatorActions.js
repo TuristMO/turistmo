@@ -10,8 +10,7 @@ import {
 } from "./types";
 import packageApi from "../api/packageApi";
 
-export const postSignUpCurator = (curator) => {
-
+export const postSignUpCurator = (curator,callback) => {
     return async (dispatch, getState) => {
         try {
             dispatch({type: LOADING, payload: true})
@@ -19,35 +18,35 @@ export const postSignUpCurator = (curator) => {
             dispatch({type: POST_SIGNUP_CURATOR, payload: response.data})
             dispatch({type: POST_SIGNUP_CURATOR_SUCCESS, payload: response.data.message})
             dispatch({type: LOADING, payload: false});
+            callback();
         } catch (err) {
-            // console.log(err.response.data)
-            // console.log(err.response.data.message)
-            // console.log(err.response.data.errors)
             let errM = err.response.data.message;
             if (!errM)
                 errM = err.response.data.errors[0];
             errM
                 ? dispatch({type: POST_SIGNUP_CURATOR_ERROR, payload: errM})
-                : dispatch({
-                    type: POST_SIGNUP_CURATOR_ERROR,
-                    payload: 'Something went terrible wrong, please inform product owner'
-                })
+                : dispatch({type: POST_SIGNUP_CURATOR_ERROR,
+                    payload: 'Something went terrible wrong, please inform product owner'})
+            callback();
         }
     }
 }
 
-export const postSignInCurator = (curator) => {
-    return async (dispatch) => {
+export const postSignInCurator = (curator, callback) => {
+    return async (dispatch, getState) => {
         try {
             dispatch({type: LOADING, payload: true})
             const response = await packageApi.post('/api/turistmo/login', curator);
             dispatch({type: POST_SIGNIN_CURATOR, payload: response.data.body})
             dispatch({type: POST_SIGNIN_CURATOR_SUCCESS_JWT, payload: response.data.authorization})
+            dispatch({type: POST_SIGNIN_CURATOR_SUCCESS, payload: "Successful login!"})
             dispatch({type: LOADING, payload: false});
-            return response.data.authorization.length > 0;
+            callback();
         } catch (err) {
             let errM = err.response.data.message
-            dispatch({type: POST_SIGNIN_CURATOR_ERROR, payload: err.response.data.message})
+            console.log(errM)
+            dispatch({type: POST_SIGNIN_CURATOR_ERROR, payload: errM})
+            callback();
         }
     }
 }
