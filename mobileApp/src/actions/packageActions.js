@@ -123,6 +123,7 @@ export const postSavePackage = (packages, jwt, callback) => {
             dispatch({type: POST_PACKAGES_SUCCESS, payload: response.data.message})
             callback();
         } catch (error) {
+            console.log(error.response.data.errors)
             dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
             callback();
         }

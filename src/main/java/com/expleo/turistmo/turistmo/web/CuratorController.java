@@ -2,6 +2,7 @@ package com.expleo.turistmo.turistmo.web;
 
 
 import com.expleo.turistmo.turistmo.domain.Curator;
+import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.services.CuratorService;
 import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.expleo.turistmo.turistmo.web.response.PackageResponse;
@@ -45,7 +46,7 @@ public class CuratorController {
 
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('CURATOR')")
-    public ResponseEntity<?> savePackagesBelongingToCurator(@Valid @RequestBody SavePackageRequest savePackage) {
+    public ResponseEntity<?> savePackagesBelongingToCurator(@Valid @RequestBody Package savePackage) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
             Curator curator = curatorService.findCuratorByEmail(email);

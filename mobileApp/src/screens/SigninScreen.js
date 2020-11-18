@@ -55,8 +55,6 @@ const SigninScreen = (props) => {
     };
 
     const checkCredentialAndNavigate = () => {
-        console.log("58 "+errorMessageSignin)
-        console.log("59 "+successMessageSignin)
         if (errorMessageSignin) {
             return (
                 Alert.alert(

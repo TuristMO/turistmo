@@ -43,11 +43,13 @@ const CuratorCreatePackageScreen = (props) => {
     });
 
     const showAlertMessage = () => {
+        let errorList = ''
         if (packageErrorMessage) {
+            packageErrorMessage.forEach(error => errorList += error+'\n');
             return (
                 Alert.alert(
                     "Too bad!",
-                    packageErrorMessage,
+                    errorList,
                     [
                         {
                             text: "Ok, got it!",

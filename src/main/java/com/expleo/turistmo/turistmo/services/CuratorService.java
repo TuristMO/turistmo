@@ -76,7 +76,7 @@ public class CuratorService {
         return curator.getPackages();
     }
 
-    public Curator saveCuratorPackages(Curator curator, SavePackageRequest newPackage) {
+    public Curator saveCuratorPackages(Curator curator, Package newPackage) {
         final String title = newPackage.getTitle();
         final String city = newPackage.getCity();
         final String description = newPackage.getDescription();
