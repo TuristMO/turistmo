@@ -8,6 +8,7 @@ import com.expleo.turistmo.turistmo.exception.EmailAlreadyExistsException;
 import com.expleo.turistmo.turistmo.exception.PasswordMismatchException;
 import com.expleo.turistmo.turistmo.repository.ApplicationRepository;
 import com.expleo.turistmo.turistmo.repository.CuratorRepository;
+import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.repository.TagRepository;
 import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.expleo.turistmo.turistmo.web.request.SignUpRequest;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class CuratorService {
 
     private final CuratorRepository curatorRepository;
+    private final PackageRepository packageRepository;
     private final ApplicationRepository applicationRepository;
     private final TagRepository tagRepository;
     private final PasswordEncoder passwordEncoder;
@@ -104,6 +106,15 @@ public class CuratorService {
 
         getCurator.addPackages(savePackage);
         curatorRepository.save(getCurator);
+    }
+
+    public void deleteCuratorPackageFromPackageGuid(UUID curator_guid,UUID pack_guid) {
+        Package deletePackage = packageRepository
+                .findPackageByCurator_GuidAndGuid(curator_guid,pack_guid)
+                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
+
+         packageRepository.deleteById(deletePackage.getId());
+
     }
 
 }

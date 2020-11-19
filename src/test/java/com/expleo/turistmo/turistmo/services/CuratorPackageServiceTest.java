@@ -43,6 +43,9 @@ public class CuratorPackageServiceTest {
     CuratorRepository curatorRepository;
 
     @Mock
+    PackageRepository packageRepository;
+
+    @Mock
     ApplicationRepository applicationRepository;
 
     @Mock
@@ -156,5 +159,20 @@ public class CuratorPackageServiceTest {
 //        assertThatThrownBy(() -> curatorService.saveCuratorPackages(johnDoeCurator,pack))
 //                .isInstanceOf(NullPointerException.class)
 //                .hasMessage("Unauthorized request!");
+    }
+
+    @Test
+    @DisplayName("It should get packages from curator and delete.")
+    void itShouldGetPackagesFromCuratorAndDelete() {
+        //GIVEN
+        given(curatorRepository.findCuratorByGuid(any(UUID.class))).willReturn(Optional.of(johnDoeCurator));
+        given(packageRepository.findPackageByCurator_GuidAndGuid(any(UUID.class),any(UUID.class))).willReturn(Optional.of(stockholmPackage));
+        Optional<Package> pack = packageRepository.findPackageByCurator_GuidAndGuid(johnDoeCurator.getGuid(),stockholmPackage.getGuid());
+        System.out.println(pack);
+        //WHEN
+        curatorService.deleteCuratorPackageFromPackageGuid(johnDoeCurator.getGuid(),pack.get().getGuid());
+        //THEN
+        assertThat(johnDoeCurator.getPackages()).hasSize(1);
+//        assertThat(pack.isEmpty()).isTrue();
     }
 }
