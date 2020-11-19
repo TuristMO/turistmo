@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -61,6 +62,18 @@ public class CuratorController {
     }
 
     //ta bort ett paket
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('CURATOR')")
+    public ResponseEntity<?> deletePackageBelongingToCurator(Package deletePackage) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        try {
+            Curator findCurator = curatorService.findCuratorByEmail(email);
+            curatorService.deleteCuratorPackageFromPackageGuid(findCurator.getGuid(), deletePackage.getGuid());
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
+        }
+    }
 
     //redigera paket
 }
