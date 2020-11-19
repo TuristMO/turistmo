@@ -8,6 +8,7 @@ import com.expleo.turistmo.turistmo.exception.EmailAlreadyExistsException;
 import com.expleo.turistmo.turistmo.exception.PasswordMismatchException;
 import com.expleo.turistmo.turistmo.repository.ApplicationRepository;
 import com.expleo.turistmo.turistmo.repository.CuratorRepository;
+import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.repository.TagRepository;
 import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.expleo.turistmo.turistmo.web.request.SignUpRequest;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class CuratorService {
 
     private final CuratorRepository curatorRepository;
+    private final PackageRepository packageRepository;
     private final ApplicationRepository applicationRepository;
     private final TagRepository tagRepository;
     private final PasswordEncoder passwordEncoder;
@@ -41,9 +43,9 @@ public class CuratorService {
             throw new EmailAlreadyExistsException(String.format("Email: %s\nis already taken!", email));
         }
         if (!signUpCurator.getConfirmPassword().contentEquals(signUpCurator.getPassword())) {
-            throw new PasswordMismatchException(
-                    String.format("Password %s doesn't match with your password confirmation %s!",
-                            signUpCurator.getPassword(), signUpCurator.getConfirmPassword()));
+            throw new PasswordMismatchException("The passwords doesn't match");
+//                    String.format("Password %s doesn't match with your password confirmation %s!",
+//                            signUpCurator.getPassword(), signUpCurator.getConfirmPassword()));
         }
         String encodedPassword = passwordEncoder.encode(signUpCurator.getPassword());
         Curator newCuratorAccount = Curator.builder()
@@ -72,11 +74,10 @@ public class CuratorService {
         Curator curator = curatorRepository
                 .findCuratorByGuid(guid)
                 .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
-
         return curator.getPackages();
     }
 
-    public Curator saveCuratorPackages(Curator curator, Package newPackage) {
+    public void saveCuratorPackages(Curator curator, SavePackageRequest newPackage) {
         final String title = newPackage.getTitle();
         final String city = newPackage.getCity();
         final String description = newPackage.getDescription();
@@ -85,7 +86,6 @@ public class CuratorService {
         final Curator getCurator = curatorRepository
                 .findCuratorByGuid(curator.getGuid())
                 .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
-
 
         Package savePackage = Package.builder()
                 .title(title)
@@ -105,7 +105,16 @@ public class CuratorService {
         }
 
         getCurator.addPackages(savePackage);
-        return curatorRepository.save(getCurator);
+        curatorRepository.save(getCurator);
+    }
+
+    public void deleteCuratorPackageFromPackageGuid(UUID curator_guid,UUID pack_guid) {
+        Package deletePackage = packageRepository
+                .findPackageByCurator_GuidAndGuid(curator_guid,pack_guid)
+                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
+
+         packageRepository.deleteById(deletePackage.getId());
+
     }
 
 }

@@ -108,7 +108,7 @@ export const getAllPackagesBusiness = () => {
     }
 }
 
-export const getAllPackagesFromCurator = (jwt) => {
+export const getAllPackagesFromCurator = (jwt, callback) => {
     return async (dispatch, getState) => {
         try {
             dispatch({type: LOADING, payload: true})
@@ -119,6 +119,7 @@ export const getAllPackagesFromCurator = (jwt) => {
                     }
                 });
             dispatch({type: GET_PACKAGES_FROM_CURATOR, payload: response.data.packages})
+            callback();
         } catch (error) {
             console.log(error.response.data.errors[0])
             console.log(error.response.data)

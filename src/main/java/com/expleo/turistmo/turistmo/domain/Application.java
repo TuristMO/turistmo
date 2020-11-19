@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -34,13 +33,13 @@ public class Application extends BaseEntity {
 
     @Builder
     public Application(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate,
-        String ios_link, String android_link, String logo, Set<Package> packages,String title) {
+        String ios_link, String android_link, String logo, String title, Set<Package> packages) {
         super(id, guid, createdDate, lastModifiedDate);
         this.ios_link = ios_link;
         this.android_link = android_link;
         this.logo = logo;
-        this.packages = packages;
         this.title=title;
+        this.packages = new HashSet<>();
     }
 
     @NotBlank(message = "Application must have a title.")

@@ -33,7 +33,8 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Tag extends BaseEntity{
 
     @Builder
-    public Tag(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate,String title,Set<Package> packages) {
+    public Tag(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate,
+               String title,Set<Package> packages) {
         super(id, guid, createdDate, lastModifiedDate);
         this.title=title;
         this.packages=new HashSet<>();

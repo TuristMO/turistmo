@@ -14,7 +14,7 @@ import KeyboardDismiss from "../components/KeyboardDismiss";
 import {Button, Icon, Input} from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
-import {postSignUpCurator, emptyServerMessage} from "../actions";
+import {postSignUpCurator, emptyServerMessage, getAllPackagesFromCurator} from "../actions";
 import GoBackArrowPush from "../components/GoBackArrowPush";
 
 
@@ -22,7 +22,7 @@ const MAIN_COLOR = '#4AB4FF';
 const SignupScreen = (props) => {
 
     const {
-        navigation, postSignUpCurator, emptyServerMessage, rCurator: {successMessageSignUp, errorMessageSignUp, jwt, loading = false}
+        navigation, postSignUpCurator, emptyServerMessage,getAllPackagesFromCurator, rCurator: {successMessageSignUp, errorMessageSignUp, jwt, loading}
     } = props;
 
     const [data, setData] = useState({
@@ -48,53 +48,54 @@ const SignupScreen = (props) => {
 
     const emailInputChange = (val) => {
         if (val.length !== 0) {
-            setData({...data, email: val, check_textMailInputChange: true})
+            setData({...data, email: val.trim(), check_textMailInputChange: true})
         } else {
-            setData({...data, email: val, check_textMailInputChange: false})
+            setData({...data, email: val.trim(), check_textMailInputChange: false})
         }
-        setCurator({...curatorS, email: val})
+        setCurator({...curatorS, email: val.trim()})
     };
 
     const passwordInputChange = (val) => {
-        setData({...data, password: val})
-        setCurator({...curatorS, password: val})
+        setData({...data, password: val.trim()})
+        setCurator({...curatorS, password: val.trim()})
     };
 
     const confirmPasswordInputChange = (val) => {
-        setData({...data, confirmPassword: val})
-        setCurator({...curatorS, confirmPassword: val})
+        setData({...data, confirmPassword: val.trim()})
+        setCurator({...curatorS, confirmPassword: val.trim()})
     };
 
     const firstNameInputChange = (val) => {
         if (val.length !== 0) {
-            setData({...data, firstName: val, check_textFirstNameInputChange: true})
+            setData({...data, firstName: val.trim(), check_textFirstNameInputChange: true})
         } else {
-            setData({...data, firstName: val, check_textFirstNameInputChange: false})
+            setData({...data, firstName: val.trim(), check_textFirstNameInputChange: false})
         }
-        setCurator({...curatorS, firstName: val})
+        setCurator({...curatorS, firstName: val.trim()})
     };
 
     const lastNameInputChange = (val) => {
         if (val.length !== 0) {
-            setData({...data, lastName: val, check_textLastNameInputChange: true})
+            setData({...data, lastName: val.trim(), check_textLastNameInputChange: true})
         } else {
-            setData({...data, lastName: val, check_textLastNameInputChange: false})
+            setData({...data, lastName: val.trim(), check_textLastNameInputChange: false})
         }
-        setCurator({...curatorS, lastName: val})
+        setCurator({...curatorS, lastName: val.trim()})
     };
 
     const updateSecureTextEntry = () => {
         setData({...data, secureTextEntry: !data.secureTextEntry});
     };
-
+    console.log(curatorS)
+    console.log(errorMessageSignUp)
     const showAlertMessage = () => {
-        let errorList = ''
+        //let errorList = ''
         if (errorMessageSignUp) {
-            errorMessageSignUp.forEach(error => errorList += error+'\n')
+            //errorMessageSignUp.forEach(error => errorList += error+'\n')
             return (
                 Alert.alert(
                     "Too bad!",
-                    errorList,
+                    errorMessageSignUp,
                     [
                         {
                             text: "Ok, got it!",
@@ -108,6 +109,7 @@ const SignupScreen = (props) => {
             )
         }
         if (successMessageSignUp) {
+            //getAllPackagesFromCurator(jwt);
             return (
                 Alert.alert(
                     "Welcome!",
@@ -115,7 +117,7 @@ const SignupScreen = (props) => {
                     [
                         {
                             text: "OK!",
-                            onPress: () => navigation.push('SigninScreen'),
+                            onPress: () => navigation.navigate('SigninScreen'),
                         },
                     ],
                     {
@@ -313,12 +315,12 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = ({rCurator}) => {
-    return ({rCurator})
+const mapStateToProps = ({rCurator,packages}) => {
+    return ({rCurator,packages})
 }
 
 export default connect(
     mapStateToProps,
-    {postSignUpCurator, emptyServerMessage})
+    {postSignUpCurator, emptyServerMessage,getAllPackagesFromCurator})
 (SignupScreen);
 

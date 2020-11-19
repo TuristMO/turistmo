@@ -28,8 +28,8 @@ public class Package extends BaseEntity {
 
     @Builder
     public Package(Long id, UUID guid, Timestamp createdDate, Timestamp lastModifiedDate
-        , String title, Curator curator, String city, String description,
-        Set<Application> usefulApplications, Set<Tag> tags) {
+        , String title, Curator curator, String city, String description
+        , Set<Application> usefulApplications, Set<Tag> tags) {
         super(id, guid, createdDate, lastModifiedDate);
         this.title = title;
         this.curator = curator;

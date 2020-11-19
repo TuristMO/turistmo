@@ -72,7 +72,7 @@ const CuratorCreatePackageScreen = (props) => {
                     [
                         {
                             text: "OK!",
-                            onPress: () => setCuratorAndNavigateToProfileScreen(curator),
+                            onPress: () => getAllPackagesFromCurator(jwt, ()=> emptyMessageAndNavigate()),
                         },
                     ],
                     {
@@ -87,6 +87,7 @@ const CuratorCreatePackageScreen = (props) => {
        getAllApplications();
        getAllTags();
        showAlertMessage()
+       console.log("Render")
     },[packageErrorMessage,packageSuccessMessage])
 
 
@@ -96,11 +97,11 @@ const CuratorCreatePackageScreen = (props) => {
        return list;
     }
 
-    function setCuratorAndNavigateToProfileScreen(curator) {
-        setActiveCurator(curator)
-        getAllPackagesFromCurator(jwt)
+    const emptyMessageAndNavigate = () => {
         emptyServerMessage()
         navigation.push('SignedInCuratorScreen')
+//        callback();
+        //setActiveCurator(curator, ()=> navigation.navigate('SignedInCuratorScreen'))
     }
 
 
@@ -182,7 +183,6 @@ const CuratorCreatePackageScreen = (props) => {
                 accessibilityLabel={'curatorCreatePackageSaveButton'}
                 color={'#4AB4FF'}
                 title={"Save package"}
-                //onPress={()=> postSavePackage(savePackage,jwt).then((response)=> response ? setCuratorAndNavigateToProfileScreen(postPackages):Alert.alert("errror","err"))}
                 onPress={()=> postSavePackage(savePackage,jwt, ()=> showAlertMessage())}
             />
         </View>

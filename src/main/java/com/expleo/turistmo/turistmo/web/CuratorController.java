@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -46,12 +47,11 @@ public class CuratorController {
 
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('CURATOR')")
-    public ResponseEntity<?> savePackagesBelongingToCurator(@Valid @RequestBody Package savePackage) {
+    public ResponseEntity<?> savePackagesBelongingToCurator(@Valid @RequestBody SavePackageRequest savePackage) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
             Curator curator = curatorService.findCuratorByEmail(email);
-            Curator savedCurator = curatorService.saveCuratorPackages(curator, savePackage);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(savedCurator);
+            curatorService.saveCuratorPackages(curator, savePackage);
             return new ResponseEntity<>(
                     new Response("Package is created successfully!"),
                     CREATED);
@@ -61,6 +61,18 @@ public class CuratorController {
     }
 
     //ta bort ett paket
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('CURATOR')")
+    public ResponseEntity<?> deletePackageBelongingToCurator(Package deletePackage) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        try {
+            Curator findCurator = curatorService.findCuratorByEmail(email);
+            curatorService.deleteCuratorPackageFromPackageGuid(findCurator.getGuid(), deletePackage.getGuid());
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
+        }
+    }
 
     //redigera paket
 }
