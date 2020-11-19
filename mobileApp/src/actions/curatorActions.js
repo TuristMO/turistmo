@@ -51,10 +51,11 @@ export const postSignInCurator = (curator, callback) => {
     }
 }
 
-export const setActiveCurator = (curator) => {
+export const setActiveCurator = (curator,callback) => {
     return async (dispatch,getState) => {
         dispatch({type: LOADING, payload: false})
         dispatch({type: POST_SIGNIN_CURATOR, payload: curator})
+        callback();
     }
 }
 

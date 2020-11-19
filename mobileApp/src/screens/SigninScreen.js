@@ -14,14 +14,18 @@ import * as Animatable from 'react-native-animatable'
 import KeyboardDismiss from "../components/KeyboardDismiss";
 import GoBackArrow from "../components/GoBackArrow";
 import {connect} from "react-redux";
-import {emptyServerMessage, postSignInCurator} from "../actions";
+import {emptyServerMessage, getAllPackagesFromCurator, postSignInCurator} from "../actions";
 
 const MAIN_COLOR = '#4AB4FF';
 
 const SigninScreen = (props) => {
 
     const {
-        navigation, postSignInCurator, emptyServerMessage, rCurator: {curator, errorMessageSignin,successMessageSignin, jwt, loading}
+        navigation,
+        postSignInCurator,
+        getAllPackagesFromCurator,
+        emptyServerMessage,
+        rCurator: {curator, errorMessageSignin, successMessageSignin, jwt, loading}
     } = props;
 
     const [data, setData] = useState({
@@ -38,11 +42,11 @@ const SigninScreen = (props) => {
 
     const emailInputChange = (val) => {
         if (val.length !== 0) {
-            setData({...data, email: val, check_textMailInputChange: true})
+            setData({...data, email: val.trim(), check_textMailInputChange: true})
         } else {
-            setData({...data, email: val, check_textMailInputChange: false})
+            setData({...data, email: val.trim(), check_textMailInputChange: false})
         }
-        setCuratorS({...curatorS, email: val})
+        setCuratorS({...curatorS, email: val.trim()})
     };
 
     const passwordInputChange = (val) => {
@@ -59,7 +63,8 @@ const SigninScreen = (props) => {
             return (
                 Alert.alert(
                     "Too bad!",
-                    errorMessageSignin,
+                    //errorMessageSignin,
+                    "Wrong credentials or the account hasn't been verified yet!",
                     [
                         {
                             text: "Ok, got it!",
@@ -80,7 +85,7 @@ const SigninScreen = (props) => {
                     [
                         {
                             text: "OK!",
-                            onPress: () => navigation.push('SignedInCuratorScreen'),
+                            onPress: () => getAllPackagesFromCurator(jwt, ()=> navigation.push('SignedInCuratorScreen')),
                         },
                     ],
                     {
@@ -90,7 +95,9 @@ const SigninScreen = (props) => {
             )
         }
     }
+    const updatePackagesForLoggedIn = () => {
 
+    }
     useEffect(() => {
         checkCredentialAndNavigate()
     }, [errorMessageSignin, successMessageSignin])
@@ -151,7 +158,7 @@ const SigninScreen = (props) => {
                             buttonStyle={styles.signIn}
                             titleStyle={styles.textSign}
                             title="Sign in"
-                            onPress={() => postSignInCurator(curatorS,()=> checkCredentialAndNavigate())}
+                            onPress={() => postSignInCurator(curatorS, () => checkCredentialAndNavigate())}
                         />
                         <Button
                             testID={"signinSignUp"}
@@ -238,11 +245,11 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = ({rCurator}) => {
-    return ({rCurator})
+const mapStateToProps = ({rCurator,packages}) => {
+    return ({rCurator,packages})
 }
 
 export default connect(
     mapStateToProps,
-    {postSignInCurator, emptyServerMessage})
+    {postSignInCurator, emptyServerMessage, getAllPackagesFromCurator})
 (SigninScreen);
