@@ -28,7 +28,7 @@ describe('TuristMO', () => {
         let password = "12345678";
         let firstName = "förnamn";
         let lastName = "efternamn";
-        let errorMsg = "Password " + password + " doesn't match with your password confirmation " + password + "a!"
+        let errorMsg = "Password " + password + " doesn't match with your password confirmation " + password + "a!";
 
         await appSO.tapCuratorTab();
         await splashSO.tapGetStartedButton();
@@ -44,6 +44,7 @@ describe('TuristMO', () => {
         await signupSO.fillLastName(lastName);
         await signupSO.tapSignupButton();   //Also expects visibility
         await signupSO.toBeVisibleByText(errorMsg);
+
     });
 
 });

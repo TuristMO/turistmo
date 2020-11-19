@@ -36,6 +36,7 @@ describe('TuristMO', () => {
         await signinSO.tapShowHideToggle();
         await signinSO.verifySigninPassword(password);
         await signinSO.tapSigninButton();   //Also expects visibility
+        await signinSO.tapWelcomeButton("OK!");
         await curatorSO.verifyCuratorEmail(email);
 
     });

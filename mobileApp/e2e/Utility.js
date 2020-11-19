@@ -28,6 +28,10 @@ export class Utility {
         await element(by.label(label)).tap();
     }
 
+    async tapByText(inputText) {
+        await element(by.text(inputText)).tap();
+    }
+
     async tapReturnKeyById(id) {
         await element(by.id(id)).tapReturnKey();
     }
@@ -75,4 +79,5 @@ export class Utility {
     async waitToBeVisibleByTextAtIndex0(text, timeout = this.defaultTimeout) {
         await waitFor(element(by.text(text)).atIndex(0)).toBeVisible().withTimeout(timeout);
     }
+
 }

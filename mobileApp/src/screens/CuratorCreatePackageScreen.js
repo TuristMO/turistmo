@@ -140,8 +140,6 @@ const CuratorCreatePackageScreen = (props) => {
             />
 
             <DropDownPicker
-                testID={'curatorCreateCityPicker'}
-                accessibilityLabel={'curatorCreatePackageCityPicker'}
                 items={[
                     {label: 'Stockholm'},
                     {label: 'Göteborg'},
@@ -154,8 +152,6 @@ const CuratorCreatePackageScreen = (props) => {
             />
 
             <DropDownPicker
-                testID={'curatorCreatePackageTagPicker'}
-                accessibilityLabel={'curatorCreatePackageTagPicker'}
                 items={dropDownPickerList()}
                 placeholder={'Select Tag'}
                 multiple={true}

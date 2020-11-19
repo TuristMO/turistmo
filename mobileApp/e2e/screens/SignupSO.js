@@ -11,7 +11,6 @@ export class SignupSO extends Utility {
     }
 
     async tapSignupButton(timeout) {
-
         await this.toBeVisibleById("signupSignUp", timeout);
         await this.tapById("signupSignUp");
         await sleep(2000);  // (splash + 500ms) Required despite waitFor element in next step

@@ -46,4 +46,10 @@ export class SigninSO extends Utility {
         await this.tapById("signinShowHideToggle")
     }
 
+    async tapWelcomeOkButton(timeout = 15000) {
+        await this.toBeVisibleByText("OK!", timeout);
+        await this.tapByText("OK!");
+        await sleep(2000);
+    }
+
 }

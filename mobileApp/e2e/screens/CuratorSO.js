@@ -10,5 +10,9 @@ export class CuratorSO extends Utility {
         await this.waitToHaveTextById("curatorEmail", inputText, timeout);
     }
 
+    async tapCreatePackageButton(timeout) {
+        await this.toBeVisibleById("curatorCreatePackageButton", timeout);
+        await this.tapById("curatorCreatePackageButton");
+    }
 
 }
