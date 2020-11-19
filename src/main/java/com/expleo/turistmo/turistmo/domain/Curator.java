@@ -46,11 +46,11 @@ public class Curator extends BaseEntity {
 
     }
 
-    //    @NotBlank(message = "First-name should not be empty.")
-//    @Size(min = 2, max = 20,message = "First name should be between 2-20 characters.")
+    @NotBlank(message = "First name should not be empty.")
+    @Size(min = 2, max = 20,message = "First name should be between 2-20 characters.")
     private String firstName;
-    //    @NotBlank(message = "Last-name should not be empty.")
-//    @Size(min = 2, max = 30,message = "Last name should be between 2-30 characters.")
+    @NotBlank(message = "Last name should not be empty.")
+    @Size(min = 2, max = 30,message = "Last name should be between 2-30 characters.")
     private String lastName;
 
     @NotBlank(message = "Email should not be empty.")

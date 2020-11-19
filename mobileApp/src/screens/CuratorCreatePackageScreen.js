@@ -7,18 +7,18 @@ import {
     View,
     ScrollView,
     Text,
-    Dimensions, FlatList, SafeAreaView
+    Dimensions, FlatList, SafeAreaView, Alert
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Button } from "react-native-elements";
-// import CheckBox from '@react-native-community/checkbox';
-import Application from "../components/Application";
 import {connect} from "react-redux";
 import {
     emptyServerMessage,
     getAllApplications,
-    postSavePackage, postSignInCurator,
     getAllTags,
+    getAllPackagesFromCurator,
+    setActiveCurator,
+    postSavePackage,
 } from "../actions";
 import Icon from 'react-native-vector-icons/Feather';
 // const {width, height} = Dimensions.get("window");
@@ -28,8 +28,13 @@ const CuratorCreatePackageScreen = (props) => {
             rApplications:{loading,applications},
             rTags:{tags},
             rCurator: {curator,jwt},
-            getAllApplications, navigation,postSavePackage,
+            packages: {postPackages,packageErrorMessage,packageSuccessMessage},
+            getAllPackagesFromCurator,
+            getAllApplications,
             getAllTags,
+            setActiveCurator,
+            postSavePackage,
+            navigation,
         } = props;
     const [savePackage, setSavePackage] = useState({
         city: '',
@@ -39,15 +44,63 @@ const CuratorCreatePackageScreen = (props) => {
         usefulApplications: [],
     });
 
+    const showAlertMessage = () => {
+        let errorList = ''
+        if (packageErrorMessage) {
+            packageErrorMessage.forEach(error => errorList += error+'\n');
+            return (
+                Alert.alert(
+                    "Too bad!",
+                    errorList,
+                    [
+                        {
+                            text: "Ok, got it!",
+                            onPress: () => emptyServerMessage(),
+                        },
+                    ],
+                    {
+                        cancelable: false,
+                    }
+                )
+            )
+        }
+        if (packageSuccessMessage) {
+            return (
+                Alert.alert(
+                    "Great!",
+                    packageSuccessMessage,
+                    [
+                        {
+                            text: "OK!",
+                            onPress: () => setCuratorAndNavigateToProfileScreen(curator),
+                        },
+                    ],
+                    {
+                        cancelable: false,
+                    }
+                )
+            )
+        }
+    }
+
     useEffect(() => {
        getAllApplications();
        getAllTags();
-    }, []);
+       showAlertMessage()
+    },[packageErrorMessage,packageSuccessMessage])
 
-    function dropDownPickerList () {
+
+    const dropDownPickerList = () =>  {
        let list = [];
        tags.forEach(e => list.push({label: e.title, value: e, icon: () => <Icon name="flag" size={18} color="#900" />}) )
        return list;
+    }
+
+    function setCuratorAndNavigateToProfileScreen(curator) {
+        setActiveCurator(curator)
+        getAllPackagesFromCurator(jwt)
+        emptyServerMessage()
+        navigation.push('SignedInCuratorScreen')
     }
 
 
@@ -67,8 +120,7 @@ const CuratorCreatePackageScreen = (props) => {
         newList.push(application)
         setSavePackage({...savePackage, usefulApplications: newList})
     }
-    console.log(jwt )
-    console.log(savePackage)
+
     return (
         <View>
             <TextInput
@@ -134,7 +186,8 @@ const CuratorCreatePackageScreen = (props) => {
                 accessibilityLabel={'curatorCreatePackageSaveButton'}
                 color={'#4AB4FF'}
                 title={"Save package"}
-                onPress={()=> postSavePackage(savePackage,jwt).then(navigation.push('SignedInCuratorScreen'))}
+                //onPress={()=> postSavePackage(savePackage,jwt).then((response)=> response ? setCuratorAndNavigateToProfileScreen(postPackages):Alert.alert("errror","err"))}
+                onPress={()=> postSavePackage(savePackage,jwt, ()=> showAlertMessage())}
             />
         </View>
     );
@@ -152,14 +205,16 @@ const styles = StyleSheet.create({
 
 })
 const mapStateToProps = ({location, rApplications,rCurator,packages, rTags}) => {
-    return ({rApplications, location, rCurator,packages, rTags}); //define your own keys
+    return ({rApplications, location, rCurator, packages, rTags}); //define your own keys
 }
 
 export default connect(
     mapStateToProps,
-    {getAllApplications,
+        {getAllApplications,
+        setActiveCurator,
         getAllTags,
-    postSavePackage})
+        getAllPackagesFromCurator,
+        postSavePackage})
 (CuratorCreatePackageScreen);
 
 

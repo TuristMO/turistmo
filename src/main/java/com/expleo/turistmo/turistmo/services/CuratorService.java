@@ -9,7 +9,9 @@ import com.expleo.turistmo.turistmo.exception.PasswordMismatchException;
 import com.expleo.turistmo.turistmo.repository.ApplicationRepository;
 import com.expleo.turistmo.turistmo.repository.CuratorRepository;
 import com.expleo.turistmo.turistmo.repository.TagRepository;
+import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.expleo.turistmo.turistmo.web.request.SignUpRequest;
+
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -54,19 +56,19 @@ public class CuratorService {
         return curatorRepository.save(newCuratorAccount);
     }
 
-    public Curator findCuratorByEmail(String email){
+    public Curator findCuratorByEmail(String email) {
         return curatorRepository
                 .findCuratorByEmail(email)
-                .orElseThrow(()->new NullPointerException("Unauthorized request!"));
+                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
     }
 
-    public Curator findCuratorByGuid(UUID guid){
+    public Curator findCuratorByGuid(UUID guid) {
         return curatorRepository
                 .findCuratorByGuid(guid)
-                .orElseThrow(()->new NullPointerException("Unauthorized request!"));
+                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
     }
 
-    public Set<Package> findPackagesFromCuratorByGuid(UUID guid){
+    public Set<Package> findPackagesFromCuratorByGuid(UUID guid) {
         Curator curator = curatorRepository
                 .findCuratorByGuid(guid)
                 .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
@@ -74,30 +76,36 @@ public class CuratorService {
         return curator.getPackages();
     }
 
-    public void saveCuratorPackages(Curator curator, Package newPackage){
-        Curator getCurator = curatorRepository
+    public Curator saveCuratorPackages(Curator curator, Package newPackage) {
+        final String title = newPackage.getTitle();
+        final String city = newPackage.getCity();
+        final String description = newPackage.getDescription();
+        final Set<Tag> tagSet = newPackage.getTags();
+        final Set<Application> applicationsSet = newPackage.getUsefulApplications();
+        final Curator getCurator = curatorRepository
                 .findCuratorByGuid(curator.getGuid())
                 .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
 
 
         Package savePackage = Package.builder()
-                .title(newPackage.getTitle())
-                .city(newPackage.getCity())
+                .title(title)
+                .city(city)
                 .curator(getCurator)
-                .description(newPackage.getDescription())
+                .description(description)
                 .build();
 
-        for(Application app : newPackage.getUsefulApplications()){
+        for (Application app : applicationsSet) {
             Optional<Application> foundApp = applicationRepository.findByGuid(app.getGuid());
             foundApp.ifPresent(savePackage::addApplication);
         }
 
-        for (Tag tag : newPackage.getTags()){
+        for (Tag tag : tagSet) {
             Optional<Tag> foundTag = tagRepository.findByGuid(tag.getGuid());
             foundTag.ifPresent(savePackage::addTag);
         }
 
         getCurator.addPackages(savePackage);
-        curatorRepository.save(getCurator);
+        return curatorRepository.save(getCurator);
     }
+
 }

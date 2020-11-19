@@ -9,6 +9,7 @@ import com.expleo.turistmo.turistmo.repository.CuratorRepository;
 import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.repository.TagRepository;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
+import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
