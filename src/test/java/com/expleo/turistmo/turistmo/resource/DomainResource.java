@@ -6,11 +6,13 @@ import com.expleo.turistmo.turistmo.domain.Package;
 import com.expleo.turistmo.turistmo.domain.Tag;
 import com.expleo.turistmo.turistmo.domain.TokenType;
 import com.expleo.turistmo.turistmo.domain.VerificationToken;
+import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.expleo.turistmo.turistmo.web.request.SignUpRequest;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,6 +31,15 @@ public class DomainResource {
             .tags(Set.of(getStockholmTag(),getCultureTag()))
             .title("Visiting Stockholm")
             .build();
+    }
+
+    public SavePackageRequest getStockholmPackageWithSavePackageRequest() {
+        return new SavePackageRequest(
+                "Visiting Stockholm",
+                "Stockholm",
+                "Something about Stockholm!",
+                Set.of(getSLApplication(),getTaxiApplication()),
+                Set.of(getGoteborgTag(),getFoodTag(),getTravelTag()));
     }
 
     public Package getGoteborgPackage() {

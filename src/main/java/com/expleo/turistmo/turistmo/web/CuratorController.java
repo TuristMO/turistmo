@@ -46,12 +46,11 @@ public class CuratorController {
 
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('CURATOR')")
-    public ResponseEntity<?> savePackagesBelongingToCurator(@Valid @RequestBody Package savePackage) {
+    public ResponseEntity<?> savePackagesBelongingToCurator(@Valid @RequestBody SavePackageRequest savePackage) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
             Curator curator = curatorService.findCuratorByEmail(email);
-            Curator savedCurator = curatorService.saveCuratorPackages(curator, savePackage);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(savedCurator);
+            curatorService.saveCuratorPackages(curator, savePackage);
             return new ResponseEntity<>(
                     new Response("Package is created successfully!"),
                     CREATED);

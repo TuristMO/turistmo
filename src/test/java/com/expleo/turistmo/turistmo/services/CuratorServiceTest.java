@@ -89,7 +89,7 @@ class CuratorServiceTest {
     @DisplayName("It should throw an EmailExistsException when registering a curator.")
     void itShouldThrowEmailExistsException() throws PasswordMismatchException {
         //GIVEN
-        String exceptionMessage = String.format("Email %s is already taken!", johnDoeCurator.getEmail());
+        String exceptionMessage = String.format("Email: %s\nis already taken!", johnDoeCurator.getEmail());
         given(curatorRepository.findCuratorByEmail(anyString())).willReturn(Optional.of(johnDoeCurator));
 
         //WHEN

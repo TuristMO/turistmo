@@ -9,6 +9,7 @@ import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
 import com.expleo.turistmo.turistmo.services.CuratorService;
 import com.expleo.turistmo.turistmo.services.PackageService;
+import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -139,18 +140,11 @@ public class CuratorPackageControllerTest {
     @WithMockUser(username = "johdoe@gmail.com", password = "123321", authorities = "CURATOR")
     void itShouldSaveCuratorPackages() throws Exception {
 
-
         //GIVEN
         given(curatorService.findCuratorByEmail(any())).willReturn(johnDoeCurator);
         doNothing().when(curatorService).saveCuratorPackages(any(),any());
 
-        Package newPackage = new Package();
-        newPackage.setCity("New Stockholm");
-        newPackage.setGuid(UUID.randomUUID());
-        newPackage.setDescription("Something about new Stockholm!");
-        newPackage.addTag(travelTag);
-        newPackage.setTitle("Visiting New Stockholm");
-
+        SavePackageRequest newPackage = domainResource.getStockholmPackageWithSavePackageRequest();
 
         //WHEN
         String json = new ObjectMapper().writeValueAsString(newPackage);
@@ -164,7 +158,5 @@ public class CuratorPackageControllerTest {
         then(curatorService).should().findCuratorByEmail(stringCaptor.capture());
         String captorEmail = stringCaptor.getValue();
         assertThat(johnDoeCurator.getEmail()).isEqualTo(captorEmail);
-
-
     }
 }
