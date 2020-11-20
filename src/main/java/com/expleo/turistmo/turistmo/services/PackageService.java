@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,6 +25,10 @@ public class PackageService {
     public Page<Package> getPackages(Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page, size);
         return packageRepository.findAll(pageable);
+    }
+
+    public Package getPackageByGuid(UUID guid) {
+        return packageRepository.findPackageByGuid(guid).orElseThrow(() -> new NullPointerException("Package not found!"));
     }
 
     public Page<Package> getPackagesByApplication(Integer page, Integer size, Application application) {

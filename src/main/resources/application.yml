@@ -24,6 +24,7 @@ app:
     #test
 #    jdbc-url: jdbc:postgresql://localhost:5432/turistmo
 
+
   mailgun:
     domain: ${MAILGUN_DOMAIN}
     password: ${MAILGUN_SMTP_PASSWORD}

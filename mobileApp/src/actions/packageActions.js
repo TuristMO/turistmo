@@ -6,7 +6,12 @@ import {
     GET_PACKAGES_FOOD,
     GET_PACKAGES_TRAVEL,
     POST_PACKAGES,
-    LOADING, POST_PACKAGES_SUCCESS, POST_PACKAGES_ERROR, POST_SIGNIN_CURATOR_ERROR, GET_PACKAGES_FROM_CURATOR,
+    LOADING,
+    POST_PACKAGES_SUCCESS,
+    POST_PACKAGES_ERROR,
+    POST_SIGNIN_CURATOR_ERROR,
+    GET_PACKAGES_FROM_CURATOR,
+    DELETE_PACKAGES_ERROR, DELETE_PACKAGES_SUCCESS,
 } from "./types";
 import packageApi from "../api/packageApi";
 
@@ -121,10 +126,8 @@ export const getAllPackagesFromCurator = (jwt, callback) => {
             dispatch({type: GET_PACKAGES_FROM_CURATOR, payload: response.data.packages})
             callback();
         } catch (error) {
-            console.log(error.response.data.errors[0])
-            console.log(error.response.data)
-            // dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
-            // callback();
+            dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
+            callback();
         }
     }
 }
@@ -142,8 +145,30 @@ export const postSavePackage = (packages, jwt, callback) => {
             dispatch({type: POST_PACKAGES_SUCCESS, payload: response.data.message})
             callback();
         } catch (error) {
-            console.log(error.response.data.errors)
+            console.log(error)
             dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
+            callback();
+        }
+    }
+}
+
+export const deletePackage = (jwt, deletePackage, callback) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({type: LOADING, payload: true})
+            const response = await packageApi.delete('/api/v1/curator/delete',
+                {
+                    headers: {
+                        'Authorization': jwt
+                    },
+                    params: {
+                        uuid: deletePackage.guid
+                    }
+                });
+            dispatch({type: DELETE_PACKAGES_SUCCESS, payload: response.data.message})
+            callback();
+        } catch (error) {
+            dispatch({type: DELETE_PACKAGES_ERROR, payload: error.response.data.errors})
             callback();
         }
     }

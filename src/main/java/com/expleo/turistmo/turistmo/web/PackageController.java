@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/package")
 @RequiredArgsConstructor
@@ -26,6 +29,15 @@ public class PackageController {
         try {
             Page<Package> packages = packageService.getAllPackagesBasedOnSearch(page, size, search);
             return ResponseEntity.status(HttpStatus.OK).body(packages);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+    @GetMapping("/id")
+    public ResponseEntity<?> findPackagesBasedOnMostSearchHits(@RequestParam UUID guid) {
+        try {
+            Package foundPackage = packageService.getPackageByGuid(guid);
+            return ResponseEntity.status(HttpStatus.OK).body(foundPackage);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
