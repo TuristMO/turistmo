@@ -69,10 +69,10 @@ const CuratorScreen = (props) => {
         return (
             <View style={styles.rowBack}>
                 <Text>Left</Text>
-                <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnLeft]} onPress={onClose}>
+                <TouchableOpacity testID="curatorHiddenClosePackageButton" accessibilityLabel='curatorHiddenClosePackageButton' style={[styles.backRightBtn, styles.backRightBtnLeft]} onPress={onClose}>
                     <Text>Close</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnRight]} onPress={onDelete}>
+                <TouchableOpacity testID="curatorHiddenDeletePackageButton" accessibilityLabel='curatorHiddenDeletePackageButton' style={[styles.backRightBtn, styles.backRightBtnRight]} onPress={onDelete}>
                     <Text>Delete</Text>
                 </TouchableOpacity>
             </View>
@@ -96,24 +96,24 @@ const CuratorScreen = (props) => {
         <View style={styles.container}>
              <View style={styles.titleContainer}>
                  <Image
-                     testID="packageDetailcuratorAvatar"
-                     accessibilityLabel='packageDetailcuratorAvatar'
+                     testID="curatorAvatar"
+                     accessibilityLabel='curatorAvatar'
                      source={{uri: "https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png"}}
                      style={styles.curatorAvatar}/>
                  <Text
-                     testID="packageDetailpackageDate"
-                     accessibilityLabel='packageDetailpackageDate'
+                     testID="curatorFullName"
+                     accessibilityLabel='curatorFullName'
                      style={styles.curatorTitle}>{curator.firstName} {curator.lastName}</Text>
                  <Text
-                     testID="packageDetailpackageCity"
-                     accessibilityLabel='packageDetailpackageCity'
+                     testID="curatorEmail"
+                     accessibilityLabel='curatorEmail'
                      style={styles.curatorEmail}>{curator.email}</Text>
              </View>
 
 
             <SwipeListView
-                testID="packageDetailpackageContainer"
-                accessibilityLabel='packageDetailpackageContainer'
+                testID="curatorSwipePackageList"
+                accessibilityLabel='curatorSwipePackageList'
                 style={styles.packageContainer}
                 data={listData}
                 renderItem={renderItem}
@@ -124,6 +124,8 @@ const CuratorScreen = (props) => {
                 disableRightSwipe
             />
             <Button
+                testID="curatorCreateButton"
+                accessibilityLabel='curatorCreateButton'
                 color={'#4AB4FF'}
                 title={"Create package"}
                 onPress={()=> navigation.push('CreatePackageScreen')}

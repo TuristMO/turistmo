@@ -122,12 +122,16 @@ const CuratorCreatePackageScreen = (props) => {
     return (
         <View>
             <TextInput
+                testID="curatorCreatePackageTitle"
+                accessibilityLabel='curatorCreatePackageTitle'
                 style={{height: 40, borderWidth: 1}}
                 onChangeText={titleChange}
                 placeholder={'Package title'}
             />
 
             <TextInput
+                testID="curatorCreatePackageDescription"
+                accessibilityLabel='curatorCreatePackageDescription'
                 style={{height: 40, borderWidth: 1}}
                 onChangeText={descriptionChange}
                 placeholder={'Package description'}
@@ -160,6 +164,8 @@ const CuratorCreatePackageScreen = (props) => {
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginTop:20}}>
                 <SafeAreaView >
                     <FlatList
+                        testID="curatorCreatePackageAppFlatlist"
+                        accessibilityLabel='curatorCreatePackageAppFlatlist'
                         numColumns={4}
                         data={applications}
                         keyExtractor={item => item.guid}
@@ -172,6 +178,8 @@ const CuratorCreatePackageScreen = (props) => {
                 </SafeAreaView>
             </View>
             <Button
+                testID="curatorCreatePackageSaveButton"
+                accessibilityLabel='curatorCreatePackageSaveButton'
                 color={'#4AB4FF'}
                 title={"Save package"}
                 onPress={()=> postSavePackage(savePackage,jwt, ()=> showAlertMessage())}
