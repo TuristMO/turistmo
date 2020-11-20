@@ -29,7 +29,8 @@ describe('TuristMO', () => {
 
         let email = "rikardlof@gmail.com";
         let password = "expleo123";
-        let successMsg = "Successful login!";
+        let successLoginMsg = "Successful login!";
+        let successCreateMsg = "Package is created successfully!";
 
         await appSO.tapCuratorTab();
         await splashSO.tapGetStartedButton();
@@ -39,7 +40,7 @@ describe('TuristMO', () => {
         await signinSO.tapShowHideToggle();
         await signinSO.verifySigninPassword(password);
         await signinSO.tapSigninButton();   //Also expects visibility
-        await signinSO.toBeVisibleByText(successMsg);
+        await signinSO.toBeVisibleByText(successLoginMsg);
         await signinSO.tapWelcomeOkButton();
         await curatorSO.verifyCuratorEmail(email);
         await curatorSO.tapCreatePackageButton();
@@ -53,9 +54,13 @@ describe('TuristMO', () => {
         await curatorCreatePackageSO.tapPickerOption("2 tags have been selected.");
         await curatorCreatePackageSO.tapApp("SL");
         await curatorCreatePackageSO.tapApp("Aimo");
-        //await curatorCreatePackageSO.tapSavePackageButton();
+        await curatorCreatePackageSO.tapSavePackageButton();
+        await curatorCreatePackageSO.toBeVisibleByText(successCreateMsg);
+        await curatorCreatePackageSO.tapGreatOkButton();
+        await curatorSO.verifyCuratorEmail(email);
 
-        await sleep(3000);
+        // Fix: "Multiple views" problem because curatorcreatepackagescreen already open with package description field filled in
+        //await curatorSO.verifyPackage("Test Package")
 
     });
 

@@ -1,15 +1,16 @@
 import {Utility} from "../Utility";
+import {sleep} from "../helpers";
 
 export class CuratorCreatePackageSO extends Utility {
 
     async fillPackageTitle(textInput, timeout) {
-        await this.toBeVisibleById("curatorCreatePackageTitleInput", timeout);
-        await this.replaceTextById("curatorCreatePackageTitleInput", textInput)
+        await this.toBeVisibleById("curatorCreatePackageTitle", timeout);
+        await this.replaceTextById("curatorCreatePackageTitle", textInput)
     }
 
     async fillPackageDescription(textInput, timeout) {
-        await this.toBeVisibleById("curatorCreatePackageDescriptionInput", timeout);
-        await this.replaceTextById("curatorCreatePackageDescriptionInput", textInput)
+        await this.toBeVisibleById("curatorCreatePackageDescription", timeout);
+        await this.replaceTextById("curatorCreatePackageDescription", textInput)
     }
 
     async tapPickerOption(inputText, timeout) {
@@ -25,6 +26,12 @@ export class CuratorCreatePackageSO extends Utility {
     async tapSavePackageButton(timeout) {
         await this.toBeVisibleById("curatorCreatePackageSaveButton", timeout);
         await this.tapById("curatorCreatePackageSaveButton");
+    }
+
+    async tapGreatOkButton(timeout = 15000) {
+        await this.toBeVisibleByText("OK!", timeout);
+        await this.tapByText("OK!");
+        await sleep(2000);
     }
 
 }

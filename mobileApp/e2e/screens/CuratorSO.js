@@ -11,8 +11,12 @@ export class CuratorSO extends Utility {
     }
 
     async tapCreatePackageButton(timeout) {
-        await this.toBeVisibleById("curatorCreatePackageButton", timeout);
-        await this.tapById("curatorCreatePackageButton");
+        await this.toBeVisibleById("curatorCreateButton", timeout);
+        await this.tapById("curatorCreateButton");
+    }
+
+    async verifyPackage(inputText, timeout) {
+        await this.toBeVisibleByText(inputText, timeout);
     }
 
 }
