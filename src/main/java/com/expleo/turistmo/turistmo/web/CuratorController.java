@@ -3,7 +3,9 @@ package com.expleo.turistmo.turistmo.web;
 
 import com.expleo.turistmo.turistmo.domain.Curator;
 import com.expleo.turistmo.turistmo.domain.Package;
+import com.expleo.turistmo.turistmo.repository.PackageRepository;
 import com.expleo.turistmo.turistmo.services.CuratorService;
+import com.expleo.turistmo.turistmo.services.PackageService;
 import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import com.expleo.turistmo.turistmo.web.response.PackageResponse;
 import com.expleo.turistmo.turistmo.web.response.Response;
@@ -17,11 +19,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/v1/curator")
@@ -29,6 +31,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class CuratorController {
 
     private final CuratorService curatorService;
+    private final PackageService packageService;
+
     //få alla paket som tillhör curator
 
     @GetMapping
@@ -37,7 +41,7 @@ public class CuratorController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
             Curator curator = curatorService.findCuratorByEmail(email);
-            return ResponseEntity.status(HttpStatus.OK).body(curator);
+            return ResponseEntity.status(OK).body(curator);
         } catch (Exception e) {
             throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
         }
@@ -63,12 +67,16 @@ public class CuratorController {
     //ta bort ett paket
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('CURATOR')")
-    public ResponseEntity<?> deletePackageBelongingToCurator(Package deletePackage) {
+    //public ResponseEntity<?> deletePackageBelongingToCurator(@RequestBody Package deletePackage) {
+    public ResponseEntity<?> deletePackageBelongingToCurator(@RequestParam UUID uuid) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
             Curator findCurator = curatorService.findCuratorByEmail(email);
-            curatorService.deleteCuratorPackageFromPackageGuid(findCurator.getGuid(), deletePackage.getGuid());
-            return ResponseEntity.status(HttpStatus.OK).build();
+            Package findPackage = packageService.getPackageByGuid(uuid);
+            curatorService.deleteCuratorPackageFromPackageGuid(findCurator, findPackage);
+            return new ResponseEntity<>(
+                    new Response("Package is deleted successfully!"),
+                    OK);
         } catch (Exception e) {
             throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
         }

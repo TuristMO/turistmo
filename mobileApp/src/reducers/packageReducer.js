@@ -9,6 +9,8 @@ import {
   POST_PACKAGES,
   POST_PACKAGES_ERROR,
   POST_PACKAGES_SUCCESS,
+  DELETE_PACKAGES_ERROR,
+  DELETE_PACKAGES_SUCCESS,
   LOADING,
 } from "../actions/types";
 
@@ -24,6 +26,8 @@ const initialState = {
   packagesFound: false,
   packageErrorMessage:'',
   packageSuccessMessage:'',
+  deletePackageErrorMessage:'',
+  deletePackageSuccessMessage:'',
 }      // []
 
 export default (state = initialState, action) => {
@@ -48,6 +52,10 @@ export default (state = initialState, action) => {
       return { ...state,packageErrorMessage: action.payload, loading: false }
     case POST_PACKAGES_SUCCESS:
       return { ...state,packageSuccessMessage: action.payload, loading: false }
+    case DELETE_PACKAGES_ERROR:
+      return { ...state,deletePackageErrorMessage: action.payload, loading: false }
+    case DELETE_PACKAGES_SUCCESS:
+      return { ...state,deletePackageSuccessMessage: action.payload, loading: false }
     case LOADING:
       return { ...state, loading: action.payload, packageErrorMessage: '',packageSuccessMessage: '' }
     default:

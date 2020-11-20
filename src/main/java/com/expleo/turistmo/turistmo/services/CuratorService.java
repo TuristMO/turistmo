@@ -108,13 +108,16 @@ public class CuratorService {
         curatorRepository.save(getCurator);
     }
 
-    public void deleteCuratorPackageFromPackageGuid(UUID curator_guid,UUID pack_guid) {
-        Package deletePackage = packageRepository
-                .findPackageByCurator_GuidAndGuid(curator_guid,pack_guid)
-                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
+    public void deleteCuratorPackageFromPackageGuid(Curator curator, Package deletePackage) {
+        Package foundPackage = packageRepository.findPackageByGuid(deletePackage.getGuid())
+                .orElseThrow(() -> new NullPointerException("Package not found!"));
 
-         packageRepository.deleteById(deletePackage.getId());
+//        Package foundPackage = packageRepository
+//                .findPackageByCurator_GuidAndGuid(curator.getGuid(),deletePackage.getGuid())
+//                .orElseThrow(() -> new NullPointerException("Unauthorized request!"));
 
+         //packageRepository.deleteById(foundPackage.getId());
+         packageRepository.delete(foundPackage);
     }
 
 }

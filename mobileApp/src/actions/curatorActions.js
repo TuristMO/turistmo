@@ -41,6 +41,7 @@ export const postSignInCurator = (curator, callback) => {
             dispatch({type: POST_SIGNIN_CURATOR_SUCCESS_JWT, payload: response.data.authorization})
             dispatch({type: POST_SIGNIN_CURATOR_SUCCESS, payload: "Successful login!"})
             dispatch({type: LOADING, payload: false});
+            console.log(response.data.authorization)
             callback();
         } catch (err) {
             let errM = err.response.data.message

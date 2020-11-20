@@ -60,6 +60,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         String token = tokenProvider.generateJwtToken(authResult.getName(), authResult.getAuthorities());
         String authorizationHeader = "Bearer ".concat(token);
+        System.out.println(authorizationHeader);
         LoginResponse loginResponse = createLoginResponse(
             authorizationHeader,
             authenticatedUser.get());

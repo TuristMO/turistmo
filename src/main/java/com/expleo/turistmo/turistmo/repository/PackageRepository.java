@@ -36,4 +36,6 @@ public interface PackageRepository extends JpaRepository<Package, Long> {
 
     Optional<Package> findPackageByCurator_GuidAndGuid(UUID curator_guid, UUID pack_guid);
 
+    Optional<Package> findPackageByGuid (UUID packageGuid);
+
 }

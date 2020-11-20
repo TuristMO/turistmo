@@ -9,12 +9,12 @@ import {
 } from 'react-native'
 import {Button} from "react-native-elements";
 import {connect} from "react-redux";
-import {emptyServerMessage, getAllPackagesFromCurator, postSignInCurator} from "../actions";
+import {emptyServerMessage, getAllPackagesFromCurator, postSignInCurator,deletePackage} from "../actions";
 
 import {SwipeListView} from "react-native-swipe-list-view";
 
 const CuratorScreen = (props) => {
-    const {navigation, rCurator: {curator, jwt}, packages: {packagesBelongingToCurator}, getAllPackagesFromCurator} = props;
+    const {navigation, rCurator: {curator, jwt}, packages: {packagesBelongingToCurator},deletePackage, getAllPackagesFromCurator} = props;
 
     const [listData, setListData] = useState(
         packagesBelongingToCurator.map((NotificationItem, index) => ({
@@ -23,7 +23,6 @@ const CuratorScreen = (props) => {
             details: NotificationItem.description,
         })),
     );
-
     const closeRow = (rowMap, rowKey) => {
         if(rowMap[rowKey]) {
             rowMap[rowKey].closeRow();
@@ -31,8 +30,11 @@ const CuratorScreen = (props) => {
     }
     const deleteRow = (rowMap, rowKey) => {
         closeRow(rowMap, rowKey);
-        const newData = [...listData];
         const prevIndex = listData.findIndex(item => item.key === rowKey);
+        console.log("FÖRE "+packagesBelongingToCurator.length)
+        deletePackage(jwt,packagesBelongingToCurator[prevIndex],()=>getAllPackagesFromCurator)
+        console.log("EFTER " +packagesBelongingToCurator.length)
+        const newData = [...listData];
         newData.splice(prevIndex, 1);
         setListData(newData);
     }
@@ -259,5 +261,5 @@ const mapStateToProps = ({rCurator, packages}) => {
 
 export default connect(
     mapStateToProps,
-    {postSignInCurator, getAllPackagesFromCurator, emptyServerMessage})
+    {postSignInCurator, getAllPackagesFromCurator,deletePackage, emptyServerMessage})
 (CuratorScreen);
