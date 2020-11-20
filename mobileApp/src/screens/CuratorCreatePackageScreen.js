@@ -87,7 +87,6 @@ const CuratorCreatePackageScreen = (props) => {
        getAllApplications();
        getAllTags();
        showAlertMessage()
-       console.log("Render")
     },[packageErrorMessage,packageSuccessMessage])
 
 
@@ -100,8 +99,6 @@ const CuratorCreatePackageScreen = (props) => {
     const emptyMessageAndNavigate = () => {
         emptyServerMessage()
         navigation.push('SignedInCuratorScreen')
-//        callback();
-        //setActiveCurator(curator, ()=> navigation.navigate('SignedInCuratorScreen'))
     }
 
 

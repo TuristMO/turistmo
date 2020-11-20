@@ -31,9 +31,7 @@ const CuratorScreen = (props) => {
     const deleteRow = (rowMap, rowKey) => {
         closeRow(rowMap, rowKey);
         const prevIndex = listData.findIndex(item => item.key === rowKey);
-        console.log("FÖRE "+packagesBelongingToCurator.length)
         deletePackage(jwt,packagesBelongingToCurator[prevIndex],()=>getAllPackagesFromCurator)
-        console.log("EFTER " +packagesBelongingToCurator.length)
         const newData = [...listData];
         newData.splice(prevIndex, 1);
         setListData(newData);

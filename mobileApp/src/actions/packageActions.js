@@ -126,10 +126,8 @@ export const getAllPackagesFromCurator = (jwt, callback) => {
             dispatch({type: GET_PACKAGES_FROM_CURATOR, payload: response.data.packages})
             callback();
         } catch (error) {
-            console.log(error.response.data.errors[0])
-            console.log(error.response.data)
-            // dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
-            // callback();
+            dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
+            callback();
         }
     }
 }
@@ -147,7 +145,7 @@ export const postSavePackage = (packages, jwt, callback) => {
             dispatch({type: POST_PACKAGES_SUCCESS, payload: response.data.message})
             callback();
         } catch (error) {
-            console.log(error.response.data.errors)
+            console.log(error)
             dispatch({type: POST_PACKAGES_ERROR, payload: error.response.data.errors})
             callback();
         }
@@ -155,7 +153,6 @@ export const postSavePackage = (packages, jwt, callback) => {
 }
 
 export const deletePackage = (jwt, deletePackage, callback) => {
-    console.log(deletePackage.guid)
     return async (dispatch, getState) => {
         try {
             dispatch({type: LOADING, payload: true})
@@ -169,10 +166,8 @@ export const deletePackage = (jwt, deletePackage, callback) => {
                     }
                 });
             dispatch({type: DELETE_PACKAGES_SUCCESS, payload: response.data.message})
-            console.log("DELETED")
             callback();
         } catch (error) {
-            console.log("ERROR 175")
             dispatch({type: DELETE_PACKAGES_ERROR, payload: error.response.data.errors})
             callback();
         }
