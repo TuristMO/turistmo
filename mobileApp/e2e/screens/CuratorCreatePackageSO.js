@@ -1,6 +1,8 @@
 import {Utility} from "../Utility";
 import {sleep} from "../helpers";
 
+const {device, expect, element, by, waitFor} = require('detox');
+
 export class CuratorCreatePackageSO extends Utility {
 
     async fillPackageTitle(textInput, timeout) {
@@ -13,9 +15,18 @@ export class CuratorCreatePackageSO extends Utility {
         await this.replaceTextById("curatorCreatePackageDescription", textInput)
     }
 
-    async tapPickerOption(inputText, timeout) {
-        await this.toBeVisibleByText(inputText, timeout);
-        await this.tapByText(inputText);
+    async tapCityPickerOption(inputText, timeout) {
+        //await this.toBeVisibleByText(inputText, timeout);
+        //await this.tapByText(inputText);
+        await waitFor((by.text(inputText).withAncestor(by.id('curatorCreatePackageCityPicker')))).toBeVisible().withTimeout(15000);
+        //await waitFor(element(by.id(id))).toBeVisible().withTimeout(timeout)
+    }
+
+    async tapTagPickerOption(inputText, timeout) {
+        //await this.toBeVisibleByText(inputText, timeout);
+        //await this.tapByText(inputText);
+        await waitFor((by.text(inputText).withAncestor(by.id('curatorCreatePackageTagPicker')))).toBeVisible().withTimeout(15000);
+        //await waitFor(element(by.id(id))).toBeVisible().withTimeout(timeout)
     }
 
     async tapApp(textInput, timeout) {

@@ -150,6 +150,8 @@ const CuratorCreatePackageScreen = (props) => {
             />
 
             <DropDownPicker
+                testID="curatorCreatePackageTagPicker"
+                accessibilityLabel='curatorCreatePackageTagPicker'
                 items={dropDownPickerList()}
                 placeholder={'Select Tag'}
                 multiple={true}

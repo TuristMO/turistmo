@@ -59,8 +59,9 @@ describe('TuristMO', () => {
         await curatorCreatePackageSO.tapGreatOkButton();
         await curatorSO.verifyCuratorEmail(email);
 
+        await device.reloadReactNative();
         // Fix: "Multiple views" problem because curatorcreatepackagescreen already open with package description field filled in
-        //await curatorSO.verifyPackage("Test Package")
+        await curatorSO.verifyPackage("Test Package")
 
     });
 
