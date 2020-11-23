@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     TouchableOpacity,
     Image,
@@ -12,17 +12,29 @@ import {
 import {Icon, Button} from 'react-native-elements';
 import Application from "../components/Application";
 import GoBackArrowPush from "../components/GoBackArrowPush";
+import {connect} from "react-redux";
+import {
+    getPackageByPackageGuid,
+} from "../actions";
+import {tagColor} from "../helpers/helpers";
 
 
-const PackageDetailsScreen = ({navigation, route}) => {
+const PackageDetailsScreen = (props) => {
+
+    const {packages: {packageByGuid}, route, navigation} = props;
     const {guid, title, city, description, createdDate, curator, usefulApplications, tags} = route.params.path;
 
-    const color = tags[0].title;
     const date = createdDate.substr(0, 10)
-    const MAIN_COLOR = tagColor(color);
+    const color = tags[0].title;
+    const MAIN_COLOR = tagColor(color)
 
     const [numberLike, setNumberLike] = useState(0);
     const [numberDislike, setNumberDislike] = useState(0);
+
+    const keyExtractor = (useFulApplications) => {
+        return ((item) => useFulApplications.guid + "" + item.guid)
+    }
+
     return (
         <SafeAreaView
             style={styles.container}>
@@ -67,7 +79,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                     numColumns={4}
                     showsHorizontalScrollIndicator={false}
                     data={usefulApplications}
-                    keyExtractor={item => guid +" "+ item.guid}
+                    keyExtractor={keyExtractor(usefulApplications)}
                     renderItem={({item, index}) => {
 
                         return <Application title={item.title} logo={item.logo} link={item.android_link} id={item.guid}/>
@@ -110,7 +122,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                 testID="packageDetailcuratorContainer"
                 accessibilityLabel='curatorContainer'
                 style={styles.curatorContainer}>
-                <TouchableOpacity onPress={() => console.log("Off to curator")}>
+                <TouchableOpacity onPress={() => navigation.push('ShowMoreFromCurator',{path: curator})}>
                     <View
                         testID="packageDetailcuratorTouchableOp"
                         accessibilityLabel='packageDetailcuratorTouchableOp'
@@ -118,7 +130,7 @@ const PackageDetailsScreen = ({navigation, route}) => {
                         <Image
                             testID="packageDetailcuratorAvatar"
                             accessibilityLabel='packageDetailcuratorAvatar'
-                            source={{uri: "https://api.adorable.io/avatars/285/abott@adorable.png"}}
+                            source={{uri: curator.avatarUrl}}
                             style={styles.curatorAvatar}/>
                         <View
                             testID="packageDetailcuratorText"
@@ -135,23 +147,6 @@ const PackageDetailsScreen = ({navigation, route}) => {
             </View>
         </SafeAreaView>
     )
-}
-
-
-export const tagColor = tag => {
-    switch(tag) {
-        case 'Travel':
-            return '#FFAA7D';
-        case 'Culture':
-            return '#F07D75';
-        case 'Food':
-            return '#B3F2BA';
-        case 'Business':
-            return '#7D7DFF';
-        default:
-            return '#4AB4FF';
-
-    }
 }
 
 const styles = StyleSheet.create({
@@ -214,7 +209,7 @@ const styles = StyleSheet.create({
         marginRight: '7%',
         width: 60,
         height: 60,
-        borderRadius: 10,
+        borderRadius: 50,
         paddingBottom: 50,
     },
     curatorTitle: {
@@ -241,4 +236,12 @@ const styles = StyleSheet.create({
 
 })
 
-export default PackageDetailsScreen;
+
+const mapStateToProps = ({packages, location}) => {
+    return ({packages,location}); //define your own keys
+}
+
+export default connect(
+    mapStateToProps,
+    {getPackageByPackageGuid})
+(PackageDetailsScreen);

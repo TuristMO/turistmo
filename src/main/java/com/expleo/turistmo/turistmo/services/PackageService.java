@@ -68,6 +68,10 @@ public class PackageService {
         return new PageImpl<>(collectedList);
     }
 
+    public Page<Package> getAllPackagesByCuratorGuid(Integer page, Integer size, UUID guid){
+        PageRequest pageable = PageRequest.of(page, size);
+        return packageRepository.findAllByCuratorGuid(guid, pageable);
+    }
 
 
 }

@@ -11,12 +11,12 @@ export const getAllApplications = () => {
             const response = await packageApi.get('/api/v1/application',{
                 params:{
                     page:0,  //TODO CHANGE DYNAMICALLY
-                    size:10
+                    size:50
                 }
             });
             dispatch({ type: GET_APPLICATIONS, payload: response.data.content })
         } catch (err) {
-            console.log("HEJEHEJEHEJ" + err);
+            console.log(err);
         }
     }
 }

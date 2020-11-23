@@ -6,6 +6,8 @@ import {
   GET_PACKAGES_BUSINESS,
   GET_PACKAGES_SUCCESS,
   GET_PACKAGES_FROM_CURATOR,
+  GET_PACKAGE_BY_GUID,
+  GET_PACKAGES_BY_CURATOR_GUID,
   POST_PACKAGES,
   POST_PACKAGES_ERROR,
   POST_PACKAGES_SUCCESS,
@@ -20,7 +22,9 @@ const initialState = {
   packagesFood: [],
   packagesCulture: [],
   packagesBusiness: [],
+  packagesByCuratorGuid: [],
   packagesBelongingToCurator: [],
+  packageByGuid: {},
   postPackages: {}, //Curator object with packages
   loading: true,
   packagesFound: false,
@@ -44,6 +48,10 @@ export default (state = initialState, action) => {
       return { ...state,packagesCulture: action.payload, loading: false }
     case GET_PACKAGES_BUSINESS:
       return { ...state,packagesBusiness: action.payload, loading: false }
+    case GET_PACKAGES_BY_CURATOR_GUID:
+      return { ...state,packagesByCuratorGuid: action.payload, loading: false }
+    case GET_PACKAGE_BY_GUID:
+      return { ...state,packageByGuid: action.payload, loading: false }
     case GET_PACKAGES_FROM_CURATOR:
       return { ...state,packagesBelongingToCurator: action.payload, loading: false }
     case POST_PACKAGES:

@@ -5,7 +5,7 @@ import {
     View,
     ScrollView,
     Text,
-    SafeAreaView, FlatList, TouchableHighlight, TouchableOpacity
+    SafeAreaView, FlatList, TouchableHighlight, TouchableOpacity, ActivityIndicator
 } from 'react-native'
 import {Button} from "react-native-elements";
 import {connect} from "react-redux";
@@ -14,7 +14,7 @@ import {emptyServerMessage, getAllPackagesFromCurator, postSignInCurator,deleteP
 import {SwipeListView} from "react-native-swipe-list-view";
 
 const CuratorScreen = (props) => {
-    const {navigation, rCurator: {curator, jwt}, packages: {packagesBelongingToCurator},deletePackage, getAllPackagesFromCurator} = props;
+    const {navigation, rCurator: {curator, jwt}, packages: {loading, packagesBelongingToCurator},deletePackage, getAllPackagesFromCurator} = props;
 
     const [listData, setListData] = useState(
         packagesBelongingToCurator.map((NotificationItem, index) => ({
@@ -39,7 +39,6 @@ const CuratorScreen = (props) => {
 
     const VisibleItem = props => {
         const {data} = props;
-
         return (
             <View style={styles.rowFront}>
                 <TouchableHighlight
@@ -68,7 +67,6 @@ const CuratorScreen = (props) => {
 
         return (
             <View style={styles.rowBack}>
-                <Text>Left</Text>
                 <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnLeft]} onPress={onClose}>
                     <Text>Close</Text>
                 </TouchableOpacity>
@@ -91,6 +89,10 @@ const CuratorScreen = (props) => {
 
     };
 
+    if (loading) {
+        return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, justifyContent: "center"}}/>
+    }
+
 
     return (
         <View style={styles.container}>
@@ -98,7 +100,7 @@ const CuratorScreen = (props) => {
                  <Image
                      testID="packageDetailcuratorAvatar"
                      accessibilityLabel='packageDetailcuratorAvatar'
-                     source={{uri: "https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png"}}
+                     source={{uri: curator.avatarUrl}}
                      style={styles.curatorAvatar}/>
                  <Text
                      testID="packageDetailpackageDate"
@@ -118,12 +120,13 @@ const CuratorScreen = (props) => {
                 data={listData}
                 renderItem={renderItem}
                 renderHiddenItem={renderHiddenItem}
-                leftOpenValue={75}  // positivt för att det pushas från vänster till höger
+                leftOpenValue={45}  // positivt för att det pushas från vänster till höger
                 rightOpenValue={-150} // negativt för att det pushas från höger till vänster
                 //disableLeftSwipe  > Ifall vi disable
                 disableRightSwipe
             />
             <Button
+                buttonStyle={{marginTop: '5%'}}
                 color={'#4AB4FF'}
                 title={"Create package"}
                 onPress={()=> navigation.push('CreatePackageScreen')}
@@ -143,8 +146,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     packageContainer: {
-        flex: 3,
+        flex: 1,
         backgroundColor: '#fff',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: '5%',
+        paddingHorizontal: '5%',
     },
     curatorContainer: {
         flex: 1,
@@ -161,13 +168,13 @@ const styles = StyleSheet.create({
         alignContent: "center",
     },
     curatorAvatar: {
-        marginHorizontal: '7%',
-        width: 150,
-        height: 150,
+        marginHorizontal: '2%',
+        width: 100,
+        height: 100,
         borderRadius: 75,
         borderColor: '#4AB4FF',
         borderWidth: 3,
-        paddingBottom: 10,
+        paddingBottom: '1%',
     },
     curatorTitle: {
         fontSize: 20,
@@ -191,7 +198,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         height: 60,
         margin: 5,
-        marginBottom: 15,
+        marginBottom: 5,
         shadowColor: '#999',
         shadowOffset: {width: 0, height: 1},
         shadowOpacity: 0.8,
@@ -203,42 +210,45 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         height: 60,
         padding: 10,
-        marginBottom: 15,
+        marginBottom: '2%',
     },
     rowBack: {
         alignItems: 'center',
-        backgroundColor: '#DDD',
+        backgroundColor: '#FFF',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingLeft: 15,
+        paddingLeft: 5,
         margin: 5,
         marginBottom: 15,
         borderRadius: 5,
     },
     backRightBtn: {
-        alignItems: 'flex-end',
+        alignItems: 'center',
         bottom: 0,
         justifyContent: 'center',
         position: 'absolute',
         top: 0,
-        width: 75,
-        paddingRight: 17,
+        width: '25%',
+        height: '120%',
+        paddingRight: 5,
     },
     backRightBtnLeft: {
-        backgroundColor: '#1f65ff',
-        right: 75,
+        backgroundColor: '#4AB4FF',
+        right: '24%',
+        borderTopLeftRadius: 5,
+        borderBottomLeftRadius: 5,
     },
     backRightBtnRight: {
-        backgroundColor: 'red',
-        right: 0,
+        backgroundColor: '#ff2a00',
+        right: '0%',
         borderTopRightRadius: 5,
         borderBottomRightRadius: 5,
     },
     trash: {
         height: 25,
         width: 25,
-        marginRight: 7,
+        marginRight: '10%',
     },
     title: {
         fontSize: 14,
@@ -249,6 +259,7 @@ const styles = StyleSheet.create({
     details: {
         fontSize: 12,
         color: '#999',
+        paddingBottom: '5%'
     },
 
 })

@@ -1,101 +1,72 @@
 import React from 'react';
 import { Button, TouchableOpacity, Image, StyleSheet, View, ScrollView, Text, FlatList } from 'react-native'
 import Application from "./Application";
+import {silhouette, tagColor} from "../helpers/helpers";
 
-const Card = ({ cPackage }) => {
-  const {curator:{avatarUrl, firstName, lastName},curatorPicture,title,description,date,usefulApplications} = cPackage
-  return (
-      <View
-          accessibilityLabel='resultItem'
-          style={styles.packageContainer}>
-        <View style={styles.header}>
-          <View>
-            <Image source={{ uri: "https://api.adorable.io/avatars/285/abott@adorable.png" }} style={styles.headerImage}/>
-          </View>
-          <View style={{ marginBottom: 5, flexDirection: 'column', flex: 1, justifyContent: 'space-around', }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5 }}>
-              <Text
-                  testID="curatorName"
-                  accessibilityLabel='curatorName'
-              >{firstName} {lastName}</Text>
-              <Text style={[styles.headerDate]}>{date}</Text>
+const Card = ({ cPackage,index }) => {
+
+    const {curator:{firstName, lastName},city,title,tags} = cPackage
+    return (
+        <View
+            accessibilityLabel='resultItem'
+            style={styles.packageContainer}>
+            <View style={{backgroundColor: tagColor(tags[0].title), flex: 1, paddingTop: 10, borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
+                <Image source={silhouette(city)}
+                       style={{justifyContent: 'flex-end',flex: 1, width: null, height: null, resizeMode: 'cover'}}/>
             </View>
-            <Text testID="packageTitle" accessibilityLabel='packageTitle' style={styles.headerTitle}>{title}</Text>
-          </View>
-
+            <View style={{justifyContent: 'center',padding: 5,backgroundColor: '#FFF', flex: 1, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
+                <Text
+                    testID={'cardPackageTitle'+index}
+                    style={{fontWeight: 'bold', backgroundColor: 'white'}}>{title}</Text>
+                <Text
+                    testID={'cardPackageTitle'+index}
+                    style={{backgroundColor: 'white'}}>{firstName} {lastName}</Text>
+            </View>
         </View>
-        <View>
-          <Text style={styles.description}>{description}</Text>
-        </View>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.recApp}> RECOMMENDED APPLICATIONS </Text>
-          <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={usefulApplications}
-              keyExtractor={item => cPackage.guid+item.guid}
-              renderItem={({ item }) => {
-                return <Application logo={item.logo} link={item.android_link} id={item.guid} />
-              }}
-          />
-        </View>
-      </View>
-
-  )
+    )
 }
 
+
 const styles = StyleSheet.create({
-  packageContainer: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    container: {
+        marginTop: "4%",
+        flex: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.1)',
-    borderRadius: 10,
-    backgroundColor: 'white',
-    padding: 10,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  headerImage: {
-    margin: 5,
-    width: 55,
-    height: 55,
-    borderRadius: 10
-  },
-  headerDate: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: 'orange',
-    textTransform: 'uppercase',
-    alignSelf: 'flex-end'
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    alignSelf: 'flex-start',
-  },
-
-  description: {
-    paddingHorizontal: 5,
-    fontSize: 14,
-  },
-  recApp: {
-    marginVertical: 5,
-    paddingLeft: 10,
-    fontSize: 13,
-    color: 'orange',
-    textTransform: 'uppercase',
-  },
-
+    inputfield: {
+        marginHorizontal: "1%",
+        marginLeft: '1%'
+    },
+    footer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingVertical: 20,
+        paddingHorizontal: 30
+    },
+    tagHeader: {
+        fontWeight: 'bold',
+        marginBottom: 10,
+        paddingTop: 10,
+    },
+    packageContainer: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 2,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.1)',
+        borderRadius: 10,
+        backgroundColor: '#FFF',
+        marginRight: 25,
+        width: 260,
+        height: 140,
+        justifyContent: 'flex-end',
+    },
 })
 
 export default Card;
