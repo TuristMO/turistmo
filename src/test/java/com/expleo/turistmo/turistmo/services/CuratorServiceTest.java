@@ -108,9 +108,7 @@ class CuratorServiceTest {
     void itShouldThrowPasswordMismatchException() throws PasswordMismatchException {
         //GIVEN
         signUpRequest.setConfirmPassword("Other password than the other one");
-        String exceptionMessage = String.format(
-            "Password %s doesn't match with your password confirmation %s!",
-            signUpRequest.getPassword(), signUpRequest.getConfirmPassword());
+        String exceptionMessage = "The passwords doesn't match";
         given(curatorRepository.findCuratorByEmail(anyString())).willReturn(Optional.empty());
 
         //WHEN

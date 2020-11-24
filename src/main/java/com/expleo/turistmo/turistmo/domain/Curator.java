@@ -53,7 +53,8 @@ public class Curator extends BaseEntity {
 
     @NotBlank(message = "Email should not be empty.")
     private String email;
-    @Size( min = 5, max = 100, message = "Password should be between 5-20 characters.")
+    //TODO make these match the message, as of now the password is not restricted
+    @Size( min = 5, max = 100, message = "Password should be between 6-20 characters.")
     @JsonIgnore
     private String password;
 
