@@ -16,7 +16,7 @@ export const getAllTags = () => {
             });
             dispatch({ type: GET_TAGS, payload: response.data.content })
         } catch (err) {
-            console.log("TAG ERROR : " + err);
+            console.log(err);
         }
     }
 }

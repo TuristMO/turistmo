@@ -36,7 +36,7 @@ public class CuratorService {
         final String email = signUpCurator.getEmail();
         final String firstName = signUpCurator.getFirstName();
         final String lastName = signUpCurator.getLastName();
-        final String avatarUrl = "https://res.cloudinary.com/hkiuhnuto/image/upload/v1604658326/myAvatar_erdwgy.png";
+        final String avatarUrl = "https://res.cloudinary.com/hkiuhnuto/image/upload/v1606134499/empty-avatar_gybqmo.jpg";
         Optional<Curator> curatorByEmail = curatorRepository.findCuratorByEmail(email);
 
         if (curatorByEmail.isPresent()) {
@@ -44,8 +44,6 @@ public class CuratorService {
         }
         if (!signUpCurator.getConfirmPassword().contentEquals(signUpCurator.getPassword())) {
             throw new PasswordMismatchException("The passwords doesn't match");
-//                    String.format("Password %s doesn't match with your password confirmation %s!",
-//                            signUpCurator.getPassword(), signUpCurator.getConfirmPassword()));
         }
         String encodedPassword = passwordEncoder.encode(signUpCurator.getPassword());
         Curator newCuratorAccount = Curator.builder()

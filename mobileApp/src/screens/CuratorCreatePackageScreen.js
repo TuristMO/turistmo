@@ -7,10 +7,10 @@ import {
     View,
     ScrollView,
     Text,
-    Dimensions, FlatList, SafeAreaView, Alert
+    Dimensions, FlatList, SafeAreaView, Alert, ActivityIndicator
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Button } from "react-native-elements";
+import {Button, Input} from "react-native-elements";
 import {connect} from "react-redux";
 import {
     emptyServerMessage,
@@ -43,6 +43,15 @@ const CuratorCreatePackageScreen = (props) => {
         description:'',
         usefulApplications: [],
     });
+
+    const [pickerState, setPickerState] = useState({
+        isVisibleA: false,
+        isVisibleB: false
+    });
+    const visibilityChange = (showA,showB) => {
+        setPickerState({ ...pickerState, isVisibleA: showA,isVisibleB: showB})
+    };
+
 
     const showAlertMessage = () => {
         let errorList = ''
@@ -92,7 +101,7 @@ const CuratorCreatePackageScreen = (props) => {
 
     const dropDownPickerList = () =>  {
        let list = [];
-       tags.forEach(e => list.push({label: e.title, value: e, icon: () => <Icon name="flag" size={18} color="#900" />}) )
+       tags.forEach(e => list.push({label: e.title, value: e, icon: () => <Icon name="tag" size={18} color="#CCC" />}) )
        return list;
     }
 
@@ -119,22 +128,27 @@ const CuratorCreatePackageScreen = (props) => {
         setSavePackage({...savePackage, usefulApplications: newList})
     }
 
-    return (
-        <View>
-            <TextInput
-                testID="curatorCreatePackageTitle"
-                accessibilityLabel='curatorCreatePackageTitle'
-                style={{height: 40, borderWidth: 1}}
-                onChangeText={titleChange}
-                placeholder={'Package title'}
-            />
+    if (loading) {
+        return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, justifyContent: "center"}}/>
+    }
 
-            <TextInput
+    return (
+        <View style={styles.container}>
+            <Input
+                containerStyle={styles.inputContainer}
+                testID="curatorCreatePackageTitle"
+                accessibilityLabel='packageTitleField'
+                onChangeText={titleChange}
+                placeholder="Package title"
+                returnKeyType={"next"}
+            />
+            <Input
+                containerStyle={styles.inputContainer}
                 testID="curatorCreatePackageDescription"
-                accessibilityLabel='curatorCreatePackageDescription'
-                style={{height: 40, borderWidth: 1}}
+                accessibilityLabel='packageDescriptionField'
                 onChangeText={descriptionChange}
-                placeholder={'Package description'}
+                placeholder="Package description"
+                returnKeyType={"done"}
             />
 
             <DropDownPicker
@@ -144,44 +158,55 @@ const CuratorCreatePackageScreen = (props) => {
                     {label: 'Malmö'},
                 ]}
                 placeholder={'Select city'}
+                isVisible={pickerState.isVisibleA}
+                onOpen={()=>visibilityChange(true,false)}
+                onClose={()=>visibilityChange(false,false)}
                 defaultIndex={0}
-                containerStyle={{height: 60}}
+                style={styles.dropDownPicker}
+                labelStyle={styles.dropDownLabel}
+                itemStyle={styles.dropDownItem}
+                containerStyle={styles.dropDownPickerContainer}
                 onChangeItem={item => cityChange(item.label)}
             />
 
             <DropDownPicker
-                testID="curatorCreatePackageTagPicker"
-                accessibilityLabel='curatorCreatePackageTagPicker'
                 items={dropDownPickerList()}
-                placeholder={'Select Tag'}
+                placeholder={'Select tag'}
                 multiple={true}
                 multipleText="%d tags have been selected."
                 min={0}
                 max={10}
                 defaultValue={savePackage.tags}
-                containerStyle={{height: 60}}
+                isVisible={pickerState.isVisibleB}
+                onOpen={()=>visibilityChange(false,true)}
+                onClose={()=>visibilityChange(false,false)}
+                defaultIndex={0}
+                style={styles.dropDownPicker}
+                labelStyle={styles.dropDownLabel}
+                itemStyle={styles.dropDownItem}
+                containerStyle={styles.dropDownPickerContainer}
                 onChangeItem={item => setSavePackage({...savePackage, tags:item})}
             />
-
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginTop:20}}>
-                <SafeAreaView >
+            <Text style={{fontSize: 18,marginTop: '2%',alignSelf:'center'}}>Select applications</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginTop:20, flex: 1}}>
+                <View>
                     <FlatList
-                        testID="curatorCreatePackageAppFlatlist"
-                        accessibilityLabel='curatorCreatePackageAppFlatlist'
                         numColumns={4}
                         data={applications}
                         keyExtractor={item => item.guid}
+                        scrollEnabled={true}
                         renderItem={({item}) => {
                             return <TouchableOpacity testID={item.title} onPress={()=>addApplication(item)}>
                                 <Image source={{ uri: item.logo }} style={styles.logo}/>
                             </TouchableOpacity>
                         }}
                     />
-                </SafeAreaView>
+                </View>
             </View>
             <Button
                 testID="curatorCreatePackageSaveButton"
                 accessibilityLabel='curatorCreatePackageSaveButton'
+                buttonStyle={styles.savePackage}
                 color={'#4AB4FF'}
                 title={"Save package"}
                 onPress={()=> postSavePackage(savePackage,jwt, ()=> showAlertMessage())}
@@ -199,6 +224,33 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: '20%'
     },
+    container: {
+        flex: 1,
+    },
+    savePackage: {
+        marginTop: '5%'
+    },
+    inputContainer: {
+        marginTop: '2%',
+        marginBottom: '-7%'
+    },
+    dropDownPickerContainer: {
+        height: 60,
+    },
+    dropDownPicker: {
+        backgroundColor: 'rgba(255,255,225,0.1)',
+    },
+    dropDownLabel: {
+        fontSize: 18,
+        textAlign: 'left',
+        color: '#333'
+    },
+    dropDownItem: {
+        fontSize: 14,
+        justifyContent: 'center',
+        color: '#333'
+    },
+
 
 })
 const mapStateToProps = ({location, rApplications,rCurator,packages, rTags}) => {

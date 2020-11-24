@@ -13,7 +13,7 @@ const SplashScreen = ({navigation}) => {
               animation={"bounceIn"}
               duration={1500}
               style={styles.logo}
-              source={require('../images/curator.png')}    //source={{uri: item}}
+              source={{uri: 'https://res.cloudinary.com/hkiuhnuto/image/upload/v1606125209/curator_rm2c2l.png'}}    //source={{uri: item}}
               resizeMode={'stretch'}
           />
         </View>
