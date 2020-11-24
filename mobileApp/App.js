@@ -25,7 +25,8 @@ const getTabBarVisibility = (route) => {
   const routeName = route.state
       ? route.state.routes[route.state.index].name
       : '';
-  return !(routeName === 'SignupScreen' || routeName === 'SigninScreen' || routeName === 'PackageDetails');
+  return !(routeName === 'SignupScreen' || routeName === 'SigninScreen'
+      || routeName === 'PackageDetails' || routeName === 'CreatePackageScreen' || routeName === 'SignedInCuratorScreen');
 }
 
 const App = () => {
@@ -35,13 +36,14 @@ const App = () => {
           <Tab.Screen
               name="HomeScreen"
               component={HomeScreen}
-              options={{
+              options={({route}) => ({
                 tabBarTestID: 'HomeTab',
+                  tabBarVisible:getTabBarVisibility(route),
                   tabBarLabel: ({focused,props}) => <Text style={{ fontSize: 10, color: focused?MAIN_COLOR:SECOND_COLOR}}> Home </Text>,
                   tabBarIcon: ({ focused,color, size }) => (
                       <Icon type={'ant-design'} name="home" color={focused?MAIN_COLOR:SECOND_COLOR} size={size}/>
                   ),
-              }}
+              })}
           />
           <Tab.Screen
               name="Curator"

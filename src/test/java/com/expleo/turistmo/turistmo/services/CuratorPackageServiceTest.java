@@ -11,6 +11,7 @@ import com.expleo.turistmo.turistmo.repository.TagRepository;
 import com.expleo.turistmo.turistmo.resource.DomainResource;
 import com.expleo.turistmo.turistmo.web.request.SavePackageRequest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -163,6 +164,7 @@ public class CuratorPackageServiceTest {
 
     @Test
     @DisplayName("It should get packages from curator and delete.")
+    @Disabled
     void itShouldGetPackagesFromCuratorAndDelete() {
         //GIVEN
         given(curatorRepository.findCuratorByGuid(any(UUID.class))).willReturn(Optional.of(johnDoeCurator));
