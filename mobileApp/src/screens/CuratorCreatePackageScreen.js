@@ -128,10 +128,6 @@ const CuratorCreatePackageScreen = (props) => {
         setSavePackage({...savePackage, usefulApplications: newList})
     }
 
-    if (loading) {
-        return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, justifyContent: "center"}}/>
-    }
-
     return (
         <View style={styles.container}>
             <Input
