@@ -170,7 +170,7 @@ public class CuratorPackageServiceTest {
         Optional<Package> pack = packageRepository.findPackageByCurator_GuidAndGuid(johnDoeCurator.getGuid(),stockholmPackage.getGuid());
         System.out.println(pack);
         //WHEN
-        curatorService.deleteCuratorPackageFromPackageGuid(johnDoeCurator.getGuid(),pack.get().getGuid());
+        curatorService.deleteCuratorPackageFromPackageGuid(johnDoeCurator,pack.get());
         //THEN
         assertThat(johnDoeCurator.getPackages()).hasSize(1);
 //        assertThat(pack.isEmpty()).isTrue();

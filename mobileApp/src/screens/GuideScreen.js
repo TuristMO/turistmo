@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, Platform, Image, StyleSheet, View, ScrollView, Text, Dimensions} from 'react-native'
+import {Platform, StyleSheet, View, Text, Dimensions} from 'react-native'
 import {Button} from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 
@@ -29,7 +29,7 @@ const GuideScreen = ({navigation}) => {
                     animation={"bounceIn"}
                     duration={1500}
                     style={styles.logo}
-                    source={require('../images/help.png')}    //source={{uri: item}}
+                    source={{uri: 'https://res.cloudinary.com/hkiuhnuto/image/upload/v1606125209/help_djaudb.png'}}    //source={{uri: item}}
                     resizeMode={'stretch'}
                 />
             </View>

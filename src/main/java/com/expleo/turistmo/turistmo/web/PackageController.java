@@ -23,9 +23,9 @@ public class PackageController {
     private final PackageService packageService;
 
     @GetMapping
-    public ResponseEntity<?> findPackagesBasedOnMostSearchHits(@RequestParam(defaultValue = "0") Integer page,
-        @RequestParam(defaultValue = "10") Integer size,
-        @RequestParam(defaultValue = "Stockholm") String search) {
+    public ResponseEntity<?> findPackageByGuid(@RequestParam(defaultValue = "0") Integer page,
+                                               @RequestParam(defaultValue = "10") Integer size,
+                                               @RequestParam(defaultValue = "Stockholm") String search) {
         try {
             Page<Package> packages = packageService.getAllPackagesBasedOnSearch(page, size, search);
             return ResponseEntity.status(HttpStatus.OK).body(packages);
@@ -33,11 +33,23 @@ public class PackageController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
-    @GetMapping("/id")
-    public ResponseEntity<?> findPackagesBasedOnMostSearchHits(@RequestParam UUID guid) {
+    @GetMapping("/packageguid")
+    public ResponseEntity<?> findPackageByGuid(@RequestParam UUID packageGuid) {
         try {
-            Package foundPackage = packageService.getPackageByGuid(guid);
+            Package foundPackage = packageService.getPackageByGuid(packageGuid);
             return ResponseEntity.status(HttpStatus.OK).body(foundPackage);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("/curatorguid")
+    public ResponseEntity<?> findPackagesByCuratorGuid(@RequestParam(defaultValue = "0") Integer page,
+                                                       @RequestParam(defaultValue = "10") Integer size,
+                                                       @RequestParam UUID curatorGuid) {
+        try {
+            Page<Package> packages = packageService.getAllPackagesByCuratorGuid(page,size,curatorGuid);
+            return ResponseEntity.status(HttpStatus.OK).body(packages);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

@@ -1,17 +1,20 @@
 import {
+    LOADING,
     GET_PACKAGES,
     GET_PACKAGES_SUCCESS,
     GET_PACKAGES_BUSINESS,
     GET_PACKAGES_CULTURE,
     GET_PACKAGES_FOOD,
     GET_PACKAGES_TRAVEL,
+    GET_PACKAGE_BY_GUID,
+    GET_PACKAGES_BY_CURATOR_GUID,
     POST_PACKAGES,
-    LOADING,
     POST_PACKAGES_SUCCESS,
     POST_PACKAGES_ERROR,
     POST_SIGNIN_CURATOR_ERROR,
     GET_PACKAGES_FROM_CURATOR,
-    DELETE_PACKAGES_ERROR, DELETE_PACKAGES_SUCCESS,
+    DELETE_PACKAGES_ERROR,
+    DELETE_PACKAGES_SUCCESS,
 } from "./types";
 import packageApi from "../api/packageApi";
 
@@ -48,7 +51,6 @@ export const getAllPackagesTravel = () => {
                     search: 'Travel'
                 }
             });
-
             dispatch({type: GET_PACKAGES_TRAVEL, payload: response.data.content})
         } catch (err) {
             console.log(err);
@@ -68,7 +70,6 @@ export const getAllPackagesFood = () => {
                 }
 
             });
-
             dispatch({type: GET_PACKAGES_FOOD, payload: response.data.content})
         } catch (err) {
             console.log(err);
@@ -86,7 +87,6 @@ export const getAllPackagesCulture = () => {
                     search: 'Culture'
                 }
             });
-
             dispatch({type: GET_PACKAGES_CULTURE, payload: response.data.content})
         } catch (err) {
             console.log(err);
@@ -105,8 +105,43 @@ export const getAllPackagesBusiness = () => {
                     search: 'Business'
                 }
             });
-
             dispatch({type: GET_PACKAGES_BUSINESS, payload: response.data.content})
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export const getAllPackagesByCuratorGuid = (curatorGuid) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({type: LOADING, payload: true})
+            const response = await packageApi.get('/api/v1/package/curatorguid', {
+                params: {
+                    page: 0,  //TODO CHANGE DYNAMICALLY
+                    size: 10,
+                    curatorGuid: curatorGuid
+                }
+            });
+            dispatch({type: GET_PACKAGES_BY_CURATOR_GUID, payload: response.data.content})
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export const getPackageByPackageGuid = (packageGuid, callback) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({type: LOADING, payload: true})
+            const response = await packageApi.get('/api/v1/package/packageguid', {
+                params: {
+                    packageGuid: packageGuid
+                }
+            });
+            dispatch({type: GET_PACKAGE_BY_GUID, payload: response.data.content})
+            console.log(response.data.content)
+            callback();
         } catch (err) {
             console.log(err);
         }

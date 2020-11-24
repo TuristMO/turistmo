@@ -32,17 +32,182 @@ public class BootstrapDB implements CommandLineRunner {
 
         if (packageRepository.count() <= 0 && applicationRepository.count() <= 0) {
 
+            Application application2 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=stockholm.metro.map.lbc&hl=en_US&gl=US")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/RtNl30GYyxklTdSfeTgj9Q9j-14FjIZHAYJrSF7yX4x1RxD8vqCTPop2uwiNK8RCyA=s360-rw")
+                    .title("Stockholm Metro App")
+                    .build();
+
+            Application application3 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.sl.artrider")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/p-tKUb7HxtpOpwmP_xBDgDpxa7bYL61LSyHxEu1By6HQmHDkT3wQtFDfhTvUjoQ-S8w=s360-rw")
+                    .title("SL ArtGuide")
+                    .build();
+
+            Application application4 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.trackingtopia.stockholmairportguide")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/mZeQyfXDqMHB1jU009wvCC_nnCAvuD53DAWRWEkc0xjiAISbuTeI8NdiNIBMmz_B_jw=s360-rw")
+                    .title("Flight information ARN")
+                    .build();
+
+            Application application5 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.triposo.droidguide.stockholm")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/oHo9Qd-aOcvaIqLkqlhArU8ZCPuNf9q37pYXUEC4JenZXtX53WCYQ89zFQFj6YgQIBk=s360-rw")
+                    .title("Stockholm Travel Guide Triposo")
+                    .build();
+
+            Application application6 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.brpsystems.fsstockholm")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/dVSFEStEQ23lPulGaqLvXKhBrJ2GC6qDM8jWMRky4Y4-TIFRFQqiPZmb0e5eMiphjw=s360-rw")
+                    .title("Friskis&Svettis Stockholm")
+                    .build();
+
+            Application application7 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.divundo.deltagare.suconference")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/MLbEkI8B_K3eEWOMWOFRjfgmaPhj7eQImzls1xrlCU9QliljDoj-Q4rxxoFP0sJS3A=s360-rw")
+                    .title("SU Conference")
+                    .build();
+
+            Application application8 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.sl.SLBiljetter&hl=sv")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/mseIOtKdRVkLQfbhtvJQLy1BVWihwOJ2DnQ1e0Ev6ds1dBNhsZH8HgXlbRPqxaT_Bx5a=s360-rw")
+                    .title("Stockholms museer")
+                    .build();
+
+            Application application9 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.sl.SLBiljetter&hl=sv")
+                    .ios_link("empty-for-now")
+                    .logo("https://is5-ssl.mzstatic.com/image/thumb/Purple114/v4/30/00/03/3000030b-6b4c-8e24-1ba9-1a541ae31b1c/AppIcon-NewUI-0-0-1x_U007emarketing-0-0-0-5-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/350x350.png")
+                    .title("SL")
+                    .build();
+
+            Application application10 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=pandorapizzeria.se")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/w8vsn61ttlME86oS9ru5NKd6rUCxqkUgL4gPsPS4klsPwJuaHdl-K2qky0fSDTPJJw=s360-rw")
+                    .title("La Pandora")
+                    .build();
+
+            Application application11 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.stockholm.bibblix")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/6dxMMfWd3HS8O5dP7Fbm-peDP-cZwBxqB0oGPjH6AMbKoD6Z5Ns_5NablppxBxHggg=s360-rw")
+                    .title("Bibblix - Hitta en bra bok!")
+                    .build();
+
+            Application application12 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.sj.android")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/KvvNhIEOmQBSojUG3FctJBNGuTJHL-raL4XeuXXGussra0oiH-FqX5JBBpN8dj4pVYEL=s360-rw")
+                    .title("SJ - Biljetter och trafikinfo")
+                    .build();
+
+            Application application13 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.fredwaltman.BeerGuideSTO")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/FA6NaO4fEY_ou-zcnQDSwPhcpeS2p1B4R6EBEfWWnx_40nyG0v3NHvpQU-KyqG8dHQ=s360-rw")
+                    .title("Beer Guide Stockholm")
+                    .build();
+
+            Application application14 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.brpsystems.pilatescenter")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/yuD4SvMLtcKmzF6jGeNL5M5HuRd2bg0h_ZXuWkXDMWzryHRiajtlLMKC4rRWUZ-lR_A=s360-rw")
+                    .title("Stockholm Pilates Center")
+                    .build();
+
+            Application application15 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=net.easypark.android")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/4Yr_5dfTLahvL6NGXg6HTMhE9Ixfws5nneYX5vF_xO5U-EEQRhGbeEoDPsGVh3GX0q4=s360-rw")
+                    .title("EasyPark - Parkering på stans alla gator")
+                    .build();
+
+            Application application16 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=io.applova.clermont.pkg68443GNJ98641")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/hnebcFVv4_Ttre5Yr102FRCAuv2RWH_g87Uoj2U4QgnBWVksfL8yFHwvhSOTtchvyw=s360-rw")
+                    .title("Circle K Stockholm")
+                    .build();
+
+            Application application17 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.svt.android.svtplay")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/HdiW6GBYCXz8gsszjSKbyor1F0ATxifHKGJ_w6RT1g7c7RBzTtc1TJ6XreG9Wv5T25Y=s360-rw")
+                    .title("SVT Play")
+                    .build();
+
+            Application application18 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.onlinepizza")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/lANj2dwLChH-G6Z7BD4-BYN9I4Q9_dpiA3qDgGrXGkW-g0fn2uXZi0F8KN0fmnCO5qWG=s360-rw")
+                    .title("foodora Sverige")
+                    .build();
+            Application application19 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.appcorn.Blocket")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/KLV7EZyzxdom4Se_88LsfseD-w5JPcEo-tXZx8kRDGVxn53ms-B4LIWJ5aqABcBHkGUk=s360-rw")
+                    .title("Blocket - Köp & sälj begagnat")
+                    .build();
+            Application application20 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/_4HguZs7U1OwAogXG8fjlDu1VPbnppQGG-L8ZaGGxSPDAgwkn-W9sz3gtYNbp6qrmlk=s360-rw")
+                    .title("Hearthstone")
+                    .build();
+            Application application21 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=se.expressen.launcher.gt")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/o-pAabr0zrWuxXao2PJ1IsAJEHxSs4ucIDM_W5c1lCbBxK9QAhFavsrHdCxUmbqw3YM=s360-rw")
+                    .title("GT – Nyheter Göteborg, Frölunda, Ullared, Liseberg")
+                    .build();
+            Application application22 = Application.builder()
+                    .android_link("https://play.google.com/store/apps/details?id=com.karma.life")
+                    .ios_link("empty-for-now")
+                    .logo("https://play-lh.googleusercontent.com/JSXZhY7WSuRhngf83sxWauAANNjdiQR_OfxAsB0_t80Dt3GrEHN4Ex4WLpD1hvhtl3k=s360-rw")
+                    .title("Karma - Rädda mat")
+                    .build();
+
+            applicationRepository.save(application2);
+            applicationRepository.save(application3);
+            applicationRepository.save(application4);
+            applicationRepository.save(application5);
+            applicationRepository.save(application6);
+            applicationRepository.save(application7);
+            applicationRepository.save(application8);
+            applicationRepository.save(application9);
+            applicationRepository.save(application10);
+            applicationRepository.save(application11);
+            applicationRepository.save(application12);
+            applicationRepository.save(application13);
+            applicationRepository.save(application14);
+            applicationRepository.save(application15);
+            applicationRepository.save(application16);
+            applicationRepository.save(application17);
+            applicationRepository.save(application18);
+            applicationRepository.save(application19);
+            applicationRepository.save(application20);
+            applicationRepository.save(application21);
+            applicationRepository.save(application22);
+
             Curator johndoe = Curator.builder()
-                    .avatarUrl("CURATOR_URL")
+                    .avatarUrl("https://res.cloudinary.com/hkiuhnuto/image/upload/v1606134499/empty-avatar_gybqmo.jpg")
                     .email("johdoe@gmail.com")
                     .firstName("John")
                     .lastName("Doe")
                     .password("123321")
-                    .description("I am an software developer.")
+                    .description("I am a software developer.")
                     .build();
 
             Curator joanadoe = Curator.builder()
-                    .avatarUrl("CURATOR_URL")
+                    .avatarUrl("https://res.cloudinary.com/hkiuhnuto/image/upload/v1606134499/empty-avatar_gybqmo.jpg")
                     .email("joanadoe@gmail.com")
                     .firstName("Joana")
                     .lastName("Doe")
@@ -51,7 +216,7 @@ public class BootstrapDB implements CommandLineRunner {
                     .build();
 
             Curator alissa= Curator.builder()
-                    .avatarUrl("CURATOR_URL")
+                    .avatarUrl("https://res.cloudinary.com/hkiuhnuto/image/upload/v1606134499/empty-avatar_gybqmo.jpg")
                     .email("alissamcarthygmail.com")
                     .firstName("Alissa")
                     .lastName("McCarthy")
@@ -60,7 +225,7 @@ public class BootstrapDB implements CommandLineRunner {
                     .build();
 
             Curator arthur= Curator.builder()
-                    .avatarUrl("CURATOR_URL")
+                    .avatarUrl("https://res.cloudinary.com/hkiuhnuto/image/upload/v1606134499/empty-avatar_gybqmo.jpg")
                     .email("arthurmcarthygmail.com")
                     .firstName("Arthur")
                     .lastName("McCarthy")
@@ -68,7 +233,7 @@ public class BootstrapDB implements CommandLineRunner {
                     .description("Arthur is an amazing historian.")
                     .build();
             Curator mahoney= Curator.builder()
-                    .avatarUrl("CURATOR_URL")
+                    .avatarUrl("https://res.cloudinary.com/hkiuhnuto/image/upload/v1606134499/empty-avatar_gybqmo.jpg")
                     .email("mahonygmail.com")
                     .firstName("Ma")
                     .lastName("Honey")
@@ -230,7 +395,7 @@ public class BootstrapDB implements CommandLineRunner {
             Application busiApp = Application.builder()
                     .android_link("https://play.google.com/store/apps/details?id=com.app_stockholmbusiness.layout&hl=en_US&gl=US")
                     .ios_link("empty-for-now")
-                    .logo("https://lh3.googleusercontent.com/vNEZHiDSFc79gm73pPcvGtnE48w_sfbUpVroTRIsAfSVUV6z-MivDBMkMykYaVERIXwR=s360-rw")
+                    .logo("https://play-lh.googleusercontent.com/G4Za86hBxZ5nafJ2fNOnoD-NEXUfJeFTL1QLHkPOfgYYrjAaxX-2oEQUykTkWKpvCJlf=s360-rw")
                     .title("Business Directory")
                     .guid(UUID.randomUUID())
                     .build();

@@ -26,7 +26,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @Entity
-@JsonIdentityInfo(generator = IntSequenceGenerator.class)
+//@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 @EqualsAndHashCode(exclude = {"packages"}, callSuper = true)
 @ToString(exclude = {"packages"})
 public class Curator extends BaseEntity {
@@ -41,9 +41,7 @@ public class Curator extends BaseEntity {
         this.password = password;
         this.avatarUrl = avatarUrl;
         this.description = description;
-        //  this.packages = packages;
         this.packages = new HashSet<>();
-
     }
 
     @NotBlank(message = "First name should not be empty.")
