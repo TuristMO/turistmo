@@ -16,17 +16,13 @@ export class CuratorCreatePackageSO extends Utility {
     }
 
     async tapCityPickerOption(inputText, timeout) {
-        //await this.toBeVisibleByText(inputText, timeout);
-        //await this.tapByText(inputText);
-        await waitFor((by.text(inputText).withAncestor(by.id('curatorCreatePackageCityPicker')))).toBeVisible().withTimeout(15000);
-        //await waitFor(element(by.id(id))).toBeVisible().withTimeout(timeout)
+        await waitFor(element(by.text(inputText).withAncestor(by.id('curatorCreatePackageCityPicker')))cls).toBeVisible().withTimeout(15000);
+        await element(by.text(inputText).withAncestor(by.id('curatorCreatePackageCityPicker'))).tap();
     }
 
     async tapTagPickerOption(inputText, timeout) {
-        //await this.toBeVisibleByText(inputText, timeout);
-        //await this.tapByText(inputText);
-        await waitFor((by.text(inputText).withAncestor(by.id('curatorCreatePackageTagPicker')))).toBeVisible().withTimeout(15000);
-        //await waitFor(element(by.id(id))).toBeVisible().withTimeout(timeout)
+        await waitFor(element(by.text(inputText).withAncestor(by.id('curatorCreatePackageTagPicker')))).toBeVisible().withTimeout(15000);
+        await element(by.text(inputText).withAncestor(by.id('curatorCreatePackageTagPicker'))).tap();
     }
 
     async tapApp(textInput, timeout) {

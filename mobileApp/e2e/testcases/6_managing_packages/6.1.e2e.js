@@ -46,12 +46,12 @@ describe('TuristMO', () => {
         await curatorSO.tapCreatePackageButton();
         await curatorCreatePackageSO.fillPackageTitle("Test Package");
         await curatorCreatePackageSO.fillPackageDescription("Test Description");
-        await curatorCreatePackageSO.tapPickerOption("Select city");
-        await curatorCreatePackageSO.tapPickerOption("Göteborg");
-        await curatorCreatePackageSO.tapPickerOption("Select Tag");
-        await curatorCreatePackageSO.tapPickerOption("Travel");
-        await curatorCreatePackageSO.tapPickerOption("Food");
-        await curatorCreatePackageSO.tapPickerOption("2 tags have been selected.");
+        await curatorCreatePackageSO.tapCityPickerOption("Select city");
+        await curatorCreatePackageSO.tapCityPickerOption("Göteborg");
+        await curatorCreatePackageSO.tapTagPickerOption("Select Tag");
+        await curatorCreatePackageSO.tapTagPickerOption("Travel");
+        await curatorCreatePackageSO.tapTagPickerOption("Food");
+        await curatorCreatePackageSO.tapTagPickerOption("2 tags have been selected.");
         await curatorCreatePackageSO.tapApp("SL");
         await curatorCreatePackageSO.tapApp("Aimo");
         await curatorCreatePackageSO.tapSavePackageButton();
@@ -59,7 +59,7 @@ describe('TuristMO', () => {
         await curatorCreatePackageSO.tapGreatOkButton();
         await curatorSO.verifyCuratorEmail(email);
 
-        await device.reloadReactNative();
+        //await device.reloadReactNative();
         // Fix: "Multiple views" problem because curatorcreatepackagescreen already open with package description field filled in
         await curatorSO.verifyPackage("Test Package")
 

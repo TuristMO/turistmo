@@ -16,7 +16,11 @@ export class CuratorSO extends Utility {
     }
 
     async verifyPackage(inputText, timeout) {
-        await this.toBeVisibleByText(inputText, timeout);
+        //await this.toBeVisibleByText(inputText, timeout);
+
+        await waitFor(element(by.text(inputText).withAncestor(by.id('curatorView')))).toBeVisible().withTimeout(15000);
+        //await element(by.text(inputText).withAncestor(by.id('curatorCreatePackageTagPicker'))).tap();
+
     }
 
 }

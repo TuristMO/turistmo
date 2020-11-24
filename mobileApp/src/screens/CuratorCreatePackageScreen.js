@@ -120,7 +120,7 @@ const CuratorCreatePackageScreen = (props) => {
     }
 
     return (
-        <View>
+        <View testID="curatorCreatePackageView">
             <TextInput
                 testID="curatorCreatePackageTitle"
                 accessibilityLabel='curatorCreatePackageTitle'
@@ -138,6 +138,8 @@ const CuratorCreatePackageScreen = (props) => {
             />
 
             <DropDownPicker
+                testID="curatorCreatePackageCityPicker"
+                accessibilityLabel='curatorCreatePackageCityPicker'
                 items={[
                     {label: 'Stockholm'},
                     {label: 'Göteborg'},

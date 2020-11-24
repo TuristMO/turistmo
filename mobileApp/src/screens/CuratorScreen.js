@@ -93,7 +93,7 @@ const CuratorScreen = (props) => {
 
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={"curatorView"}>
              <View style={styles.titleContainer}>
                  <Image
                      testID="curatorAvatar"
