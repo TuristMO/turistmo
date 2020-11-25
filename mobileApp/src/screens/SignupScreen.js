@@ -86,12 +86,9 @@ const SignupScreen = (props) => {
     const updateSecureTextEntry = () => {
         setData({...data, secureTextEntry: !data.secureTextEntry});
     };
-    console.log(curatorS)
-    console.log(errorMessageSignUp)
+
     const showAlertMessage = () => {
-        //let errorList = ''
         if (errorMessageSignUp) {
-            //errorMessageSignUp.forEach(error => errorList += error+'\n')
             return (
                 Alert.alert(
                     "Too bad!",
@@ -109,7 +106,6 @@ const SignupScreen = (props) => {
             )
         }
         if (successMessageSignUp) {
-            //getAllPackagesFromCurator(jwt);
             return (
                 Alert.alert(
                     "Welcome!",

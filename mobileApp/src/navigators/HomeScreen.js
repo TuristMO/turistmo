@@ -11,8 +11,8 @@ const HomeScreen = () => {
   return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={PackageScreen}/>
-          <Stack.Screen name="PackageDetails" component={PackageDetailsScreen}/>
-          <Stack.Screen name="ShowMoreFromCurator" component={PackagesFromCuratorScreen}/>
+        <Stack.Screen name="PackageDetails" component={PackageDetailsScreen}/>
+        <Stack.Screen name="ShowMoreFromCurator" component={PackagesFromCuratorScreen}/>
       </Stack.Navigator>
   )
 }

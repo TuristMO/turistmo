@@ -31,6 +31,7 @@ const PackageScreen = (props) => {
 
     const [text, setText] = useState('');
     const [hasSearched, setHasSearched] = useState(false);
+    const MAIN_COLOR = '#4AB4FF';
 
     useEffect(() => {
         getAllPackagesTravel();
@@ -65,9 +66,9 @@ const PackageScreen = (props) => {
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, justifyContent: "center"}}/>
     }
-    const MAIN_COLOR = '#4AB4FF';
+
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>
             <Input
                 testID="searchField"
@@ -138,7 +139,12 @@ const PackageScreen = (props) => {
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
-                        renderItem={renderItemFood}
+                        renderItem={({item, index}) => {
+                            return <TouchableOpacity activeOpacity={0.9}
+                                                     onPress={() => navigation.navigate('PackageDetails', {path: packagesFood[index]})}>
+                                <Card cPackage={item} index={"FoodIndex" + index}/>
+                            </TouchableOpacity>
+                        }}
                     />
                     <Text style={styles.tagHeader}>CULTURE</Text>
                     <FlatList
@@ -175,7 +181,7 @@ const PackageScreen = (props) => {
                 </ScrollView>
             </View>
 
-        </SafeAreaView>
+        </View>
 
     )
 }
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingVertical: 20,
+        paddingVertical: '5%',
         paddingHorizontal: '5%'
     },
     tagHeaderView: {

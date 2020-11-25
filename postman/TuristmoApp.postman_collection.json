@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b6fab7bf-2295-4bf0-913c-4f6927c5463c",
+		"_postman_id": "ec1f442f-3831-4af9-a7d9-4635525d2c93",
 		"name": "TuristmoApp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,7 +17,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "39a369b5-d92c-4db1-8f45-62600d01bb7b",
+										"id": "e2e78855-c21a-41a3-831c-94e1fa2740df",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -65,7 +65,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a22c6491-0aef-497c-be60-ad87c476e475",
+								"id": "f50f90de-e9c2-4dbd-a11f-0b1b88d09340",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -75,7 +75,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "30352591-f2f4-46f3-bc02-5ff11888e86b",
+								"id": "5ea4b108-4ae5-4234-ba2e-29e9461f1bb6",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -85,13 +85,1021 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Specifika appar i ett paket",
+					"item": [
+						{
+							"name": "Specific package contains specific apps",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "44e7ddb0-8db7-4e97-a91a-5ab4a5560b15",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains specific packages with specific app\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    let packagesFound = jsonData.content.filter(x => x.title === \"Stockholm Food\");\r",
+											"\r",
+											"    pm.expect(packagesFound[0].usefulApplications).to.have.lengthOf(3);\r",
+											"    pm.expect((packagesFound[0].usefulApplications.filter(x => x.title === \"SL\"))).to.have.lengthOf(1);\r",
+											"    pm.expect((packagesFound[0].usefulApplications.filter(x => x.title === \"food app1\"))).to.have.lengthOf(1);\r",
+											"    pm.expect((packagesFound[0].usefulApplications.filter(x => x.title === \"food app2\"))).to.have.lengthOf(1);\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.7 Sökningar på paket efter olika städer",
+					"item": [
+						{
+							"name": "search by city stockholm",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "59622461-0b57-45b8-8189-ff38a4dcf7d7",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"There are packages in response\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Every city in response should equal searchkey\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    for(item of jsonData.content) {\r",
+											"        pm.expect(item.city.toLowerCase()).to.eql(decodeURI(pm.request.url.query.toObject().search));\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search by city malmö",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1df07062-d69b-4a8f-a6b2-18c9b42e6254",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"There are packages in response\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Every city in response should equal searchkey\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    for(item of jsonData.content) {\r",
+											"        pm.expect(item.city.toLowerCase()).to.eql(decodeURI(pm.request.url.query.toObject().search));\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=malmö",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "malmö"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search by city göteborg",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "965a9b8a-793b-4f74-9709-f10db94bc1bc",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"There are packages in response\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Every city in response should equal searchkey\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    for(item of jsonData.content) {\r",
+											"        pm.expect(item.city.toLowerCase()).to.eql(decodeURI(pm.request.url.query.toObject().search));\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=göteborg",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "göteborg"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "793cefbd-22fe-4198-ad6d-7f8b3505d26c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e611fa2-c5c8-4c49-8518-3bfc1b1e7694",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.8 Sökning på paket efter app inkluderad i paket",
+					"item": [
+						{
+							"name": "search by app aimo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cf74ee7d-088b-4dd4-9ddc-7efbe04edd64",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains specific packages with specific app\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    let packagesFound = jsonData.content.filter(x => x.usefulApplications.filter(y => y.title === \"aimo\"));\r",
+											"\r",
+											"    pm.expect(packagesFound.length).to.be.greaterThan(1, \"Response contains 2 or more packages with Aimo app\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"Mixing business with culture\")).length).to.greaterThan(0);\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"The Culture in history\")).length).to.greaterThan(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=aimo",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "aimo"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.9 Sökning på paket efter kategori",
+					"item": [
+						{
+							"name": "search by category culture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1094dd7a-2967-4c73-9e32-deb506e0b5b3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains specific packages with specific tag\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    let packagesFound = jsonData.content.filter(x => x.tags.filter(y => y.tags === \"culture\"));\r",
+											"\r",
+											"    pm.expect(packagesFound.length).to.greaterThan(2, \"Response contains 3 or more packages with this category\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"Göteborg culture\")).length).to.greaterThan(0,\r",
+											"    \"Find Göteborg culture\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"Mixing business with culture\")).length).to.greaterThan(0,\r",
+											"    \"Find Mixing business with culture\");\r",
+											"    pm.expect((packagesFound.filter(x => x.title === \"The Culture in history\")).length).to.greaterThan(0,\r",
+											"    \"Find The Culture in history\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=culture",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "culture"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1.10 Sökning ska visa x paket per sida",
+					"item": [
+						{
+							"name": "size upper boundry",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "63e3e649-4769-4cb2-9549-f68d89487d7d",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"There are packages in response\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.be.greaterThan(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64672acc-3cc2-4dec-b8f8-18a11f490093",
+										"exec": [
+											"pm.request.url.query.add(\"size=\" + (Math.pow(2, 31) - 1));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "(neg) size upper boundry",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3f03ee0e-1ce7-422c-bfed-e79097f5670a",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "afdf482d-d670-4a78-8d5b-832cf96a20cd",
+										"exec": [
+											"pm.request.url.query.add(\"size=\" + (Math.pow(2, 31)));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "(neg) size lower boundry #1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "70be4419-91fa-4dc7-b9b2-00b8a44a40b2",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Bad request message should contain Page size...\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error).to.contain(\"Bad Request\");\r",
+											"    pm.expect(jsonData.message).to.contain(\"Page size must not be less than one!\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=0",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "(neg) size lower boundry #2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a2808fbc-04fa-499c-86d6-9d5f0feb0104",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=-1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "-1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "(neg) page lower boundry",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "97ed4681-e3d7-4c7d-add3-dbf5484071a3",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Bad request message should contain Page index...\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error).to.contain(\"Bad Request\");\r",
+											"    pm.expect(jsonData.message).to.contain(\"Page index must not be less than zero!\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&page=-1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "page",
+											"value": "-1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 package on first page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "99cdeebb-3f7d-4f3a-bf61-65987e671e35",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on first page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(1, \"Should be 1 package\");\r",
+											"\r",
+											"    pm.expect(jsonData.size).to.eql(1);\r",
+											"    pm.expect(jsonData.totalElements).to.eql(1);\r",
+											"    pm.expect(jsonData.numberOfElements).to.eql(1);\r",
+											"    \r",
+											"    //Counting total pages not implemented???\r",
+											"    //pm.expect(jsonData.totalPages).to.eql(1);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 package on second page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "23e87c24-d741-4310-b556-dcc49a6334e9",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on second page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(1, \"Should be 1 package\");\r",
+											"\r",
+											"    pm.expect(jsonData.size).to.eql(1);\r",
+											"    pm.expect(jsonData.totalElements).to.eql(1);\r",
+											"    pm.expect(jsonData.numberOfElements).to.eql(1);\r",
+											"\r",
+											"    //Counting total pages not implemented???\r",
+											"    //pm.expect(jsonData.totalPages).to.eql(1);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=1&page=1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "1"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 package on third page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9fce5dba-9c8b-47ee-b8a2-185bac0eef13",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on third page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(1, \"Should be 1 package\");\r",
+											"\r",
+											"    pm.expect(jsonData.size).to.eql(1);\r",
+											"    pm.expect(jsonData.totalElements).to.eql(1);\r",
+											"    pm.expect(jsonData.numberOfElements).to.eql(1);\r",
+											"\r",
+											"    //Counting total pages not implemented???\r",
+											"    //pm.expect(jsonData.totalPages).to.eql(1);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=1&page=2",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "1"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2 packages on first page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "39cc30c0-3dd2-4426-82f5-acdceccba633",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on first page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.eql(2, \"Should be 2 packages\");\r",
+											"\r",
+											"    pm.expect(jsonData.size).to.eql(2);\r",
+											"    pm.expect(jsonData.totalElements).to.eql(2);\r",
+											"    pm.expect(jsonData.numberOfElements).to.eql(2);\r",
+											"\r",
+											"    //Counting total pages not implemented???\r",
+											"    //pm.expect(jsonData.totalPages).to.eql(1);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=2",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 or 2 packages on second page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d611286c-e94b-4d0a-9626-0f9ffe445bfd",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"\r",
+											"//let pageSize = pm.request.url.query.toObject().size;\r",
+											"pm.test(\"Packages on second page\", function () {\r",
+											"    let jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content.length).to.be.oneOf([1,2], \"Should be 1 or 2 packages\");\r",
+											"\r",
+											"    pm.expect(jsonData.size).to.be.greaterThan(1);\r",
+											"    pm.expect(jsonData.totalElements).to.be.greaterThan(1);\r",
+											"    pm.expect(jsonData.numberOfElements).to.be.greaterThan(1);\r",
+											"\r",
+											"    //Counting total pages not implemented???\r",
+											"    //pm.expect(jsonData.totalPages).to.eql(1);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/v1/package?search=stockholm&size=2&page=1",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"v1",
+										"package"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "stockholm"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "testing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4aa14276-420e-4b38-82e7-ce61600d56f1",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Bad request message should contain Page index...\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.error).to.contain(\"Bad Request\");\r",
+									"    pm.expect(jsonData.message).to.contain(\"Page index must not be less than zero!\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/v1/package?page=1503238554",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"v1",
+								"package"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1503238554"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "726dad42-958a-4ed7-bbcc-4ac33569b195",
+						"id": "60a82fa8-102c-44f5-8bab-4b543480a77b",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -101,7 +1109,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "29861750-426d-4e13-95c6-b36d3de36572",
+						"id": "89272079-c3db-4797-b546-6d2202cdc2d2",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -116,7 +1124,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "52f01f96-4271-4109-ae39-b3b32d1c6c7a",
+				"id": "0c95a571-b09e-4f4d-bee3-43b8c0dbf6c6",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -126,7 +1134,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "027b32b2-8267-45db-8bdc-d225699fd18e",
+				"id": "ac626582-9ce1-45c3-bd30-dbd453bd0229",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -136,7 +1144,7 @@
 	],
 	"variable": [
 		{
-			"id": "1330b9b2-5e15-48c6-ad13-bd2a4c055286",
+			"id": "15247f49-4cce-44cc-a9a2-299296b8479e",
 			"key": "baseURL",
 			"value": "https://turistmo.herokuapp.com/api"
 		}
