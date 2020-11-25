@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     TouchableOpacity,
     Image,
@@ -23,7 +23,6 @@ const PackageDetailsScreen = (props) => {
 
     const {packages: {packageByGuid}, route, navigation} = props;
     const {guid, title, city, description, createdDate, curator, usefulApplications, tags} = route.params.path;
-
     const date = createdDate.substr(0, 10)
     const color = tags[0].title;
     const MAIN_COLOR = tagColor(color)
@@ -36,8 +35,7 @@ const PackageDetailsScreen = (props) => {
     }
 
     return (
-        <SafeAreaView
-            style={styles.container}>
+        <View style={styles.container}>
             <View
                 testID="packageDetailtitleContainer"
                 accessibilityLabel='packageDetailtitleContainer'
@@ -145,7 +143,7 @@ const PackageDetailsScreen = (props) => {
                     </View>
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

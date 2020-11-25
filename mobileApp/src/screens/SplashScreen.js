@@ -4,7 +4,6 @@ import { Button } from "react-native-elements";
 import * as Animatable from 'react-native-animatable'
 
 const SplashScreen = ({navigation}) => {
-
   return (
       <View style={styles.container}>
         <StatusBar backgroundColor={MAIN_COLOR} barStyle={"light-content"}/>

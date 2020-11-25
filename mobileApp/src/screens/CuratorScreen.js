@@ -9,12 +9,13 @@ import {
 } from 'react-native'
 import {Button} from "react-native-elements";
 import {connect} from "react-redux";
-import {emptyServerMessage, getAllPackagesFromCurator, postSignInCurator,deletePackage} from "../actions";
+import {emptyServerMessage, getAllPackagesFromCurator, postSignInCurator, deletePackage} from "../actions";
 
 import {SwipeListView} from "react-native-swipe-list-view";
+import GoBackArrow from "../components/GoBackArrow";
 
 const CuratorScreen = (props) => {
-    const {navigation, rCurator: {curator, jwt}, packages: {loading, packagesBelongingToCurator},deletePackage, getAllPackagesFromCurator} = props;
+    const {navigation, rCurator: {curator, jwt}, packages: {loading, packagesBelongingToCurator}, deletePackage, getAllPackagesFromCurator} = props;
 
     const [listData, setListData] = useState(
         packagesBelongingToCurator.map((NotificationItem, index) => ({
@@ -24,14 +25,14 @@ const CuratorScreen = (props) => {
         })),
     );
     const closeRow = (rowMap, rowKey) => {
-        if(rowMap[rowKey]) {
+        if (rowMap[rowKey]) {
             rowMap[rowKey].closeRow();
         }
     }
     const deleteRow = (rowMap, rowKey) => {
         closeRow(rowMap, rowKey);
         const prevIndex = listData.findIndex(item => item.key === rowKey);
-        deletePackage(jwt,packagesBelongingToCurator[prevIndex],()=>getAllPackagesFromCurator)
+        deletePackage(jwt, packagesBelongingToCurator[prevIndex], () => getAllPackagesFromCurator)
         const newData = [...listData];
         newData.splice(prevIndex, 1);
         setListData(newData);
@@ -58,7 +59,7 @@ const CuratorScreen = (props) => {
 
     const renderItem = (data, rowMap) => {
         return (
-             <VisibleItem data={data} />
+            <VisibleItem data={data}/>
         )
     };
 
@@ -95,44 +96,46 @@ const CuratorScreen = (props) => {
 
 
     return (
-        <View style={styles.container} testID={"curatorView"}>
-             <View style={styles.titleContainer}>
-                 <Image
-                     testID="packageDetailcuratorAvatar"
-                     accessibilityLabel='packageDetailcuratorAvatar'
-                     source={{uri: curator.avatarUrl}}
-                     style={styles.curatorAvatar}/>
-                 <Text
-                     testID="curatorFullName"
-                     accessibilityLabel='packageDetailpackageDate'
-                     style={styles.curatorTitle}>{curator.firstName} {curator.lastName}</Text>
-                 <Text
-                     testID="curatorEmail"
-                     accessibilityLabel='packageDetailpackageCity'
-                     style={styles.curatorEmail}>{curator.email}</Text>
-             </View>
-
-
-            <SwipeListView
-                testID="curatorSwipePackageList"
-                accessibilityLabel='packageDetailpackageContainer'
-                style={styles.packageContainer}
-                data={listData}
-                renderItem={renderItem}
-                renderHiddenItem={renderHiddenItem}
-                leftOpenValue={45}  // positivt för att det pushas från vänster till höger
-                rightOpenValue={-150} // negativt för att det pushas från höger till vänster
-                //disableLeftSwipe  > Ifall vi disable
-                disableRightSwipe
-            />
-            <Button
-                testID="curatorCreateButton"
-                accessibilityLabel='curatorCreateButton'
-                buttonStyle={{marginTop: '5%'}}
-                color={'#4AB4FF'}
-                title={"Create package"}
-                onPress={()=> navigation.push('CreatePackageScreen')}
-            />
+        <View style={styles.container}>
+            <GoBackArrow testID={'signinGoBackArrow'} navigation={navigation} destination={'CuratorScreen'}/>
+            <View style={styles.titleContainer}>
+                <Image
+                    testID="packageDetailcuratorAvatar"
+                    accessibilityLabel='packageDetailcuratorAvatar'
+                    source={{uri: curator.avatarUrl}}
+                    style={styles.curatorAvatar}/>
+                <Text
+                    testID="packageDetailpackageDate"
+                    accessibilityLabel='packageDetailpackageDate'
+                    style={styles.curatorTitle}>{curator.firstName} {curator.lastName}</Text>
+                <Text
+                    testID="packageDetailpackageCity"
+                    accessibilityLabel='packageDetailpackageCity'
+                    style={styles.curatorEmail}>{curator.email}</Text>
+            </View>
+            <View style={styles.footerTop}/>
+                <SwipeListView
+                    testID="curatorSwipePackageList"
+                    accessibilityLabel='packageDetailpackageContainer'
+                    style={styles.packageContainer}
+                    data={listData}
+                    renderItem={renderItem}
+                    renderHiddenItem={renderHiddenItem}
+                    leftOpenValue={45}  // positivt för att det pushas från vänster till höger
+                    rightOpenValue={-150} // negativt för att det pushas från höger till vänster
+                    //disableLeftSwipe  > Ifall vi disable
+                    disableRightSwipe
+                />
+            <View style={{backgroundColor: '#FFF'}}>
+                <Button
+                    testID="curatorCreateButton"
+                    accessibilityLabel='curatorCreateButton'
+                    buttonStyle={{marginTop: '5%'}}
+                    color={'#4AB4FF'}
+                    title={"Create package"}
+                    onPress={() => navigation.push('CreatePackageScreen')}
+                />
+            </View>
         </View>
     )
 }
@@ -140,6 +143,7 @@ const CuratorScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#4AB4FF',
     },
     titleContainer: {
         flex: 1,
@@ -147,12 +151,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    packageContainer: {
-        flex: 1,
+    footerTop: {
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop: '5%',
+        height: '3%',
+    },
+    packageContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingVertical: '5%',
         paddingHorizontal: '5%',
     },
     curatorContainer: {
@@ -174,18 +182,20 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 75,
-        borderColor: '#4AB4FF',
-        borderWidth: 3,
+        borderColor: '#B3F2BA',
+        borderWidth: 5,
         paddingBottom: '1%',
     },
     curatorTitle: {
         fontSize: 20,
         fontWeight: "bold",
         marginTop: '1%',
+        color: '#FFF'
     },
     curatorEmail: {
         fontSize: 12,
         fontWeight: '100',
+        color: '#FFF'
     },
     curatorDescription: {
         fontSize: 16,
@@ -272,5 +282,5 @@ const mapStateToProps = ({rCurator, packages}) => {
 
 export default connect(
     mapStateToProps,
-    {postSignInCurator, getAllPackagesFromCurator,deletePackage, emptyServerMessage})
+    {postSignInCurator, getAllPackagesFromCurator, deletePackage, emptyServerMessage})
 (CuratorScreen);

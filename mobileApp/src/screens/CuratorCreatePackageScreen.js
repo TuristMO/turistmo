@@ -48,14 +48,18 @@ const CuratorCreatePackageScreen = (props) => {
         isVisibleA: false,
         isVisibleB: false
     });
+
+    const [disabledCompontent, setDisabledCompontent] = useState(false);
     const visibilityChange = (showA,showB) => {
         setPickerState({ ...pickerState, isVisibleA: showA,isVisibleB: showB})
     };
-
+    let controller;
 
     const showAlertMessage = () => {
         let errorList = ''
         if (packageErrorMessage) {
+            visibilityChange(false,false);
+            controller.reset();
             packageErrorMessage.forEach(error => errorList += error+'\n');
             return (
                 Alert.alert(
@@ -74,6 +78,7 @@ const CuratorCreatePackageScreen = (props) => {
             )
         }
         if (packageSuccessMessage) {
+            setDisabledCompontent(true);
             return (
                 Alert.alert(
                     "Great!",
@@ -129,7 +134,7 @@ const CuratorCreatePackageScreen = (props) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} pointerEvents={disabledCompontent ? 'none' : 'auto'}>
             <Input
                 containerStyle={styles.inputContainer}
                 testID="curatorCreatePackageTitle"
@@ -170,13 +175,13 @@ const CuratorCreatePackageScreen = (props) => {
                 placeholder={'Select tag'}
                 multiple={true}
                 multipleText="%d tags have been selected."
+                controller={instance => controller = instance}
                 min={0}
                 max={10}
                 defaultValue={savePackage.tags}
                 isVisible={pickerState.isVisibleB}
                 onOpen={()=>visibilityChange(false,true)}
                 onClose={()=>visibilityChange(false,false)}
-                defaultIndex={0}
                 style={styles.dropDownPicker}
                 labelStyle={styles.dropDownLabel}
                 itemStyle={styles.dropDownItem}

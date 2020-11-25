@@ -95,9 +95,7 @@ const SigninScreen = (props) => {
             )
         }
     }
-    const updatePackagesForLoggedIn = () => {
 
-    }
     useEffect(() => {
         checkCredentialAndNavigate()
     }, [errorMessageSignin, successMessageSignin])
